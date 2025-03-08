@@ -59,7 +59,7 @@ const Navbar = () => {
               <div className="md:hidden">
                 <AiOutlineMenu
                   onClick={() => setShowDrawer(!showDrawer)}
-                  className="text-primaryText cursor-pointer"
+                  className="text-primaryText text-white cursor-pointer"
                   size={24}
                 />
               </div>

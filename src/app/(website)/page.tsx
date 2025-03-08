@@ -2,7 +2,7 @@ import MainHome from "@/components/ui/website/Home/MainHome";
 
 const page = () => {
   return (
-    <div>
+    <div className="bg-white">
       <MainHome />
     </div>
   );

@@ -1,6 +1,8 @@
 import AboutUsSection from "./AboutUsSection";
 import Banner from "./Banner";
-import OurServices from "./OurServices";
+import Horizon from "./Horizon";
+import OurServices from "./ourServices/OurServices";
+import WhatMakesUsDifferent from "./WhatMakesUsDifferent";
 
 const MainHome = () => {
   return (
@@ -8,6 +10,8 @@ const MainHome = () => {
       <Banner />
       <AboutUsSection />
       <OurServices />
+      <Horizon />
+      <WhatMakesUsDifferent />
     </div>
   );
 };

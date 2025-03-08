@@ -4,7 +4,7 @@ import aboutImg from "@/assets/Handshake.png";
 const AboutUsSection = () => {
   return (
     <div className="md:relative container">
-      <div className=" mx-auto my-20 md:flex">
+      <div className=" mx-auto my-48 md:flex">
         <h1 className="md:text-4xl text-2xl font-bold mb-5 md:mb-0 md:w-[25%]">
           About Us
         </h1>
@@ -23,7 +23,7 @@ const AboutUsSection = () => {
           </button>
         </div>
       </div>
-      <div className="md:absolute md:block md:top-[200px] md:mt-16 md:ms-28 md:left-[200px] left-[400px] transform -translate-x-1/2 -translate-y-1/2">
+      <div className="md:absolute hidden md:block md:top-[200px] md:mt-16 md:ms-28 md:left-[200px] left-[400px] transform -translate-x-1/2 -translate-y-1/2">
         <Image
           src={aboutImg}
           alt=""
