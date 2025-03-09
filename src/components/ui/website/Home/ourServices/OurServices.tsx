@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import sliderImage1 from "@/assets/image (9).png";
 import sliderImage2 from "@/assets/image (10).png";
 
@@ -18,6 +18,27 @@ import { FreeMode, Pagination, Navigation } from "swiper/modules";
 import Image from "next/image";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 
+const SwiperNavButtons = () => {
+  const swiper = useSwiper();
+
+  return (
+    <div>
+      <button
+        onClick={() => swiper.slidePrev()}
+        className="opacity-30 hover:opacity-100 absolute left-0 top-1/2 z-10 transform -translate-y-1/2 bg-gradientBg p-2 md:p-2 rounded-full shadow-lg"
+      >
+        <GrFormPreviousLink size={40} />
+      </button>
+      <button
+        onClick={() => swiper.slideNext()}
+        className="opacity-30 hover:opacity-100 absolute right-0 top-1/2 z-10 transform -translate-y-1/2 bg-gradientBg p-2 md:p-2 rounded-full shadow-lg"
+      >
+        <GrFormNextLink size={40} />
+      </button>
+    </div>
+  );
+};
+
 const OurServices = () => {
   return (
     <div className="container">
@@ -26,14 +47,6 @@ const OurServices = () => {
           Our Services
         </h1>
         <div className="relative">
-          {/* Add custom navigation buttons */}
-          <button className="opacity-30 hover:opacity-100 absolute left-0 top-1/2 z-10 transform -translate-y-1/2 bg-gradientBg p-2 md:p-2 rounded-full shadow-lg">
-            <GrFormPreviousLink size={40} />
-          </button>
-          <button className="opacity-30 hover:opacity-100 absolute right-0 top-1/2 z-10 transform -translate-y-1/2 bg-gradientBg p-2 md:p-2 rounded-full shadow-lg">
-            <GrFormNextLink size={40} />
-          </button>
-
           <div className="px-7">
             <Swiper
               slidesPerView={1} // Default to 1 slide on mobile
@@ -54,6 +67,7 @@ const OurServices = () => {
               modules={[FreeMode, Pagination, Navigation]}
               className="mySwiper"
             >
+              <SwiperNavButtons />
               <SwiperSlide>
                 <div className="">
                   <Image

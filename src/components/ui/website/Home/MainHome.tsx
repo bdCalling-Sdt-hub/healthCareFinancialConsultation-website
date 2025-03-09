@@ -1,5 +1,6 @@
 import AboutUsSection from "./AboutUsSection";
 import Banner from "./Banner";
+import BookNow from "./BookNow";
 import Horizon from "./Horizon";
 import OurServices from "./ourServices/OurServices";
 import WhatClientsSay from "./Review/WhatClientsSay";
@@ -14,6 +15,7 @@ const MainHome = () => {
       <Horizon />
       <WhatMakesUsDifferent />
       <WhatClientsSay />
+      <BookNow />
     </div>
   );
 };
