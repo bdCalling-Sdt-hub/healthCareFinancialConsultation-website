@@ -17,8 +17,8 @@ const Horizon = () => {
         regulatory and cybersecurity demands. Here at HC Financial Consultants,
         we aim to help our clients stay ahead of this ever-changing curve.
       </p>
-      <div className="flex gap-5 w-full justify-between">
-        <div className="w-[50%]">
+      <div className="md:flex gap-5 w-full justify-between">
+        <div className="md:w-[50%]">
           <Image
             src={horizonImage1}
             alt="horizonImage1"
@@ -45,10 +45,10 @@ const Horizon = () => {
             </p>
           </div>
         </div>
-        <div className="w-[50%] flex flex-col gap-5 justify-between">
-          <div className="flex gap-5 items-center">
+        <div className="md:w-[50%] flex flex-col gap-2 justify-between">
+          <div className="md:flex gap-5 items-center border p-3 rounded-3xl">
             <Image
-              className="w-56 h-32 object-cover"
+              className="md:w-56 md:h-32 object-cover"
               src={horizonImage2}
               alt="horizonImage2"
               width={50000}
@@ -71,9 +71,9 @@ const Horizon = () => {
               </p>
             </div>
           </div>
-          <div className="flex gap-5 items-center">
+          <div className="md:flex gap-5 items-center border p-3 rounded-3xl">
             <Image
-              className="w-56 h-32 object-cover"
+              className="md:w-56 md:h-32 object-cover"
               src={horizonImage3}
               alt="horizonImage2"
               width={50000}
@@ -96,9 +96,9 @@ const Horizon = () => {
               </p>
             </div>
           </div>
-          <div className="flex gap-5 items-center">
+          <div className="md:flex gap-5 items-center border p-3 rounded-3xl">
             <Image
-              className="w-56 h-32 object-cover"
+              className="md:w-56 md:h-32 object-cover"
               src={horizonImage4}
               alt="horizonImage2"
               width={50000}
@@ -121,9 +121,9 @@ const Horizon = () => {
               </p>
             </div>
           </div>
-          <div className="flex gap-5 items-center">
+          <div className="md:flex gap-5 items-center border p-3 rounded-3xl">
             <Image
-              className="w-56 h-32 object-cover"
+              className="md:w-56 md:h-32 object-cover"
               src={horizonImage5}
               alt="horizonImage2"
               width={50000}

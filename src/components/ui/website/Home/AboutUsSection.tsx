@@ -18,7 +18,7 @@ const AboutUsSection = () => {
             the complex challenges of healthcare finance, from revenue cycle
             management to cost containment and compliance.
           </p>
-          <button className="bg-gradientBg px-5 py-2 rounded-md border-none">
+          <button className="bg-gradientBg px-5 py-2 hover:opacity-90 rounded-md border-none">
             Learn More
           </button>
         </div>
