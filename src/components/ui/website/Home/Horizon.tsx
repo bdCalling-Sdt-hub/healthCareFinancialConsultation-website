@@ -7,7 +7,7 @@ import horizonImage5 from "@/assets/image (15).png";
 
 const Horizon = () => {
   return (
-    <div className="container py-20">
+    <div className="container md:py-20">
       <h1 className="text-3xl md:text-5xl font-bold mb-5 md:mb-0">
         Healthcare Horizon
       </h1>

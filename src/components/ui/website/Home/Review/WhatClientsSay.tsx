@@ -87,7 +87,7 @@ const SwiperNavButtons = () => {
 
 const WhatClientsSay = () => {
   return (
-    <div className="container py-20">
+    <div className="container md:py-20">
       <style jsx global>{`
         .swiper-button-next::after,
         .swiper-button-prev::after {

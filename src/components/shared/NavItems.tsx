@@ -26,7 +26,7 @@ const NavItems = ({
             plusJakarta.className
           } flex items-center p-2 pe-3 gap-2 text-lg font-[500] ${
             pathname === item.path
-              ? "bg-primary rounded  drop-shadow text-white"
+              ? "bg-gradientBg rounded drop-shadow"
               : "text-transparent bg-gradientBg bg-clip-text"
           }`}
           href={item.path}

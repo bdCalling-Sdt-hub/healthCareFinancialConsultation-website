@@ -8,7 +8,7 @@ import WhatMakesUsDifferent from "./WhatMakesUsDifferent";
 
 const MainHome = () => {
   return (
-    <div>
+    <div className="bg-white">
       <Banner />
       <AboutUsSection />
       <OurServices />
