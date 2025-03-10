@@ -23,7 +23,7 @@ const Navbar = () => {
     { key: "services", label: "Services", path: "/services" },
     { key: "how-we-work", label: "How We Work", path: "/how-we-work" },
     { key: "about", label: "About", path: "/aboutUs" },
-    { key: "contact-us", label: "Contact Us", path: "/contact" },
+    { key: "contact-us", label: "Contact Us", path: "/contactUs" },
   ];
 
   //   const items2: MenuProps["items"] = [
