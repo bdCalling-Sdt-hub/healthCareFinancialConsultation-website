@@ -11,7 +11,12 @@ const { Option } = Select;
 const ContactUsPage = () => {
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: {
+    name: string;
+    email: string;
+    phone: string;
+    message: string;
+  }) => {
     console.log("Form submitted:", values);
   };
 
