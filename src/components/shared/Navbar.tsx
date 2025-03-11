@@ -11,7 +11,7 @@ import NavItems from "./NavItems";
 import MobileDrawer from "./MobileDrawer";
 import CustomDropdown from "../ui/CustomDropdown";
 import { FaBell } from "react-icons/fa";
-import randomImage from "@/assets/randomImage22.jpg";
+import randomImage from "@/assets/randomProfile3.jpg";
 import { Badge } from "antd";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -103,7 +103,7 @@ const Navbar = () => {
                     src={randomImage}
                     width={4654646}
                     height={45634560}
-                    className="w-10 h-10 rounded-full"
+                    className="w-10 h-10 border border-[#ba9956] rounded-full"
                   />
                   <h1 className="text-lg font-[500]">John Doe</h1>
                 </div>
