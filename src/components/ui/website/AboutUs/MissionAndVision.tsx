@@ -5,8 +5,8 @@ import missionAndVisionImg2 from "@/assets/image (25).png";
 const MissionAndVision = () => {
   return (
     <div className="bg-[#032237] my-10 py-20">
-      <div className="container flex w-full gap-20 items-center justify-center">
-        <div className="w-[45%]">
+      <div className="container md:flex w-full gap-20 items-center justify-center">
+        <div className="md:w-[45%]">
           <h1 className="text-3xl mb-5 text-transparent bg-clip-text bg-gradientBg font-bold">
             Our Mission & Vision
           </h1>
@@ -21,20 +21,20 @@ const MissionAndVision = () => {
             navigate the evolving landscape with confidence and success.
           </p>
         </div>
-        <div className="w-[55%] flex gap-5">
+        <div className="md:w-[55%] md:flex gap-5 w-full">
           <Image
             src={missionAndVisionImg1}
             alt="missionAndVisionImage"
             width={50000}
             height={50000}
-            className="w-[270px] h-[270px] rounded-2xl mt-20 object-cover"
+            className="md:w-[270px] md:h-[270px] h-[200px] rounded-2xl mt-20 object-cover"
           />
           <Image
             src={missionAndVisionImg2}
             alt="missionAndVisionImage"
             width={50000}
             height={50000}
-            className="w-[270px] h-[270px] rounded-2xl object-cover"
+            className="md:w-[270px] md:h-[270px] h-[200px] rounded-2xl mt-5 object-cover"
           />
         </div>
       </div>

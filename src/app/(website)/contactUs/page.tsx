@@ -35,7 +35,7 @@ const ContactUsPage = () => {
           className="max-w-[750px] absolute -bottom-20 right-20 p-10 rounded-2xl bg-[#032237] bg-opacity-30 backdrop-blur-md"
         >
           <h1 className="text-5xl mb-5 font-bold bg-gradientBg text-transparent bg-clip-text leading-normal">
-            Our Services
+            Contact US
           </h1>
           <p className="text-white text-lg">
             With years of experience in healthcare finance, we offer tailored
@@ -60,11 +60,11 @@ const ContactUsPage = () => {
             Monday – Friday (09:00 AM – 06:00 PM)
           </p>
           <div className="space-y-4">
-            <div className="flex items-center p-4 bg-gray-100 rounded-lg">
+            <div className="flex items-center p-4 border border-gray-300 py-7 bg-white rounded-lg">
               <FaPhone className="text-xl text-gray-800 mr-3" />
               <span className="text-gray-800 font-semibold">317-449-3031</span>
             </div>
-            <div className="flex items-center p-4 bg-gray-100 rounded-lg">
+            <div className="flex items-center p-4 border border-gray-300 py-7 bg-white rounded-lg">
               <FaMailBulk className="text-xl text-gray-800 mr-3" />
               <span className="text-gray-800 font-semibold">
                 support@hdshy.com
@@ -75,7 +75,7 @@ const ContactUsPage = () => {
 
         {/* Right Section - Contact Form */}
         <div className="p-6 border border-gray-200 rounded-lg shadow-lg bg-white">
-          <h2 className="text-2xl font-bold text-gray-900 mb-5">
+          <h2 className="text-2xl font-bold border-b border-gray-700 text-gray-900 mb-5">
             Get in touch with us.
           </h2>
           <Form form={form} layout="vertical" onFinish={onFinish}>
@@ -139,9 +139,8 @@ const ContactUsPage = () => {
 
             <Form.Item>
               <Button
-                type="primary"
                 htmlType="submit"
-                className="w-full md:w-auto px-6 py-2 bg-gradient-to-r from-yellow-500 to-yellow-700 text-white font-semibold rounded-lg hover:opacity-90"
+                className="w-full md:w-auto px-6 py-2 !bg-gradientBg  font-semibold rounded-lg hover:opacity-90"
               >
                 Send Message
               </Button>

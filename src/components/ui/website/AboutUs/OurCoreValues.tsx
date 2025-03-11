@@ -8,23 +8,23 @@ const OurCoreValues = () => {
       <h1 className="text-3xl mb-5 font-bold">Our Core Values</h1>
 
       <div className="md:flex items-center gap-10">
-        <div className="flex gap-8 w-[55%]">
+        <div className="md:flex gap-8 md:w-[55%] w-full">
           <Image
             src={coreValuesImage1}
             alt="coreValuesImage1"
             width={50000}
             height={50000}
-            className="w-[350px] h-[350px] rounded-2xl object-cover"
+            className="md:w-[350px] md:h-[350px] h-full rounded-2xl object-cover"
           />
           <Image
             src={coreValuesImage2}
             alt="coreValuesImage1"
             width={50000}
             height={50000}
-            className="w-[350px] h-[350px] mt-20 rounded-2xl object-cover"
+            className="md:w-[350px] md:h-[350px] h-full md:mt-20 mt-5 rounded-2xl object-cover"
           />
         </div>
-        <div className="w-[45%] space-y-5">
+        <div className="md:w-[45%] space-y-5 md:mt-0 mt-10">
           <h1>
             <span className="font-bold">Integrity & Transparency</span> – We
             uphold the highest ethical standards, fostering trust through
