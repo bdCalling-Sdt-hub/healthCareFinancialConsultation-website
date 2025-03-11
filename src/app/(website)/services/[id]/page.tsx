@@ -33,8 +33,8 @@ const SingleServicesPage = () => {
           <div className="mt-10">
             <div className="container">
               <h1 className="text-3xl mb-5 font-bold">What We Do</h1>
-              <div className="flex gap-10 justify-between items-center w-full">
-                <div className="w-1/2">
+              <div className="md:flex gap-10 justify-between items-center w-full">
+                <div className="md:w-1/2">
                   <ul className="space-y-5 text-gray-600 list-disc pl-5">
                     <li>
                       Workforce Utilization Review: Analyze staff workloads,
@@ -62,7 +62,7 @@ const SingleServicesPage = () => {
                     </li>
                   </ul>
                 </div>
-                <div className="w-1/2">
+                <div className="md:w-1/2 mt-5 md:mt-0">
                   <Image
                     src={image1}
                     alt="image1"
@@ -82,8 +82,8 @@ const SingleServicesPage = () => {
                   <li>Improved patient flow and service delivery</li>
                 </ul>
               </div>
-              <div className="flex gap-10 items-center justify-center">
-                <div className="w-1/2">
+              <div className="md:flex gap-10 items-center justify-center">
+                <div className="md:w-1/2">
                   <video
                     className="w-full mt-14 mx-auto my-5 rounded-2xl shadow-xl"
                     controls
@@ -98,9 +98,9 @@ const SingleServicesPage = () => {
                     />
                   </video>
                 </div>
-                <div className="w-1/2">
+                <div className="md:w-1/2">
                   <video
-                    className="w-full mt-14 mx-auto my-5 rounded-2xl shadow-xl"
+                    className="w-full md:mt-14 mx-auto my-5 rounded-2xl shadow-xl"
                     controls
                     loop
                     autoPlay
@@ -188,10 +188,10 @@ const SingleServicesPage = () => {
           className="w-full h-[600px] object-cover"
         />
         <div className="max-w-[750px] absolute -bottom-20 right-20 p-10 rounded-2xl bg-[#032237] bg-opacity-30 backdrop-blur-md">
-          <h1 className="text-5xl mb-5 font-bold bg-gradientBg text-transparent bg-clip-text leading-normal">
+          <h1 className="md:text-5xl text-3xl mb-5 font-bold bg-gradientBg text-transparent bg-clip-text leading-normal">
             Operational Finance Optimization
           </h1>
-          <p className="text-white text-lg">
+          <p className="text-white md:text-lg">
             Optimizing operational finance in healthcare is essential for
             reducing costs, improving efficiency, and ensuring high-quality
             patient care.

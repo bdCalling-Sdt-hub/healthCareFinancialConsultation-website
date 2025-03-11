@@ -171,10 +171,10 @@ const HowWeWorkPage = () => {
           className="w-full h-[600px] object-cover"
         />
         <div className="max-w-[750px] absolute -bottom-20 right-20 p-10 rounded-2xl bg-[#032237] bg-opacity-30 backdrop-blur-md">
-          <h1 className="text-5xl mb-5 font-bold bg-gradientBg text-transparent bg-clip-text leading-normal">
+          <h1 className="md:text-5xl text-3xl mb-5 font-bold bg-gradientBg text-transparent bg-clip-text leading-normal">
             What makes us different
           </h1>
-          <p className="text-white text-lg">
+          <p className="text-white md:text-lg text-md">
             What sets us apart is our deep expertise in the healthcare sector,
             with over 20 years of industry experience. We offer tailored
             solutions backed by a strong network of industry connections and a

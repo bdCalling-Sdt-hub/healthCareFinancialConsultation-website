@@ -16,10 +16,10 @@ const AboutUsPage = () => {
           className="w-full h-[600px] object-cover"
         />
         <div className="max-w-[750px] absolute -bottom-20 right-20 p-10 rounded-2xl bg-[#032237] bg-opacity-30 backdrop-blur-md">
-          <h1 className="text-5xl mb-5 font-bold bg-gradientBg text-transparent bg-clip-text leading-normal">
+          <h1 className="md:text-5xl text-3xl mb-5 font-bold bg-gradientBg text-transparent bg-clip-text leading-normal">
             About Us
           </h1>
-          <p className="text-white text-lg">
+          <p className="text-white md:text-lg text-md">
             Leveraging years of expertise in healthcare finance, we deliver
             tailored solutions that drive efficiency, reduce financial risks,
             and maximize profitability—empowering your organization to focus on

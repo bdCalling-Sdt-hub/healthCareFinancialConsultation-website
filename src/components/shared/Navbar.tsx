@@ -74,7 +74,7 @@ const Navbar = () => {
                   src={logo}
                   width={4654646}
                   height={45634560}
-                  className="w-36 h-16"
+                  className="md:w-36 md:h-16 w-28 h-14"
                 />
               </Link>
             </div>
@@ -84,13 +84,19 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-2">
-              <Badge count={3} offset={[-3, 4]}>
-                <FaBell
-                  className="text-primaryText text-[#ba9956] cursor-pointer"
-                  size={25}
-                />
-              </Badge>
-              <CustomDropdown />
+              <div className="mr-3">
+                <Link href={"/notifications"}>
+                  <Badge count={3} offset={[-3, 4]}>
+                    <FaBell
+                      className="text-primaryText text-[#ba9956] cursor-pointer"
+                      size={25}
+                    />
+                  </Badge>
+                </Link>
+              </div>
+              <div className="hidden md:block">
+                <CustomDropdown />
+              </div>
               {/* <Link href="/login">
                 <button className="bg-gradientBg px-10 py-2 rounded-md">
                   Login
