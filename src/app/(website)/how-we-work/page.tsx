@@ -161,7 +161,7 @@ const HowWeWorkPage = () => {
   };
 
   return (
-    <div>
+    <div className="bg-white">
       <div className="relative mb-20">
         <Image
           src={howWeWorkImg}

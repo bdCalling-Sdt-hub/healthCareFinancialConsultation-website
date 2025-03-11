@@ -5,8 +5,6 @@ import { Checkbox, Form, Input } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
-import loginImage from "@/assets/image (5).png";
-import Image from "next/image";
 
 const Login = () => {
   const router = useRouter();
@@ -19,17 +17,12 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center w-full">
-      <div>
-        <Image width={500} height={500} src={loginImage} alt="Login" />
-      </div>
-      <div className="h-screen">
-        <div className="mb-6">
-          <h1 className="text-[25px] font-semibold mb-2">
-            Log in to your account
-          </h1>
-          <p className="text-[#11D279]">
+      <div className="">
+        <div className="mb-6 w-[400px]">
+          <h1 className="text-[25px] font-semibold mb-2">Welcome Back</h1>
+          <p className="text-transparent bg-gradientBg bg-clip-text">
             {" "}
-            Please enter your email and password to continue
+            Sign in to your account
           </p>
         </div>
         <Form onFinish={onFinish} layout="vertical">
@@ -67,7 +60,7 @@ const Login = () => {
             </Form.Item>
 
             <a
-              className="login-form-forgot text-primary font-semibold"
+              className="login-form-forgot text-transparent bg-gradientBg bg-clip-text font-semibold"
               href="/forgot-password"
             >
               Forgot password
@@ -80,13 +73,13 @@ const Login = () => {
               style={{
                 width: "100%",
                 height: 45,
-                color: "white",
+                color: "black",
                 fontWeight: "400px",
                 fontSize: "18px",
 
                 marginTop: 20,
               }}
-              className="flex items-center justify-center bg-primary rounded-lg"
+              className="flex items-center justify-center bg-gradientBg rounded-lg"
             >
               {/* {isLoading? < Spinner/> : "Sign in"} */} Sign in
             </button>

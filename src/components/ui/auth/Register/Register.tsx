@@ -24,12 +24,11 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <div className="mb-6">
-        <h1 className="text-[25px] font-semibold mb-2">Register Now</h1>
-        <p className="text-[#11D279]">
-          To proceed with your application, we first need some information from
-          you
+        <h1 className="text-[25px] font-semibold mb-2">Get Started Now</h1>
+        <p className="text-transparent bg-gradientBg bg-clip-text">
+          Let’s create your account
         </p>
       </div>
       <ConfigProvider
@@ -39,7 +38,7 @@ const Register: React.FC = () => {
           },
           components: {
             Input: {
-            //   borderColor: "#d9d9d9",  
+              //   borderColor: "#d9d9d9",
               hoverBorderColor: "#d9d9d9",
             },
           },
@@ -48,7 +47,7 @@ const Register: React.FC = () => {
         <Form onFinish={onFinish} layout="vertical">
           <TextInput name="name" label="Full Name" />
           <TextInput name="email" label="Email" />
-          <TextInput name="contact" label="Contact Number" />
+          {/* <TextInput name="contact" label="Contact Number" /> */}
 
           <Form.Item
             name="password"
@@ -117,7 +116,7 @@ const Register: React.FC = () => {
           <Form.Item>
             <button
               type="submit"
-              className="w-full h-[45px] text-white font-medium text-lg bg-primary rounded-lg flex items-center justify-center mt-4"
+              className="w-full h-[45px] font-medium text-lg bg-gradientBg rounded-lg flex items-center justify-center mt-4"
             >
               Sign up
             </button>

@@ -9,6 +9,10 @@ import logo from "@/assets/logo.svg";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import NavItems from "./NavItems";
 import MobileDrawer from "./MobileDrawer";
+import CustomDropdown from "../ui/CustomDropdown";
+import { FaBell } from "react-icons/fa";
+import randomImage from "@/assets/randomImage22.jpg";
+import { Badge } from "antd";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -79,11 +83,32 @@ const Navbar = () => {
               <NavItems items={items} />
             </div>
 
-            <Link href="/login">
-              <button className="bg-gradientBg px-10 py-2 rounded-md">
-                Login
-              </button>
-            </Link>
+            <div className="flex items-center gap-2">
+              <Badge count={3} offset={[-3, 4]}>
+                <FaBell
+                  className="text-primaryText text-[#ba9956] cursor-pointer"
+                  size={25}
+                />
+              </Badge>
+              <CustomDropdown />
+              {/* <Link href="/login">
+                <button className="bg-gradientBg px-10 py-2 rounded-md">
+                  Login
+                </button>
+              </Link> */}
+              <Link href={"/profile"}>
+                <div className="flex items-center gap-2 cursor-pointer text-white">
+                  <Image
+                    alt="Profile"
+                    src={randomImage}
+                    width={4654646}
+                    height={45634560}
+                    className="w-10 h-10 rounded-full"
+                  />
+                  <h1 className="text-lg font-[500]">John Doe</h1>
+                </div>
+              </Link>
+            </div>
           </div>
         </nav>
 
