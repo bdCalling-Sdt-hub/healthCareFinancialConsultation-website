@@ -119,15 +119,7 @@ const Navbar = () => {
         </nav>
 
         {/* Mobile Drawer */}
-        <MobileDrawer
-          open={showDrawer}
-          setOpen={setShowDrawer}
-          items={items}
-          userProfile={""}
-          adminProfile={""}
-          cartItems={[]}
-          count={0}
-        />
+        <MobileDrawer open={showDrawer} setOpen={setShowDrawer} items={items} />
       </header>
     </div>
   );

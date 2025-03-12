@@ -1,13 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dispatch, SetStateAction } from "react";
-import randomImage from "@/assets/randomProfile3.jpg";
-import { Badge, ConfigProvider, Drawer, Select } from "antd";
+
+import { Badge, Drawer } from "antd";
 import Link from "next/link";
-import { Heart } from "lucide-react";
-import { TbChevronDown, TbWorld } from "react-icons/tb";
 import NavItems from "./NavItems";
-import Image from "next/image";
-import { getImageUrl } from "@/utils/getImageUrl";
 import { FaBell } from "react-icons/fa";
 import CustomDropdown from "../ui/CustomDropdown";
 
@@ -15,26 +11,20 @@ const MobileDrawer = ({
   open,
   setOpen,
   items,
-  userProfile,
-  adminProfile,
 }: {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   items: any[];
-  userProfile: any;
-  adminProfile: any;
-  cartItems: any[];
-  count: number;
 }) => {
   const onClose = () => {
     setOpen(!open);
   };
 
-  const customLabel = (option: any) => (
-    <div className="flex items-center gap-2">
-      <span>{option.label}</span>
-    </div>
-  );
+  // const customLabel = (option: any) => (
+  //   <div className="flex items-center gap-2">
+  //     <span>{option.label}</span>
+  //   </div>
+  // );
 
   return (
     <Drawer
