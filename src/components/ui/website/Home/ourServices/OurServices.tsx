@@ -43,7 +43,7 @@ const OurServices = () => {
   return (
     <div className="container">
       <div className="mb-20">
-        <h1 className="text-3xl md:text-5xl font-bold mb-5 md:mb-0">
+        <h1 className="text-3xl0 md:text-5xl font-bold mb-5 md:ml-5">
           Our Services
         </h1>
         <div className="relative">

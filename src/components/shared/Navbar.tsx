@@ -25,7 +25,7 @@ const Navbar = () => {
   const items = [
     { key: "our-insights", label: "Our Insights", path: "/our-insights" },
     { key: "services", label: "Services", path: "/services" },
-    { key: "how-we-work", label: "How We Work", path: "/how-we-work" },
+    { key: "our-way", label: "Our Way", path: "/our-way" },
     { key: "about", label: "About", path: "/aboutUs" },
     { key: "contact-us", label: "Contact Us", path: "/contactUs" },
   ];
@@ -74,7 +74,7 @@ const Navbar = () => {
                   src={logo}
                   width={4654646}
                   height={45634560}
-                  className="md:w-36 md:h-16 w-28 h-14"
+                  className="md:w-44 md:h-24 w-28 h-14"
                 />
               </Link>
             </div>
@@ -107,10 +107,12 @@ const Navbar = () => {
                   <Image
                     alt="Profile"
                     src={randomImage}
+                    // src="https://cdn9.dissolve.com/p/D943_222_167/D943_222_167_1200.jpg"
                     width={4654646}
                     height={45634560}
-                    className="w-10 h-10 border border-[#ba9956] rounded-full"
+                    className="w-12 h-12 border object-cover border-[#ba9956] rounded-full"
                   />
+                  {/* <h1 className="text-lg font-[500]">Mithu🥀</h1> */}
                   <h1 className="text-lg font-[500]">John Doe</h1>
                 </div>
               </Link>

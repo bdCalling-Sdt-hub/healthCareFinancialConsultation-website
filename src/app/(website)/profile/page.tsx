@@ -20,6 +20,13 @@ const clientData = {
     display: flex;
     justify-content: space-between;
   }
+
+  @media (max-width: 768px) {
+    .custom-tabs .ant-tabs-nav {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
 `}</style>;
 
 const ProfilePage = () => {
@@ -30,7 +37,7 @@ const ProfilePage = () => {
       children: (
         <div>
           <div className="rounded-xl border mt-10 p-6 w-full max-w-lg mx-auto">
-            <div className="grid grid-cols-2 gap-y-4 text-gray-700">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 text-gray-700">
               <span className="font-medium">Client Name:</span>
               <span>{clientData.clientName}</span>
 
@@ -83,14 +90,14 @@ const ProfilePage = () => {
   ];
 
   return (
-    <div className="h-[1500px]">
+    <div className="min-h-screen">
       <ProfileBanner />
-      <div className="mt-40 container">
+      <div className="mt-32 md:mt-40 container mx-auto px-4">
         <ConfigProvider
           theme={{
             components: {
               Tabs: {
-                fontSize: 20,
+                fontSize: 16,
               },
             },
           }}

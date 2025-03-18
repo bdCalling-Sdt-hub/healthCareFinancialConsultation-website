@@ -13,7 +13,7 @@ const stateOptions = [
           alt="California"
           width={245450}
           height={2354350}
-          className="w-14 h-10"
+          className="w-16 h-10"
         />
       </div>
     ),
