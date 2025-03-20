@@ -31,7 +31,7 @@ const services = [
   {
     id: 4,
     image: servicesImage4,
-    title: "Financial Planning – Budget & Forecasting",
+    title: "Cost Accounting - CM Analysis",
   },
   {
     id: 5,
