@@ -23,7 +23,7 @@ const Navbar = () => {
   const [showDrawer, setShowDrawer] = useState(false);
 
   const items = [
-    { key: "our-insights", label: "Our Insights", path: "/our-insights" },
+    { key: "insights", label: "Our Insights", path: "/insights" },
     { key: "services", label: "Services", path: "/services" },
     { key: "our-way", label: "Our Way", path: "/our-way" },
     { key: "about", label: "About", path: "/aboutUs" },

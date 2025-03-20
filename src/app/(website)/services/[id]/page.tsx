@@ -7,20 +7,19 @@ import servicesMenuImg from "@/assets/image (28).png";
 import serviceBookImg from "@/assets/Group 27.png";
 import relatedImg1 from "@/assets/image (31).png";
 import relatedImg2 from "@/assets/image (32).png";
-import { FaArrowRight } from "react-icons/fa";
-import Link from "next/link";
+import RelatedChallengeCard from "@/components/ui/website/RelatedChallengeCard";
 
 const SingleServicesPage = () => {
   const [selectedTab, setSelectedTab] = useState("tab1");
 
   const relatedChallenges = [
     {
-      id: 1,
+      id: "1",
       image: relatedImg1,
       title: "HIPAA & Financial Security",
     },
     {
-      id: 2,
+      id: "2",
       image: relatedImg2,
       title: "Avoiding Reimbursement Pitfalls",
     },
@@ -134,30 +133,9 @@ const SingleServicesPage = () => {
             </div>
             <div className="container">
               <h1 className="text-3xl mb-5 font-bold">Related Challenges</h1>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                 {relatedChallenges?.map((item) => (
-                  <div key={item.id} className="relative">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      width={50000}
-                      height={50000}
-                      className="w-[400px] h-[300px] rounded-2xl object-cover"
-                    />
-                    <div className="absolute -bottom-5 rounded-md bg-[#032237] flex gap-2 items-center justify-start h-[60px]">
-                      <div className="bg-gradientBg ml-2 w-[85%] pl-2">
-                        <h1 className="text-sm font-bold w-[75%] leading-normal">
-                          {item.title}
-                        </h1>
-                      </div>
-                      <Link href={`/services/challenge/${item?.id}`}>
-                        <FaArrowRight
-                          className="cursor-pointer"
-                          color="white"
-                        />
-                      </Link>
-                    </div>
-                  </div>
+                  <RelatedChallengeCard key={item.id} item={item} />
                 ))}
               </div>
             </div>

@@ -17,7 +17,7 @@ const Horizon = () => {
         regulatory and cybersecurity demands. Here at HC Financial Consultants,
         we aim to help our clients stay ahead of this ever-changing curve.
       </p>
-      <div className="md:flex gap-5 w-full justify-between">
+      <div className="md:flex gap-5 w-full items-center justify-between">
         <div className="md:w-[50%]">
           <Image
             src={horizonImage1}
