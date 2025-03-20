@@ -23,7 +23,7 @@ const BookYourConsultationPage = () => {
   const [consultationMode, setConsultationMode] = useState("in-person");
 
   return (
-    <div className="my-5">
+    <div>
       <div className="relative mb-20">
         <Image
           src={insightImage}
@@ -43,7 +43,7 @@ const BookYourConsultationPage = () => {
           </p>
         </div>
       </div>
-      <div className="max-w-3xl mx-auto p-6 bg-white rounded-xl shadow-lg">
+      <div className="max-w-3xl mx-auto p-6 bg-white rounded-xl shadow-lg my-20 mt-40">
         <h2 className="text-lg font-semibold mb-4">Book an appointment</h2>
         <Form
           form={form}
@@ -163,7 +163,10 @@ const BookYourConsultationPage = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" className="w-full">
+            <Button
+              htmlType="submit"
+              className="w-full !bg-gradientBg !py-5 !text-xl"
+            >
               Confirm & Submit
             </Button>
           </Form.Item>
