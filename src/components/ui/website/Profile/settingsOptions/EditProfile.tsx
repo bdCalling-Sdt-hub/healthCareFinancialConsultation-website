@@ -5,16 +5,16 @@ import TextArea from "antd/es/input/TextArea";
 
 const EditProfile = () => {
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   // Handle form submission
-  const onFinish = (values: any) => {
-    setLoading(true);
-    setTimeout(() => {
-      console.log("Updated Profile:", values);
-      message.success("Profile updated successfully!");
-      setLoading(false);
-    }, 1500);
+  const onFinish = () => {
+    // setLoading(true);
+    // setTimeout(() => {
+    //   console.log("Updated Profile:", values);
+    //   message.success("Profile updated successfully!");
+    //   setLoading(false);
+    // }, 1500);
   };
 
   // Handle file upload

@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, ConfigProvider } from "antd";
+import { Table, ConfigProvider } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
 
 const dataSource = [

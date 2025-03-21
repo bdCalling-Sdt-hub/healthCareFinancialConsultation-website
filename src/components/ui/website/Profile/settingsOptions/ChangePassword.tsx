@@ -5,7 +5,7 @@ const ChangePassword = () => {
 
   //   const [changePassword, { isLoading }] = useChangePasswordMutation();
 
-  const onFinish = async (values: any) => {
+  const onFinish = async () => {
     //     try {
     //     //   const res = await changePassword(values).unwrap();
     //     //   if (res.success) {

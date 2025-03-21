@@ -17,6 +17,46 @@ import "./styles.css";
 import { FreeMode, Pagination, Navigation } from "swiper/modules";
 import Image from "next/image";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
+import Link from "next/link";
+
+const sliderData = [
+  {
+    image: sliderImage1,
+    title: "Cost Reduction Strategies",
+    description: [
+      "Operational efficiency assessments.",
+      "Workflow Optimization",
+    ],
+    seeMoreText: "See More",
+  },
+  {
+    image: sliderImage2,
+    title: "Revenue Cycle Management Optimization",
+    description: [
+      "Assessment and improvement of billing and collections processes.",
+      "Recommendations to reduce denied claims and improve cash flow.",
+    ],
+    seeMoreText: "See More",
+  },
+  {
+    image: sliderImage1,
+    title: "Cost Reduction Strategies",
+    description: [
+      "Operational efficiency assessments.",
+      "Workflow Optimization",
+    ],
+    seeMoreText: "See More",
+  },
+  {
+    image: sliderImage2,
+    title: "Revenue Cycle Management Optimization",
+    description: [
+      "Assessment and improvement of billing and collections processes.",
+      "Recommendations to reduce denied claims and improve cash flow.",
+    ],
+    seeMoreText: "See More",
+  },
+];
 
 const SwiperNavButtons = () => {
   const swiper = useSwiper();
@@ -25,13 +65,13 @@ const SwiperNavButtons = () => {
     <div>
       <button
         onClick={() => swiper.slidePrev()}
-        className="opacity-30 hover:opacity-100 absolute left-0 top-1/2 z-10 transform -translate-y-1/2 bg-gradientBg p-2 md:p-2 rounded-full shadow-lg"
+        className="opacity-30 hover:opacity-100 absolute left-0 top-1/3 z-10 transform -translate-y-1/2 bg-gradientBg p-2 md:p-2 rounded-full shadow-lg"
       >
         <GrFormPreviousLink size={40} />
       </button>
       <button
         onClick={() => swiper.slideNext()}
-        className="opacity-30 hover:opacity-100 absolute right-0 top-1/2 z-10 transform -translate-y-1/2 bg-gradientBg p-2 md:p-2 rounded-full shadow-lg"
+        className="opacity-30 hover:opacity-100 absolute right-0 top-1/3 z-10 transform -translate-y-1/2 bg-gradientBg p-2 md:p-2 rounded-full shadow-lg"
       >
         <GrFormNextLink size={40} />
       </button>
@@ -68,106 +108,31 @@ const OurServices = () => {
               className="mySwiper"
             >
               <SwiperNavButtons />
-              <SwiperSlide>
-                <div className="">
-                  <Image
-                    src={sliderImage1}
-                    alt="SliderImage"
-                    width={50000}
-                    height={50000}
-                  />
-                  <div className="text-start my-5">
-                    <h1 className="text-2xl font-semibold">
-                      Cost Reduction Strategies
-                    </h1>
-                    <ul className="list-disc pl-10 my-2">
-                      <li>Operational efficiency assessments.</li>
-                      <li>Workflow Optimization</li>
-                    </ul>
-                    <p className="text-blue-700 underline text-end text-xl">
-                      See More
-                    </p>
+              {sliderData?.map((slide, index) => (
+                <SwiperSlide key={index}>
+                  <div>
+                    <Image
+                      src={slide.image}
+                      alt="SliderImage"
+                      width={50000}
+                      height={50000}
+                    />
+                    <div className="text-start my-5">
+                      <h1 className="text-2xl font-semibold">{slide.title}</h1>
+                      <ul className="list-disc pl-10 my-2">
+                        {slide?.description?.map((item, idx) => (
+                          <li key={idx}>{item}</li>
+                        ))}
+                      </ul>
+                      <Link href={"/services/1"}>
+                        <p className="text-blue-700 underline text-end text-xl">
+                          {slide.seeMoreText}
+                        </p>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="">
-                  <Image
-                    src={sliderImage2}
-                    alt="SliderImage"
-                    width={50000}
-                    height={50000}
-                  />
-                  <div className="text-start my-5">
-                    <h1 className="text-2xl font-semibold">
-                      Revenue Cycle Management Optimization{" "}
-                    </h1>
-                    <ul className="list-disc pl-10 my-2">
-                      <li>
-                        Assessment and improvement of billing and collections
-                        processes.
-                      </li>
-                      <li>
-                        Recommendations to reduce denied claims and improve cash
-                        flow.{" "}
-                      </li>
-                    </ul>
-                    <p className="text-blue-700 underline text-end text-xl">
-                      See More
-                    </p>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="">
-                  <Image
-                    src={sliderImage1}
-                    alt="SliderImage"
-                    width={50000}
-                    height={50000}
-                  />
-                  <div className="text-start my-5">
-                    <h1 className="text-2xl font-semibold">
-                      Cost Reduction Strategies
-                    </h1>
-                    <ul className="list-disc pl-10 my-2">
-                      <li>Operational efficiency assessments.</li>
-                      <li>Workflow Optimization</li>
-                    </ul>
-                    <p className="text-blue-700 underline text-end text-xl">
-                      See More
-                    </p>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="">
-                  <Image
-                    src={sliderImage2}
-                    alt="SliderImage"
-                    width={50000}
-                    height={50000}
-                  />
-                  <div className="text-start my-5">
-                    <h1 className="text-2xl font-semibold">
-                      Revenue Cycle Management Optimization{" "}
-                    </h1>
-                    <ul className="list-disc pl-10 my-2">
-                      <li>
-                        Assessment and improvement of billing and collections
-                        processes.
-                      </li>
-                      <li>
-                        Recommendations to reduce denied claims and improve cash
-                        flow.{" "}
-                      </li>
-                    </ul>
-                    <p className="text-blue-700 underline text-end text-xl">
-                      See More
-                    </p>
-                  </div>
-                </div>
-              </SwiperSlide>
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
         </div>
