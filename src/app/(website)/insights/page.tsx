@@ -6,6 +6,8 @@ import relatedImg1 from "@/assets/image (31).png";
 import relatedImg2 from "@/assets/image (32).png";
 import RelatedChallengeCard from "@/components/ui/website/RelatedChallengeCard";
 import WhatClientsSay from "@/components/ui/website/Home/Review/WhatClientsSay";
+import GrowthChart from "@/components/ui/website/insights/GrowthChart";
+import BestServicesChart from "@/components/ui/website/insights/BestServicesChart";
 
 const InsightsPage = () => {
   const topFiveChallenges = [
@@ -59,6 +61,13 @@ const InsightsPage = () => {
       </div>
       <div>
         <Horizon />
+        <div className="container">
+          <h1 className="text-3xl mb-5 font-bold">Our Statistics</h1>
+          <div className="border-4 border-gray-200 p-10 rounded-2xl">
+            <GrowthChart />
+            <BestServicesChart />
+          </div>
+        </div>
         <BookNowBanner />
       </div>
       <div>

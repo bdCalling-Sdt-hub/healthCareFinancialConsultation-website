@@ -187,34 +187,42 @@ const HowWeWorkPage = () => {
       <div className="container mx-auto py-20 md:h-[850px]">
         <div className="md:flex">
           {/* Left Menu */}
-          <div className="md:w-[30%] p-4 bg-white">
+          <div className="md:w-[30%] p-4 space-y-6 bg-white">
             <button
-              className={`block w-full p-2 mb-2 text-left border rounded-lg border-[#032237] ${
-                selectedMenu === "menu1" ? "bg-[#032237] text-white" : ""
+              className={`block w-full p-2 py-4 mb-2 text-left border rounded-lg border-[#032237] transition-colors duration-300 ${
+                selectedMenu === "menu1"
+                  ? "bg-[#032237] text-white"
+                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
               }`}
               onClick={() => setSelectedMenu("menu1")}
             >
               Deep Industry Expertise
             </button>
             <button
-              className={`block w-full p-2 mb-2 text-left border rounded-lg border-[#032237] ${
-                selectedMenu === "menu2" ? "bg-[#032237] text-white" : ""
+              className={`block w-full p-2 py-4 mb-2 text-left border rounded-lg border-[#032237] transition-colors duration-300 ${
+                selectedMenu === "menu2"
+                  ? "bg-[#032237] text-white"
+                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
               }`}
               onClick={() => setSelectedMenu("menu2")}
             >
               Comprehensive Service Offering
             </button>
             <button
-              className={`block w-full p-2 mb-2 text-left border rounded-lg border-[#032237] ${
-                selectedMenu === "menu3" ? "bg-[#032237] text-white" : ""
+              className={`block w-full p-2 py-4 mb-2 text-left border rounded-lg border-[#032237] transition-colors duration-300 ${
+                selectedMenu === "menu3"
+                  ? "bg-[#032237] text-white"
+                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
               }`}
               onClick={() => setSelectedMenu("menu3")}
             >
               Proven Tract Record
             </button>
             <button
-              className={`block w-full p-2 mb-2 text-left border rounded-lg border-[#032237] ${
-                selectedMenu === "menu4" ? "bg-[#032237] text-white" : ""
+              className={`block w-full p-2 py-4 mb-2 text-left border rounded-lg border-[#032237] transition-colors duration-300 ${
+                selectedMenu === "menu4"
+                  ? "bg-[#032237] text-white"
+                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
               }`}
               onClick={() => setSelectedMenu("menu4")}
             >
