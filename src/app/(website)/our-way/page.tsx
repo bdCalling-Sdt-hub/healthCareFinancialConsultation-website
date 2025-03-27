@@ -231,7 +231,9 @@ const HowWeWorkPage = () => {
           </div>
 
           {/* Right Content */}
-          <div className="md:w-[70%] p-4">{renderContent()}</div>
+          <div className="md:w-[70%] border-4 rounded-2xl p-7">
+            {renderContent()}
+          </div>
         </div>
       </div>
     </div>

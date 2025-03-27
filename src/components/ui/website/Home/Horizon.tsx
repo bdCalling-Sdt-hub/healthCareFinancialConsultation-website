@@ -4,6 +4,7 @@ import horizonImage2 from "@/assets/image (12).png";
 import horizonImage3 from "@/assets/image (13).png";
 import horizonImage4 from "@/assets/image (14).png";
 import horizonImage5 from "@/assets/image (15).png";
+import Link from "next/link";
 
 const Horizon = () => {
   return (
@@ -39,9 +40,11 @@ const Horizon = () => {
               Consulting Secure your financial future today. Revenue Integrity
               Revenue Integrity Consulting Secure your financial future today.
               Revenue Integrity...{" "}
-              <span className="text-blue-700 underline cursor-pointer">
-                See More
-              </span>
+              <Link href={"/healthcare-horizon/1"}>
+                <span className="text-blue-700 underline cursor-pointer">
+                  See More
+                </span>
+              </Link>
             </p>
           </div>
         </div>
@@ -65,9 +68,11 @@ const Horizon = () => {
               <p className="text-gray-600">
                 Expert operational finance consulting tailored for health care
                 providers. Secure healthcare service providers ...
-                <span className="text-blue-700 underline cursor-pointer">
-                  See More
-                </span>
+                <Link href={"/healthcare-horizon/2"}>
+                  <span className="text-blue-700 underline cursor-pointer">
+                    See More
+                  </span>
+                </Link>
               </p>
             </div>
           </div>
@@ -90,9 +95,11 @@ const Horizon = () => {
               <p className="text-gray-600">
                 Expert operational finance consulting tailored for health care
                 providers. Secure healthcare service providers ...
-                <span className="text-blue-700 underline cursor-pointer">
-                  See More
-                </span>
+                <Link href={"/healthcare-horizon/3"}>
+                  <span className="text-blue-700 underline cursor-pointer">
+                    See More
+                  </span>
+                </Link>
               </p>
             </div>
           </div>
@@ -115,9 +122,11 @@ const Horizon = () => {
               <p className="text-gray-600">
                 Expert operational finance consulting tailored for health care
                 providers. Secure healthcare service providers ...
-                <span className="text-blue-700 underline cursor-pointer">
-                  See More
-                </span>
+                <Link href={"/healthcare-horizon/4"}>
+                  <span className="text-blue-700 underline cursor-pointer">
+                    See More
+                  </span>
+                </Link>
               </p>
             </div>
           </div>
@@ -140,9 +149,11 @@ const Horizon = () => {
               <p className="text-gray-600">
                 Expert operational finance consulting tailored for health care
                 providers. Secure healthcare service providers ...
-                <span className="text-blue-700 underline cursor-pointer">
-                  See More
-                </span>
+                <Link href={"/healthcare-horizon/5"}>
+                  <span className="text-blue-700 underline cursor-pointer">
+                    See More
+                  </span>
+                </Link>
               </p>
             </div>
           </div>

@@ -57,7 +57,7 @@ const Navbar = () => {
     <div className={`${plusJakarta.className}`}>
       {/* 2nd navbar */}
       <header className={`bg-[#032237] shadow w-full`}>
-        <nav className="container h-[100px] relative z-10 w-full">
+        <nav className="max-w-[1800px] mx-auto h-[100px] relative z-10 w-full">
           <div className="flex justify-between items-center h-full w-full">
             <div className="flex items-center lg:gap-0 gap-1">
               <div className="md:hidden">
@@ -72,9 +72,9 @@ const Navbar = () => {
                 <Image
                   alt="Logo"
                   src={logo}
-                  width={4654646}
+                  width={4654646698985}
                   height={45634560}
-                  className="md:w-44 md:h-24 w-28 h-14"
+                  className="md:w-full md:h-24 w-28 h-14"
                 />
               </Link>
             </div>
