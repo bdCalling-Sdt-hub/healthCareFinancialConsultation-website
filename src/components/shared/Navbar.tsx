@@ -94,7 +94,7 @@ const Navbar = () => {
                   </Badge>
                 </Link>
               </div>
-              <div className="hidden md:block">
+              <div className="hidden md:block w-40">
                 <CustomDropdown />
               </div>
               {/* <Link href="/login">
@@ -107,12 +107,11 @@ const Navbar = () => {
                   <Image
                     alt="Profile"
                     src={randomImage}
-                    // src="https://cdn9.dissolve.com/p/D943_222_167/D943_222_167_1200.jpg"
                     width={4654646}
                     height={45634560}
                     className="w-12 h-12 border object-cover border-[#ba9956] rounded-full"
                   />
-                  {/* <h1 className="text-lg font-[500]">Mithu🥀</h1> */}
+
                   <h1 className="text-lg font-[500]">John Doe</h1>
                 </div>
               </Link>

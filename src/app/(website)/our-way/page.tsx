@@ -28,7 +28,9 @@ const HowWeWorkPage = () => {
             <div>
               <ol className="list-decimal pl-5 space-y-4 text-gray-600">
                 <li>
-                  <span className="font-semibold">Specialized Knowledge:</span>{" "}
+                  <span className="font-semibold text-blue-900">
+                    Specialized Knowledge:
+                  </span>{" "}
                   Most of our consultants have spent over 20 years of their
                   careers within the healthcare industry, accumulating
                   industry-specific processes, technologies, regulations, and
@@ -37,7 +39,9 @@ const HowWeWorkPage = () => {
                   tailored solutions for your organization.
                 </li>
                 <li>
-                  <span className="font-semibold">Practical Experience:</span>{" "}
+                  <span className="font-semibold text-blue-900">
+                    Practical Experience:
+                  </span>{" "}
                   Our consultants have done hands-on work with top leading
                   healthcare organizations, both for and not-for-profit models,
                   accumulating a significant array of hands-on industry
@@ -45,13 +49,15 @@ const HowWeWorkPage = () => {
                   navigate sector-specific challenges adeptly.
                 </li>
                 <li>
-                  <span className="font-semibold">Regulatory Acumen:</span>{" "}
+                  <span className="font-semibold text-blue-900">
+                    Regulatory Acumen:
+                  </span>{" "}
                   Understanding and staying updated on the legal and compliance
                   frameworks governing the industry, ensuring that strategies
                   and operations align with current laws and standards.
                 </li>
                 <li>
-                  <span className="font-semibold">
+                  <span className="font-semibold text-blue-900">
                     Market Dynamics Insight:
                   </span>{" "}
                   Our consultants pride themselves on staying ahead of the
@@ -61,7 +67,7 @@ const HowWeWorkPage = () => {
                   market shifts that your organization needs to navigate.
                 </li>
                 <li>
-                  <span className="font-semibold">
+                  <span className="font-semibold text-blue-900">
                     Network and Relationships:
                   </span>{" "}
                   Building strong connections with key stakeholders, including
@@ -97,34 +103,45 @@ const HowWeWorkPage = () => {
             <div>
               <ol className="list-decimal pl-5 space-y-4 text-gray-600">
                 <li>
-                  Full Range of Services: Providing an extensive suite of
-                  services that address various aspects of client needs, ranging
-                  from Cost Containment through to Financial Planning.
+                  <span className="font-semibold text-blue-900">
+                    Full Range of Services:
+                  </span>{" "}
+                  Providing an extensive suite of services that address various
+                  aspects of client needs, ranging from Cost Containment through
+                  to Financial Planning.
                 </li>
                 <li>
-                  Bundled Packages: Offering curated combinations of services
-                  that provide our clients with integrated solutions. Bundled
-                  services often come at a discounted rate compared to
-                  purchasing each service individually, adding value for our
-                  client.
+                  <span className="font-semibold text-blue-900">
+                    Bundled Packages:
+                  </span>{" "}
+                  Offering curated combinations of services that provide our
+                  clients with integrated solutions. Bundled services often come
+                  at a discounted rate compared to purchasing each service
+                  individually, adding value for our client.
                 </li>
                 <li>
-                  Customization and Flexibility: Tailoring services to meet the
-                  specific requirements for each of our clients, allowing
-                  flexibility in service delivery and the ability to adapt to
-                  changing client needs.
+                  <span className="font-semibold text-blue-900">
+                    Customization and Flexibility:
+                  </span>{" "}
+                  Tailoring services to meet the specific requirements for each
+                  of our clients, allowing flexibility in service delivery and
+                  the ability to adapt to changing client needs.
                 </li>
                 <li>
-                  Integrated Support Systems: Ensuring that all services are
-                  supported by robust customer service and support systems,
-                  providing clients with seamless assistance across all service
-                  areas.
+                  <span className="font-semibold text-blue-900">
+                    Integrated Support Systems:
+                  </span>{" "}
+                  Ensuring that all services are supported by robust customer
+                  service and support systems, providing clients with seamless
+                  assistance across all service areas.
                 </li>
                 <li>
-                  Consistent Quality Assurance: Maintaining high standards
-                  across all services offered, ensuring that each component of
-                  the service offering meets the company&apos;s quality
-                  benchmarks and client expectations.
+                  <span className="font-semibold text-blue-900">
+                    Consistent Quality Assurance:
+                  </span>{" "}
+                  Maintaining high standards across all services offered,
+                  ensuring that each component of the service offering meets the
+                  company&apos;s quality benchmarks and client expectations.
                 </li>
               </ol>
             </div>
@@ -139,6 +156,42 @@ const HowWeWorkPage = () => {
               demonstrates the firm&apos;s capability to drive sustainable
               improvements for healthcare organizations.
             </p>
+            <div>
+              <ol className="list-decimal pl-5 space-y-4 text-gray-600">
+                <li>
+                  <span className="font-semibold text-blue-900">
+                    Consistency & Impact:
+                  </span>{" "}
+                  HC Financial have over 10 years of delivering sustainable
+                  cost-saving strategies for hospitals, reducing operational
+                  costs by 20% without compromising patient care
+                </li>
+                <li>
+                  <span className="font-semibold text-blue-900">
+                    Utilizing Data & KPIs:
+                  </span>{" "}
+                  HC Financial has successfully led financial restructuring for
+                  multiple healthcare organizations, improving cash flow by
+                  $10M+ annually
+                </li>
+                <li>
+                  <span className="font-semibold text-blue-900">
+                    Healthcare Finance:
+                  </span>{" "}
+                  HC Financial have a proven track record of optimizing revenue
+                  cycle management, increasing collections by 25% while reducing
+                  denials by 15%.
+                </li>
+                <li>
+                  <span className="font-semibold text-blue-900">
+                    Align with Industry Challenges:
+                  </span>{" "}
+                  HC Financial have extended expertise in navigating value-based
+                  care reimbursements, helping clients increase Medicare
+                  reimbursement rates by 30%
+                </li>
+              </ol>
+            </div>
           </div>
         );
       case "menu4":
@@ -153,6 +206,94 @@ const HowWeWorkPage = () => {
               showcases HC Financial&apos;s commitment to cutting-edge
               solutions.
             </p>
+            <ol className="list-decimal pl-5 space-y-4 text-gray-600">
+              <li>
+                <span className="font-semibold text-blue-900">
+                  Automation & Efficiency Gains:
+                </span>{" "}
+                Implemented automated financial reporting systems for healthcare
+                organizations, reducing manual processing time by 40% and
+                improving accuracy.
+              </li>
+              <li>
+                <span className="font-semibold text-blue-900">
+                  Leveraging Data-Driven Approach:
+                </span>{" "}
+                Proven track record of leveraging AI-driven analytics to
+                optimize revenue cycle management, increasing collections by 25%
+                while reducing claim denials by 15%.
+              </li>
+              <li>
+                <span className="font-semibold text-blue-900">
+                  Compliance & Security Enhancements:
+                </span>{" "}
+                Led the adoption of cloud-based financial platforms, ensuring
+                HIPAA compliance while streamlining multi-site financial
+                operations.
+              </li>
+              <li>
+                <span className="font-semibold text-blue-900">
+                  Tech-Enabled Cost Savings:
+                </span>{" "}
+                Successfully integrated predictive analytics in cost-containment
+                strategies, reducing hospital operational expenses by 20% while
+                maintaining high-quality patient care.
+              </li>
+            </ol>
+          </div>
+        );
+      case "menu5":
+        return (
+          <div>
+            <h1 className="text-3xl font-bold mb-3">Client-Centric Approach</h1>
+            <p className="text-gray-600 my-4">
+              Focusing on customized solutions and building long-term
+              partnerships ensures that HC Financials’ strategies are closely
+              aligned with each client&apos;s specific goals and challenges.
+            </p>
+            <ol className="list-decimal pl-5 space-y-4 text-gray-600">
+              <li>
+                <span className="font-semibold text-blue-900">
+                  Customized Solutions:
+                </span>{" "}
+                Proven track record of delivering tailored financial strategies
+                that align with each healthcare provider&apos;s unique
+                operational and reimbursement challenges, resulting in a 20%
+                increase in revenue retention.
+              </li>
+              <li>
+                <span className="font-semibold text-blue-900">
+                  Collaborative Partnerships:
+                </span>{" "}
+                Deeply invested in client success—partnering with hospitals and
+                clinics to co-develop financial models that improve cash flow
+                and reduce bad debt by 30%.
+              </li>
+              <li>
+                <span className="font-semibold text-blue-900">
+                  Patient-Centered Financial Strategies:
+                </span>{" "}
+                Implemented patient-friendly billing solutions that enhanced
+                collections by 25% while maintaining a 90% patient satisfaction
+                score.
+              </li>
+              <li>
+                <span className="font-semibold text-blue-900">
+                  Long-Term Client Success:
+                </span>{" "}
+                10+ years of fostering long-term partnerships with healthcare
+                organizations, helping them navigate financial complexities and
+                achieve sustainable growth.
+              </li>
+              <li>
+                <span className="font-semibold text-blue-900">
+                  Proactive Client Support:
+                </span>{" "}
+                Known for a hands-on, consultative approach—providing ongoing
+                financial guidance that has helped clients reduce compliance
+                risks and optimize reimbursement strategies.
+              </li>
+            </ol>
           </div>
         );
       default:
@@ -184,7 +325,7 @@ const HowWeWorkPage = () => {
       </div>
 
       {/* Layout with menu and content */}
-      <div className="container mx-auto py-20 md:h-[850px]">
+      <div className="container mx-auto py-20 md:h-[960px]">
         <div className="md:flex">
           {/* Left Menu */}
           <div className="md:w-[30%] p-4 space-y-6 bg-white">
@@ -227,6 +368,16 @@ const HowWeWorkPage = () => {
               onClick={() => setSelectedMenu("menu4")}
             >
               Innovative Technology Integration
+            </button>
+            <button
+              className={`block w-full p-2 py-4 mb-2 text-left border rounded-lg border-[#032237] transition-colors duration-300 ${
+                selectedMenu === "menu5"
+                  ? "bg-[#032237] text-white"
+                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
+              }`}
+              onClick={() => setSelectedMenu("menu5")}
+            >
+              Client-Centric Approach
             </button>
           </div>
 
