@@ -54,13 +54,15 @@ const SettingsPage = () => {
 
   return (
     <div>
-      <div className="py-20 md:h-[850px]">
+      <div className="py-20">
         <div className="md:flex">
           {/* Left Menu */}
           <div className="p-4 bg-white w-[300px]">
             <button
               className={`block w-full p-2 ps-5 mb-2 text-left border rounded-lg border-[#032237] ${
-                selectedMenu === "menu1" ? "bg-[#032237] text-white" : ""
+                selectedMenu === "menu1"
+                  ? "bg-[#032237] text-white"
+                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
               }`}
               onClick={() => setSelectedMenu("menu1")}
             >
@@ -68,7 +70,9 @@ const SettingsPage = () => {
             </button>
             <button
               className={`block w-full p-2 ps-5 mb-2 text-left border rounded-lg border-[#032237] ${
-                selectedMenu === "menu2" ? "bg-[#032237] text-white" : ""
+                selectedMenu === "menu2"
+                  ? "bg-[#032237] text-white"
+                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
               }`}
               onClick={() => setSelectedMenu("menu2")}
             >
@@ -76,7 +80,9 @@ const SettingsPage = () => {
             </button>
             <button
               className={`block w-full p-2 ps-5 mb-2 text-left border rounded-lg border-[#032237] ${
-                selectedMenu === "menu3" ? "bg-[#032237] text-white" : ""
+                selectedMenu === "menu3"
+                  ? "bg-[#032237] text-white"
+                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
               }`}
               onClick={() => setSelectedMenu("menu3")}
             >
@@ -84,7 +90,9 @@ const SettingsPage = () => {
             </button>
             <button
               className={`block w-full p-2 ps-5 mb-2 text-left border rounded-lg border-[#032237] ${
-                selectedMenu === "menu4" ? "bg-[#032237] text-white" : ""
+                selectedMenu === "menu4"
+                  ? "bg-[#032237] text-white"
+                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
               }`}
               onClick={() => setSelectedMenu("menu4")}
             >
@@ -92,7 +100,9 @@ const SettingsPage = () => {
             </button>
             <button
               className={`block w-full p-2 ps-5 mb-2 text-left border rounded-lg border-[#032237] ${
-                selectedMenu === "menu5" ? "bg-[#032237] text-white" : ""
+                selectedMenu === "menu5"
+                  ? "bg-[#032237] text-white"
+                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
               }`}
               onClick={() => setSelectedMenu("menu5")}
             >
@@ -100,7 +110,9 @@ const SettingsPage = () => {
             </button>
             <button
               className={`block w-full p-2 ps-5 mb-2 text-left border rounded-lg border-[#032237] ${
-                selectedMenu === "menu6" ? "bg-[#032237] text-white" : ""
+                selectedMenu === "menu6"
+                  ? "bg-[#032237] text-white"
+                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
               }`}
               onClick={() => setSelectedMenu("menu6")}
             >

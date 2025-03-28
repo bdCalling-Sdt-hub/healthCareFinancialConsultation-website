@@ -10,7 +10,7 @@ const data = [
   { name: "Group D", value: 200 },
 ];
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+const COLORS = ["#0088FE", "#032237", "#064168", "#075e99"];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
@@ -79,15 +79,15 @@ const PieChartComponent: React.FC = () => {
             <p className="text-lg font-bold">Financial Management</p>
           </div>
           <div className="flex items-center gap-3">
-            <p className="h-7 w-7 bg-[#FF8042] rounded-full"></p>
+            <p className="h-7 w-7 bg-[#064168] rounded-full"></p>
             <p className="text-lg font-bold">Financial Management</p>
           </div>
           <div className="flex items-center gap-3">
-            <p className="h-7 w-7 bg-[#FFBB28] rounded-full"></p>
+            <p className="h-7 w-7 bg-[#252b30] rounded-full"></p>
             <p className="text-lg font-bold">Financial Management</p>
           </div>
           <div className="flex items-center gap-3">
-            <p className="h-7 w-7 bg-[#00C49F] rounded-full"></p>
+            <p className="h-7 w-7 bg-[#075e99] rounded-full"></p>
             <p className="text-lg font-bold">Financial Management</p>
           </div>
         </div>
