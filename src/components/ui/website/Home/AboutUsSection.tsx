@@ -5,11 +5,11 @@ const AboutUsSection = () => {
   return (
     <div className="md:relative container">
       <div className=" mx-auto my-10 md:my-48 md:flex">
-        <h1 className="md:text-4xl text-2xl font-bold mb-5 md:mb-0 md:w-[25%]">
+        <h1 className="md:text-5xl text-2xl font-bold mb-5 md:mb-0 md:w-[25%]">
           About Us
         </h1>
-        <div className="bg-[#032237] md:p-10 p-5 md:ps-80 flex flex-col justify-center items-start space-y-5 rounded-2xl md:h-[380px] md:w-[75%]">
-          <p className="text-white">
+        <div className="bg-[#032237] md:p-10 p-5 md:ps-80 flex flex-col justify-center items-start space-y-5 rounded-2xl md:h-[400px] md:w-[75%]">
+          <p className="text-white text-[16px] mb-3">
             At HC Financial, we specialize in empowering healthcare
             organizations with expert financial guidance tailored to their
             unique needs. With deep industry expertise, we provide strategic
@@ -18,7 +18,7 @@ const AboutUsSection = () => {
             the complex challenges of healthcare finance, from revenue cycle
             management to cost containment and compliance.
           </p>
-          <button className="bg-gradientBg px-5 py-2 hover:opacity-90 rounded-md border-none">
+          <button className="bg-gradientBg py-4 px-10 font-medium hover:opacity-90 rounded-md border-none">
             Learn More
           </button>
         </div>

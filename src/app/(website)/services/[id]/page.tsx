@@ -34,8 +34,8 @@ const SingleServicesPage = () => {
               <h1 className="text-3xl mb-5 font-bold">What We Do</h1>
               <div className="md:flex gap-10 justify-between items-center w-full">
                 <div className="md:w-1/2">
-                  <ul className="space-y-5 text-gray-600 list-disc pl-5">
-                    <li>
+                  <ul className="space-y-5 text-[16px] text-gray-600 list-disc pl-5">
+                    <li className="">
                       Workforce Utilization Review: Analyze staff workloads,
                       shift patterns, and patient demand to prevent under or
                       overstaffing.
@@ -75,7 +75,7 @@ const SingleServicesPage = () => {
             <div className="container mt-32">
               <h1 className="text-3xl mb-5 font-bold">Targeted Results</h1>
               <div>
-                <ul className=" space-y-2 text-gray-600 list-disc pl-5">
+                <ul className=" space-y-2 text-[16px] text-gray-600 list-disc pl-5">
                   <li>Reduced labor costs without sacrificing care quality</li>
                   <li>Enhanced employee satisfaction and retention</li>
                   <li>Improved patient flow and service delivery</li>
@@ -182,7 +182,7 @@ const SingleServicesPage = () => {
         {/* Tabs */}
         <div className="container grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
           <button
-            className={`px-6 py-5 border rounded-lg ${
+            className={`px-6 py-5 text-[16px] border rounded-lg ${
               selectedTab === "tab1"
                 ? "bg-[#032237] text-white"
                 : "border-[#032237] hover:bg-gray-200"
@@ -192,7 +192,7 @@ const SingleServicesPage = () => {
             Staff Productivity Analysis
           </button>
           <button
-            className={`px-6 py-5 border rounded-lg ${
+            className={`px-6 py-5 text-[16px] border rounded-lg ${
               selectedTab === "tab2"
                 ? "bg-[#032237] text-white"
                 : "border-[#032237] hover:bg-gray-200"
@@ -202,7 +202,7 @@ const SingleServicesPage = () => {
             Workflow Optimization
           </button>
           <button
-            className={`px-6 py-5 border rounded-lg ${
+            className={`px-6 py-5 text-[16px] border rounded-lg ${
               selectedTab === "tab3"
                 ? "bg-[#032237] text-white"
                 : "border-[#032237] hover:bg-gray-200"
@@ -212,7 +212,7 @@ const SingleServicesPage = () => {
             Revenue Cycle Management
           </button>
           <button
-            className={`px-6 py-5 border rounded-lg ${
+            className={`px-6 py-5 text-[16px] border rounded-lg ${
               selectedTab === "tab4"
                 ? "bg-[#032237] text-white"
                 : "border-[#032237] hover:bg-gray-200"
@@ -222,7 +222,7 @@ const SingleServicesPage = () => {
             Technology and Automation
           </button>
           <button
-            className={`px-6 py-5 border rounded-lg ${
+            className={`px-6 py-5 text-[16px] border rounded-lg ${
               selectedTab === "tab5"
                 ? "bg-[#032237] text-white"
                 : "border-[#032237] hover:bg-gray-200"

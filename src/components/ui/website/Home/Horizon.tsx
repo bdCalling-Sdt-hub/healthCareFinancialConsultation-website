@@ -12,7 +12,7 @@ const Horizon = () => {
       <h1 className="text-3xl md:text-5xl font-bold mb-5 md:mb-0">
         Healthcare Horizon
       </h1>
-      <p className="md:text-xl text-gray-600 my-5">
+      <p className="md:text-lg text-gray-600 my-5">
         Healthcare in 2025 is poised for significant transformation driven by
         renewed investment, advanced technology integration, and evolving
         regulatory and cybersecurity demands. Here at HC Financial Consultants,
@@ -27,7 +27,7 @@ const Horizon = () => {
             height={50000}
           />
           <div className="my-5">
-            <h1 className="text-xl md:text-3xl font-bold mb-5 md:mb-0">
+            <h1 className="text-xl md:text-xl font-bold mb-5 md:mb-0">
               Rising Costs and Affordability
             </h1>
             <div className="flex text-lg justify-between items-center my-4 text-gray-600">
@@ -58,7 +58,7 @@ const Horizon = () => {
               height={50000}
             />
             <div>
-              <h1 className="text-xl md:text-2xl font-bold md:mb-0">
+              <h1 className="text-xl md:text-xl font-bold md:mb-0">
                 AI and Technology
               </h1>
               <div className="flex text-lg justify-between my-1 items-center text-gray-600">
@@ -85,7 +85,7 @@ const Horizon = () => {
               height={50000}
             />
             <div>
-              <h1 className="text-xl md:text-2xl font-bold md:mb-0">
+              <h1 className="text-xl md:text-xl font-bold md:mb-0">
                 Regulatory Risks
               </h1>
               <div className="flex text-lg my-1 justify-between items-center text-gray-600">
@@ -112,7 +112,7 @@ const Horizon = () => {
               height={50000}
             />
             <div>
-              <h1 className="text-xl md:text-2xl font-bold md:mb-0">
+              <h1 className="text-xl md:text-xl font-bold md:mb-0">
                 Workforce
               </h1>
               <div className="flex text-lg my-1 justify-between items-center text-gray-600">
@@ -139,7 +139,7 @@ const Horizon = () => {
               height={50000}
             />
             <div>
-              <h1 className="text-xl md:text-2xl font-bold md:mb-0">
+              <h1 className="text-xl md:text-xl font-bold md:mb-0">
                 Market Consolidation (Competition)
               </h1>
               <div className="flex text-lg my-1 justify-between items-center text-gray-600">

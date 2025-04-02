@@ -118,10 +118,12 @@ const OurServices = () => {
                       height={50000}
                     />
                     <div className="text-start my-5">
-                      <h1 className="text-2xl font-semibold">{slide.title}</h1>
+                      <h1 className="text-2xl font-bold">{slide.title}</h1>
                       <ul className="list-disc pl-10 my-2">
-                        {slide?.description?.map((item, idx) => (
-                          <li key={idx}>{item}</li>
+                        {slide?.description?.slice(0, 1)?.map((item, idx) => (
+                          <li className="text-[16px]" key={idx}>
+                            {item}
+                          </li>
                         ))}
                       </ul>
                       <Link href={"/services/1"}>

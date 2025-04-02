@@ -8,7 +8,7 @@ const WhatMakesUsDifferent = () => {
       <h1 className="text-3xl md:text-5xl font-bold mb-5 md:mb-0">
         What Makes Us Different
       </h1>
-      <p className="text-gray-600 mt-5 text-xl">
+      <p className="text-gray-600 mt-5 text-lg">
         By partnering closely with you, we drive change by combining the
         expertise of passionate problem-solvers, cutting-edge technologies, and
         comprehensive service capabilities to transform every insight into an
@@ -39,7 +39,7 @@ const WhatMakesUsDifferent = () => {
                 <p className="text-gray-600">
                   We here at HC Financial have a profound understanding of the
                   healthcare sector, including its unique financial ...{" "}
-                  <Link href="/what-makes-us-different/deep-industry-expertise">
+                  <Link href="/our-way">
                     <span className="text-blue-700 underline cursor-pointer">
                       See More
                     </span>
@@ -62,7 +62,7 @@ const WhatMakesUsDifferent = () => {
                 <p className="text-gray-600">
                   HC Financial provides a full spectrum of services—from
                   strategic financial planning to operational efficiency imp ...{" "}
-                  <Link href="/what-makes-us-different/comprehensive-service-offering">
+                  <Link href="/our-way">
                     <span className="text-blue-700 underline cursor-pointer">
                       See More
                     </span>
@@ -83,7 +83,7 @@ const WhatMakesUsDifferent = () => {
                 <p className="text-gray-600">
                   A history of successful engagements and measurable outcomes
                   demonstrates the firm&apos;s capability to drive sustainab ...{" "}
-                  <Link href="/what-makes-us-different/proven-track-record">
+                  <Link href="/our-way">
                     <span className="text-blue-700 underline cursor-pointer">
                       See More
                     </span>
@@ -106,7 +106,7 @@ const WhatMakesUsDifferent = () => {
                 <p className="text-gray-600">
                   Leveraging advanced technologies, such as data analytics and
                   AI, to enhance financial strategies and operational ...
-                  <Link href="/what-makes-us-different/innovative-technological-integration">
+                  <Link href="/our-way">
                     <span className="text-blue-700 underline cursor-pointer">
                       See More
                     </span>
@@ -129,7 +129,7 @@ const WhatMakesUsDifferent = () => {
                 <p className="text-gray-600">
                   Focusing on personalized solutions and building long-term
                   partnerships ensures that the firm&apos;s strategies ...
-                  <Link href="/what-makes-us-different/client-centric-approach">
+                  <Link href="/our-way">
                     <span className="text-blue-700 underline cursor-pointer">
                       See More
                     </span>

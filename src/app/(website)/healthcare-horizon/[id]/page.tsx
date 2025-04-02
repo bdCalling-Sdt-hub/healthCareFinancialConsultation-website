@@ -1,47 +1,67 @@
 import Image from "next/image";
 import costImage from "@/assets/1200-x-675-Economic-chart-and-money-696x385.webp";
+import howWeWorkImg from "@/assets/image (33).png";
 
 const page = () => {
   return (
     <div>
-      <div className="h-[150px] flex items-center justify-center bg-gradientBg">
-        <h1 className="text-3xl font-bold">HealthCare Horizon</h1>
+      <div className="relative mb-20">
+        <Image
+          src={howWeWorkImg}
+          alt="howWeWorkImg"
+          width={50000}
+          height={50000}
+          className="w-full h-[600px] object-cover"
+        />
+        <div className="max-w-[750px] absolute -bottom-20 right-20 p-10 rounded-2xl bg-[#032237] bg-opacity-30 backdrop-blur-md">
+          <h1 className="md:text-5xl text-3xl mb-5 font-bold bg-gradientBg text-transparent bg-clip-text leading-normal">
+            Healthcare Horizon
+          </h1>
+          <p className="text-white md:text-lg text-md">
+            What sets us apart is our deep expertise in the healthcare sector,
+            with over 20 years of industry experience. We offer tailored
+            solutions backed by a strong network of industry connections and a
+            commitment to innovative technologies.
+          </p>
+        </div>
       </div>
-
       <div className="container my-10">
-        <h1 className="text-2xl font-bold">RISING COSTS & AFFORDABILITY</h1>
-        <p className="my-5 text-md">
-          The rising cost of healthcare is a global challenge, impacting
-          patients, healthcare providers, insurers, and governments. Factors
-          such as{" "}
-          <span className="font-semibold">
-            advancing medical technologies, administrative inefficiencies,
-            pharmaceutical price surges, and an aging population
-          </span>{" "}
-          all contribute to increasing expenses. As costs rise, affordability
-          becomes a critical issue, with many individuals struggling to access
-          necessary medical care.
-        </p>
-
-        <div className="flex items-center justify-center my-10">
-          <Image
-            src={costImage}
-            alt="costImage"
-            width={50000}
-            height={50000}
-            className="w-[800px] h-[400px] object-cover rounded-lg"
-          />
+        <div className="flex items-center justify-center gap-8">
+          <div className="flex items-center justify-center my-10 w-[50%]">
+            <Image
+              src={costImage}
+              alt="costImage"
+              width={50000}
+              height={50000}
+              className="w-[550px] h-[300px] object-cover rounded-lg"
+            />
+          </div>
+          <div className="w-[50%]">
+            <h1 className="text-2xl font-bold">RISING COSTS & AFFORDABILITY</h1>
+            <p className="my-5 text-md text-gray-600">
+              The rising cost of healthcare is a global challenge, impacting
+              patients, healthcare providers, insurers, and governments. Factors
+              such as{" "}
+              <span className="font-semibold">
+                advancing medical technologies, administrative inefficiencies,
+                pharmaceutical price surges, and an aging population
+              </span>{" "}
+              all contribute to increasing expenses. As costs rise,
+              affordability becomes a critical issue, with many individuals
+              struggling to access necessary medical care.
+            </p>
+          </div>
         </div>
 
-        <p className="text-xl font-bold text-blue-600 my-2">
+        <p className="text-2xl font-bold text-blue-600 mt-10">
           Key Drivers of Rising Healthcare Costs
         </p>
 
         <ol className="list-decimal pl-5">
-          <li className="text-lg font-bold">
+          <li className="text-lg font-bold my-5">
             Increasing Costs of Medical Technology & Innovation
           </li>
-          <ul className="list-disc pl-5 text-md mb-5">
+          <ul className="list-disc pl-5 text-md mb-5 text-gray-600 space-y-2">
             <li>
               Advanced medical devices, robotic surgeries, and AI-driven
               diagnostics{" "}
@@ -66,10 +86,10 @@ const page = () => {
             </li>
           </ul>
 
-          <li className="text-lg font-bold">
+          <li className="text-lg font-bold my-5">
             Pharmaceutical & Prescription Drug Costs
           </li>
-          <ul className="list-disc pl-5 text-md mb-5">
+          <ul className="list-disc pl-5 text-md mb-5 text-gray-600 space-y-2">
             <li>
               <span className="font-semibold">High R&D costs:</span> On average,
               it costs over <span className="font-semibold">$2.6 billion</span>{" "}
@@ -90,10 +110,10 @@ const page = () => {
             </li>
           </ul>
 
-          <li className="text-lg font-bold">
+          <li className="text-lg font-bold my-5">
             Administrative & Operational Inefficiencies
           </li>
-          <ul className="list-disc pl-5 text-md mb-5">
+          <ul className="list-disc pl-5 text-md mb-5 text-gray-600 space-y-2">
             <li>
               <span className="font-semibold">
                 Complex insurance & billing processes
@@ -117,10 +137,10 @@ const page = () => {
             </li>
           </ul>
 
-          <li className="text-lg font-bold">
+          <li className="text-lg font-bold my-5">
             Aging Population & Chronic Disease Burden
           </li>
-          <ul className="list-disc pl-5 text-md mb-5">
+          <ul className="list-disc pl-5 text-md mb-5 text-gray-600 space-y-2">
             <li>
               <span className="font-semibold">Longer life expectancy</span>{" "}
               leads to increased demand for long-term care, geriatric services,
@@ -139,10 +159,10 @@ const page = () => {
             </li>
           </ul>
 
-          <li className="text-lg font-bold">
+          <li className="text-lg font-bold my-5">
             Hospital Consolidation & Reduced Competition
           </li>
-          <ul className="list-disc pl-5 text-md mb-5">
+          <ul className="list-disc pl-5 text-md mb-5 text-gray-600 space-y-2">
             <li>
               Mergers between hospitals create{" "}
               <span className="font-semibold">regional monopolies</span>,
@@ -161,10 +181,10 @@ const page = () => {
             </li>
           </ul>
 
-          <li className="text-lg font-bold">
+          <li className="text-lg font-bold my-5">
             Medical Malpractice & Defensive Medicine
           </li>
-          <ul className="list-disc pl-5 text-md mb-5">
+          <ul className="list-disc pl-5 text-md mb-5 text-gray-600 space-y-2">
             <li>
               Fear of lawsuits causes doctors to order{" "}
               <span className="font-semibold">
@@ -179,13 +199,13 @@ const page = () => {
           </ul>
         </ol>
 
-        <p className="text-xl font-bold text-blue-600 my-2">
+        <p className="text-xl font-bold text-blue-600 mt-10">
           Consequences of Healthcare Affordability Issues
         </p>
 
         <ol className="list-decimal pl-5">
-          <li className="text-lg font-bold">Reduced Access to Care</li>
-          <ul className="list-disc pl-5 text-lg mb-5">
+          <li className="text-lg font-bold my-5">Reduced Access to Care</li>
+          <ul className="list-disc pl-5 text-md mb-5 text-gray-600 space-y-2">
             <li>
               Patients{" "}
               <span className="font-semibold">
@@ -199,10 +219,10 @@ const page = () => {
             </li>
           </ul>
 
-          <li className="text-lg font-bold">
+          <li className="text-lg font-bold my-5">
             Increased Medical Debt & Bankruptcy
           </li>
-          <ul className="list-disc pl-5 text-lg mb-5">
+          <ul className="list-disc pl-5 text-md mb-5 text-gray-600 space-y-2">
             <li>
               <span className="font-semibold">
                 Over 60% of bankruptcies in the U.S.
@@ -217,10 +237,10 @@ const page = () => {
             </li>
           </ul>
 
-          <li className="text-lg font-bold">
+          <li className="text-lg font-bold my-5">
             Strain on Public Healthcare Systems
           </li>
-          <ul className="list-disc pl-5 text-lg mb-5">
+          <ul className="list-disc pl-5 text-md mb-5 text-gray-600 space-y-2">
             <li>
               Rising costs{" "}
               <span className="font-semibold">
@@ -236,8 +256,10 @@ const page = () => {
             </li>
           </ul>
 
-          <li className="text-lg font-bold">Inequality in Healthcare Access</li>
-          <ul className="list-disc pl-5 text-lg mb-5">
+          <li className="text-lg font-bold my-5">
+            Inequality in Healthcare Access
+          </li>
+          <ul className="list-disc pl-5 text-md mb-5 text-gray-600 space-y-2">
             <li>
               <span className="font-semibold">
                 Low-income and uninsured individuals
@@ -253,11 +275,11 @@ const page = () => {
           </ul>
         </ol>
 
-        <p className="text-xl font-bold text-blue-600 my-2">
+        <p className="text-xl font-bold text-blue-600 mt-10 mb-5">
           How Can HC Financial Consultants Help?
         </p>
 
-        <ul className="list-none pl-5 text-lg mb-5">
+        <ul className="list-none pl-5 text-md mb-5 text-gray-600 space-y-2">
           <li className="before:content-['➡️']">
             Provision of Analysis to understand where your costs are and how
             best to manage them based on reimbursement rules and the company’s
