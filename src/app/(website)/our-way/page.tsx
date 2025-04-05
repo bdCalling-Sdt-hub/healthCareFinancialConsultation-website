@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import howWeWorkImg from "@/assets/image (30).png";
 
+import CircularMenu from "@/components/ui/website/ourWay/CircularMenu";
+
 const HowWeWorkPage = () => {
   const [selectedMenu, setSelectedMenu] = useState("menu1");
 
@@ -325,64 +327,16 @@ const HowWeWorkPage = () => {
       </div>
 
       {/* Layout with menu and content */}
-      <div className="container mx-auto py-20 md:h-[960px]">
-        <div className="md:flex">
+      <div className="container mx-auto py-20 md:h-[1000px]">
+        <div className="md:flex gap-10">
           {/* Left Menu */}
-          <div className="md:w-[30%] p-4 space-y-6 bg-white">
-            <button
-              className={`block w-full p-2 py-4 mb-2 text-left border rounded-lg border-[#032237] transition-colors duration-300 ${
-                selectedMenu === "menu1"
-                  ? "bg-[#032237] text-white"
-                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
-              }`}
-              onClick={() => setSelectedMenu("menu1")}
-            >
-              Deep Industry Expertise
-            </button>
-            <button
-              className={`block w-full p-2 py-4 mb-2 text-left border rounded-lg border-[#032237] transition-colors duration-300 ${
-                selectedMenu === "menu2"
-                  ? "bg-[#032237] text-white"
-                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
-              }`}
-              onClick={() => setSelectedMenu("menu2")}
-            >
-              Comprehensive Service Offering
-            </button>
-            <button
-              className={`block w-full p-2 py-4 mb-2 text-left border rounded-lg border-[#032237] transition-colors duration-300 ${
-                selectedMenu === "menu3"
-                  ? "bg-[#032237] text-white"
-                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
-              }`}
-              onClick={() => setSelectedMenu("menu3")}
-            >
-              Proven Tract Record
-            </button>
-            <button
-              className={`block w-full p-2 py-4 mb-2 text-left border rounded-lg border-[#032237] transition-colors duration-300 ${
-                selectedMenu === "menu4"
-                  ? "bg-[#032237] text-white"
-                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
-              }`}
-              onClick={() => setSelectedMenu("menu4")}
-            >
-              Innovative Technology Integration
-            </button>
-            <button
-              className={`block w-full p-2 py-4 mb-2 text-left border rounded-lg border-[#032237] transition-colors duration-300 ${
-                selectedMenu === "menu5"
-                  ? "bg-[#032237] text-white"
-                  : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
-              }`}
-              onClick={() => setSelectedMenu("menu5")}
-            >
-              Client-Centric Approach
-            </button>
+          <div className="md:w-[35%] md:pb-0 pb-[450px] relative justify-start">
+            {/* circle menu here */}
+            <CircularMenu onSelect={setSelectedMenu} />
           </div>
 
           {/* Right Content */}
-          <div className="md:w-[70%] border-4 rounded-2xl p-7">
+          <div className="md:w-[70%]  border-4 rounded-2xl p-7">
             {renderContent()}
           </div>
         </div>
