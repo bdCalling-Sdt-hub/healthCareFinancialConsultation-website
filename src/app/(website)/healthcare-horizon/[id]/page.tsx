@@ -25,9 +25,10 @@ const page = () => {
           </p>
         </div>
       </div>
-      <div className="container my-10">
-        <div className="flex items-center justify-center gap-8">
-          <div className="flex items-center justify-center my-10 w-[50%]">
+
+      <div className="relative">
+        <div className="flex w-full container justify-center">
+          <div className="flex items-center justify-center my-10 w-[50%] z-50">
             <Image
               src={costImage}
               alt="costImage"
@@ -37,8 +38,14 @@ const page = () => {
             />
           </div>
           <div className="w-[50%]">
-            <h1 className="text-2xl font-bold">RISING COSTS & AFFORDABILITY</h1>
-            <p className="my-5 text-md text-gray-600">
+            <h1 className="text-2xl mt-10 font-bold">
+              RISING COSTS & AFFORDABILITY
+            </h1>
+          </div>
+        </div>
+        <div className="absolute bottom-5">
+          <div className="bg-secondary flex justify-end">
+            <p className="my-5 text-md w-[50%] py-10 text-white">
               The rising cost of healthcare is a global challenge, impacting
               patients, healthcare providers, insurers, and governments. Factors
               such as{" "}
@@ -52,7 +59,65 @@ const page = () => {
             </p>
           </div>
         </div>
+      </div>
 
+      {/* <div className="relative">
+        <h1 className="text-2xl font-bold text-end me-[1040px]">
+          RISING COSTS & AFFORDABILITY
+        </h1>
+        <div className="bg-secondary flex justify-end">
+          <p className="my-5 text-md w-[50%] py-5 text-white">
+            The rising cost of healthcare is a global challenge, impacting
+            patients, healthcare providers, insurers, and governments. Factors
+            such as{" "}
+            <span className="font-semibold">
+              advancing medical technologies, administrative inefficiencies,
+              pharmaceutical price surges, and an aging population
+            </span>{" "}
+            all contribute to increasing expenses. As costs rise, affordability
+            becomes a critical issue, with many individuals struggling to access
+            necessary medical care.
+          </p>
+        </div>
+        <div className="flex absolute -top-20 items-center justify-center my-10 w-[50%]">
+          <Image
+            src={costImage}
+            alt="costImage"
+            width={50000}
+            height={50000}
+            className="w-[550px] h-[300px] object-cover rounded-lg"
+          />
+        </div>
+      </div>
+
+      <div className="flex items-center mt-40  justify-center gap-8">
+        <div className="flex items-center justify-center my-10 w-[50%]">
+          <Image
+            src={costImage}
+            alt="costImage"
+            width={50000}
+            height={50000}
+            className="w-[550px] h-[300px] object-cover rounded-lg"
+          />
+        </div>
+        <div className="w-[50%]">
+          <h1 className="text-2xl font-bold">RISING COSTS & AFFORDABILITY</h1>
+          <p className="my-5 text-md bg-secondary text-gray-600">
+            The rising cost of healthcare is a global challenge, impacting
+            patients, healthcare providers, insurers, and governments. Factors
+            such as{" "}
+            <span className="font-semibold">
+              advancing medical technologies, administrative inefficiencies,
+              pharmaceutical price surges, and an aging population
+            </span>{" "}
+            all contribute to increasing expenses. As costs rise, affordability
+            becomes a critical issue, with many individuals struggling to access
+            necessary medical care.
+          </p>
+        </div>
+      </div> */}
+
+      <div className="container my-10">
         <p className="text-2xl font-bold text-blue-600 mt-10">
           Key Drivers of Rising Healthcare Costs
         </p>
