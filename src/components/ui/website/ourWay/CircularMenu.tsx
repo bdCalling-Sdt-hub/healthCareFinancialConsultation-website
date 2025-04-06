@@ -141,8 +141,33 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
         viewBox={`0 0 ${svgWidth} ${svgHeight}`}
         className="mx-auto"
       >
+        {/* Add SVG filter for glow effect */}
+        <defs>
+          <filter id="gold-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow
+              dx="0"
+              dy="0"
+              stdDeviation="4"
+              floodColor="#C8A95C"
+              floodOpacity="0.7"
+            />
+          </filter>
+        </defs>
+
         {/* Center circle - increased size */}
-        <circle cx={centerX} cy={centerY} r={innerRadius} fill="#C8A95C" />
+        <defs>
+          <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#b99755" />
+            <stop offset="50%" stopColor="#F5EC9B" />
+            <stop offset="100%" stopColor="#b99755" />
+          </linearGradient>
+        </defs>
+        <circle
+          cx={centerX}
+          cy={centerY}
+          r={innerRadius}
+          fill="url(#circleGradient)"
+        />
         <text
           x={centerX}
           y={centerY - innerRadius / 8}
@@ -177,24 +202,40 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
         {/* Menu items */}
         {items.map((item, index) => {
           // Keep the angle calculation the same
-          const startAngle = (270 + index * 36) * (Math.PI / 180);
-          const endAngle = (270 + (index + 1) * 36) * (Math.PI / 180);
+          const totalArc = 180; // Half-circle (180 degrees)
+          const gapAngle = 2; // Gap between slices in degrees
+          const itemAngle = (totalArc - items.length * gapAngle) / items.length;
 
-          const x1 = centerX + innerRadius * Math.cos(startAngle);
-          const y1 = centerY + innerRadius * Math.sin(startAngle);
+          // Start at 180° (left side) and progress clockwise
+          const startAngleDeg = 270 + index * (itemAngle + gapAngle);
+          const endAngleDeg = startAngleDeg + itemAngle;
+
+          // Convert to radians
+          const startAngle = startAngleDeg * (Math.PI / 180);
+          const endAngle = endAngleDeg * (Math.PI / 180);
+
+          // Add radial gap from center circle
+          const gapRadial = 8;
+          const effectiveInnerRadius = innerRadius + gapRadial;
+
+          // Path coordinates (keep existing calculations but use effectiveInnerRadius)
+          const x1 = centerX + effectiveInnerRadius * Math.cos(startAngle);
+          const y1 = centerY + effectiveInnerRadius * Math.sin(startAngle);
+          const x4 = centerX + effectiveInnerRadius * Math.cos(endAngle);
+          const y4 = centerY + effectiveInnerRadius * Math.sin(endAngle);
+
+          // Keep the rest of the path calculation the same
           const x2 = centerX + radius * Math.cos(startAngle);
           const y2 = centerY + radius * Math.sin(startAngle);
           const x3 = centerX + radius * Math.cos(endAngle);
           const y3 = centerY + radius * Math.sin(endAngle);
-          const x4 = centerX + innerRadius * Math.cos(endAngle);
-          const y4 = centerY + innerRadius * Math.sin(endAngle);
 
-          const path = `M ${x1} ${y1} L ${x2} ${y2} A ${radius} ${radius} 0 0 1 ${x3} ${y3} L ${x4} ${y4} A ${innerRadius} ${innerRadius} 0 0 0 ${x1} ${y1}`;
+          const path = `M ${x1} ${y1} L ${x2} ${y2} A ${radius} ${radius} 0 0 1 ${x3} ${y3} L ${x4} ${y4} A ${effectiveInnerRadius} ${effectiveInnerRadius} 0 0 0 ${x1} ${y1}`;
 
           // Adjust positions for label and icon
           const midAngle = (startAngle + endAngle) / 2;
-          const labelRadius = innerRadius + (radius - innerRadius) * 0.4;
-          const iconRadius = innerRadius + (radius - innerRadius) * 0.7;
+          const labelRadius = innerRadius + (radius - innerRadius) * 0.3;
+          const iconRadius = innerRadius + (radius - innerRadius) * 0.65;
           const labelX = centerX + labelRadius * Math.cos(midAngle);
           const labelY = centerY + labelRadius * Math.sin(midAngle);
           const iconX = centerX + iconRadius * Math.cos(midAngle);
@@ -212,17 +253,20 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
                 onSelect(item.key);
               }}
               style={{ cursor: "pointer" }}
+              className={`transition-transform transform ${
+                selected === item.key ? "scale(1.5)" : "scale(1)"
+              }`}
             >
               <path
                 d={path}
-                fill="#1B2A41"
-                stroke="#fff"
-                strokeWidth={svgWidth / 230}
-                className={
+                fill="#032237"
+                stroke={selected === item.key ? "#C8A95C" : "#fff"}
+                strokeWidth={
                   selected === item.key
-                    ? "opacity-100"
-                    : "opacity-90 hover:opacity-100"
+                    ? svgWidth / 100 // Thicker stroke for selected
+                    : svgWidth / 230 // Normal stroke
                 }
+                filter={selected === item.key ? "url(#gold-glow)" : "none"}
               />
               {/* Responsive foreignObject for label */}
               <foreignObject
@@ -248,7 +292,7 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
                 height={iconSize}
               >
                 <div className="flex items-center justify-center h-full">
-                  <div style={{ transform: `scale(${svgWidth / 470})` }}>
+                  <div style={{ transform: `scale(${svgWidth / 420})` }}>
                     {item.icon}
                   </div>
                 </div>

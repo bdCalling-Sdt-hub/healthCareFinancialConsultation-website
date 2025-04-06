@@ -30,7 +30,7 @@ const HowWeWorkPage = () => {
             <div>
               <ol className="list-decimal pl-5 space-y-4 text-gray-600">
                 <li>
-                  <span className="font-semibold text-blue-900">
+                  <span className="font-semibold text-secondary">
                     Specialized Knowledge:
                   </span>{" "}
                   Most of our consultants have spent over 20 years of their
@@ -41,7 +41,7 @@ const HowWeWorkPage = () => {
                   tailored solutions for your organization.
                 </li>
                 <li>
-                  <span className="font-semibold text-blue-900">
+                  <span className="font-semibold text-secondary">
                     Practical Experience:
                   </span>{" "}
                   Our consultants have done hands-on work with top leading
@@ -51,7 +51,7 @@ const HowWeWorkPage = () => {
                   navigate sector-specific challenges adeptly.
                 </li>
                 <li>
-                  <span className="font-semibold text-blue-900">
+                  <span className="font-semibold text-secondary">
                     Regulatory Acumen:
                   </span>{" "}
                   Understanding and staying updated on the legal and compliance
@@ -59,7 +59,7 @@ const HowWeWorkPage = () => {
                   and operations align with current laws and standards.
                 </li>
                 <li>
-                  <span className="font-semibold text-blue-900">
+                  <span className="font-semibold text-secondary">
                     Market Dynamics Insight:
                   </span>{" "}
                   Our consultants pride themselves on staying ahead of the
@@ -69,7 +69,7 @@ const HowWeWorkPage = () => {
                   market shifts that your organization needs to navigate.
                 </li>
                 <li>
-                  <span className="font-semibold text-blue-900">
+                  <span className="font-semibold text-secondary">
                     Network and Relationships:
                   </span>{" "}
                   Building strong connections with key stakeholders, including
@@ -105,7 +105,7 @@ const HowWeWorkPage = () => {
             <div>
               <ol className="list-decimal pl-5 space-y-4 text-gray-600">
                 <li>
-                  <span className="font-semibold text-blue-900">
+                  <span className="font-semibold text-secondary">
                     Full Range of Services:
                   </span>{" "}
                   Providing an extensive suite of services that address various
@@ -113,7 +113,7 @@ const HowWeWorkPage = () => {
                   to Financial Planning.
                 </li>
                 <li>
-                  <span className="font-semibold text-blue-900">
+                  <span className="font-semibold text-secondary">
                     Bundled Packages:
                   </span>{" "}
                   Offering curated combinations of services that provide our
@@ -122,7 +122,7 @@ const HowWeWorkPage = () => {
                   individually, adding value for our client.
                 </li>
                 <li>
-                  <span className="font-semibold text-blue-900">
+                  <span className="font-semibold text-secondary">
                     Customization and Flexibility:
                   </span>{" "}
                   Tailoring services to meet the specific requirements for each
@@ -130,7 +130,7 @@ const HowWeWorkPage = () => {
                   the ability to adapt to changing client needs.
                 </li>
                 <li>
-                  <span className="font-semibold text-blue-900">
+                  <span className="font-semibold text-secondary">
                     Integrated Support Systems:
                   </span>{" "}
                   Ensuring that all services are supported by robust customer
@@ -138,7 +138,7 @@ const HowWeWorkPage = () => {
                   assistance across all service areas.
                 </li>
                 <li>
-                  <span className="font-semibold text-blue-900">
+                  <span className="font-semibold text-secondary">
                     Consistent Quality Assurance:
                   </span>{" "}
                   Maintaining high standards across all services offered,
@@ -161,7 +161,7 @@ const HowWeWorkPage = () => {
             <div>
               <ol className="list-decimal pl-5 space-y-4 text-gray-600">
                 <li>
-                  <span className="font-semibold text-blue-900">
+                  <span className="font-semibold text-secondary">
                     Consistency & Impact:
                   </span>{" "}
                   HC Financial have over 10 years of delivering sustainable
@@ -169,7 +169,7 @@ const HowWeWorkPage = () => {
                   costs by 20% without compromising patient care
                 </li>
                 <li>
-                  <span className="font-semibold text-blue-900">
+                  <span className="font-semibold text-secondary">
                     Utilizing Data & KPIs:
                   </span>{" "}
                   HC Financial has successfully led financial restructuring for
@@ -177,7 +177,7 @@ const HowWeWorkPage = () => {
                   $10M+ annually
                 </li>
                 <li>
-                  <span className="font-semibold text-blue-900">
+                  <span className="font-semibold text-secondary">
                     Healthcare Finance:
                   </span>{" "}
                   HC Financial have a proven track record of optimizing revenue
@@ -185,7 +185,7 @@ const HowWeWorkPage = () => {
                   denials by 15%.
                 </li>
                 <li>
-                  <span className="font-semibold text-blue-900">
+                  <span className="font-semibold text-secondary">
                     Align with Industry Challenges:
                   </span>{" "}
                   HC Financial have extended expertise in navigating value-based
@@ -210,7 +210,7 @@ const HowWeWorkPage = () => {
             </p>
             <ol className="list-decimal pl-5 space-y-4 text-gray-600">
               <li>
-                <span className="font-semibold text-blue-900">
+                <span className="font-semibold text-secondary">
                   Automation & Efficiency Gains:
                 </span>{" "}
                 Implemented automated financial reporting systems for healthcare
@@ -218,7 +218,7 @@ const HowWeWorkPage = () => {
                 improving accuracy.
               </li>
               <li>
-                <span className="font-semibold text-blue-900">
+                <span className="font-semibold text-secondary">
                   Leveraging Data-Driven Approach:
                 </span>{" "}
                 Proven track record of leveraging AI-driven analytics to
@@ -226,7 +226,7 @@ const HowWeWorkPage = () => {
                 while reducing claim denials by 15%.
               </li>
               <li>
-                <span className="font-semibold text-blue-900">
+                <span className="font-semibold text-secondary">
                   Compliance & Security Enhancements:
                 </span>{" "}
                 Led the adoption of cloud-based financial platforms, ensuring
@@ -234,7 +234,7 @@ const HowWeWorkPage = () => {
                 operations.
               </li>
               <li>
-                <span className="font-semibold text-blue-900">
+                <span className="font-semibold text-secondary">
                   Tech-Enabled Cost Savings:
                 </span>{" "}
                 Successfully integrated predictive analytics in cost-containment
@@ -255,7 +255,7 @@ const HowWeWorkPage = () => {
             </p>
             <ol className="list-decimal pl-5 space-y-4 text-gray-600">
               <li>
-                <span className="font-semibold text-blue-900">
+                <span className="font-semibold text-secondary">
                   Customized Solutions:
                 </span>{" "}
                 Proven track record of delivering tailored financial strategies
@@ -264,7 +264,7 @@ const HowWeWorkPage = () => {
                 increase in revenue retention.
               </li>
               <li>
-                <span className="font-semibold text-blue-900">
+                <span className="font-semibold text-secondary">
                   Collaborative Partnerships:
                 </span>{" "}
                 Deeply invested in client success—partnering with hospitals and
@@ -272,7 +272,7 @@ const HowWeWorkPage = () => {
                 and reduce bad debt by 30%.
               </li>
               <li>
-                <span className="font-semibold text-blue-900">
+                <span className="font-semibold text-secondary">
                   Patient-Centered Financial Strategies:
                 </span>{" "}
                 Implemented patient-friendly billing solutions that enhanced
@@ -280,7 +280,7 @@ const HowWeWorkPage = () => {
                 score.
               </li>
               <li>
-                <span className="font-semibold text-blue-900">
+                <span className="font-semibold text-secondary">
                   Long-Term Client Success:
                 </span>{" "}
                 10+ years of fostering long-term partnerships with healthcare
@@ -288,7 +288,7 @@ const HowWeWorkPage = () => {
                 achieve sustainable growth.
               </li>
               <li>
-                <span className="font-semibold text-blue-900">
+                <span className="font-semibold text-secondary">
                   Proactive Client Support:
                 </span>{" "}
                 Known for a hands-on, consultative approach—providing ongoing
@@ -336,7 +336,15 @@ const HowWeWorkPage = () => {
           </div>
 
           {/* Right Content */}
-          <div className="md:w-[70%]  border-4 rounded-2xl p-7">
+          <div
+            className="md:w-[70%] p-7"
+            style={{
+              border: "4px solid transparent",
+              borderRadius: "24px",
+              background:
+                "linear-gradient(white, white) padding-box, linear-gradient(to right, #b99755, #F5EC9B, #b99755) border-box",
+            }}
+          >
             {renderContent()}
           </div>
         </div>
