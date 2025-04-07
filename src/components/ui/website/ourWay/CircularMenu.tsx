@@ -259,8 +259,8 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
             >
               <path
                 d={path}
-                fill="#032237"
-                stroke={selected === item.key ? "#C8A95C" : "#fff"}
+                fill={selected === item.key ? "#C8A95C" : "#032237"}
+                stroke={selected === item.key ? "#032237" : "#fff"}
                 strokeWidth={
                   selected === item.key
                     ? svgWidth / 100 // Thicker stroke for selected
@@ -277,7 +277,11 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
               >
                 <div className="flex items-center justify-center h-full">
                   <span
-                    className="text-[#C8A95C] font-semibold text-center"
+                    className={`${
+                      selected === item.key
+                        ? "text-secondary"
+                        : "text-[#C8A95C]"
+                    } font-semibold text-center`}
                     style={{ fontSize: `${svgWidth / 40}px` }}
                   >
                     {item.label}
@@ -292,7 +296,15 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
                 height={iconSize}
               >
                 <div className="flex items-center justify-center h-full">
-                  <div style={{ transform: `scale(${svgWidth / 420})` }}>
+                  <div
+                    style={{
+                      transform: `scale(${svgWidth / 420})`,
+                      filter:
+                        selected === item.key
+                          ? "brightness(0) saturate(100%) invert(9%) sepia(29%) saturate(1632%) hue-rotate(182deg) brightness(97%) contrast(95%)"
+                          : "brightness(0) saturate(100%) invert(78%) sepia(28%) saturate(638%) hue-rotate(358deg) brightness(103%) contrast(101%)",
+                    }}
+                  >
                     {item.icon}
                   </div>
                 </div>

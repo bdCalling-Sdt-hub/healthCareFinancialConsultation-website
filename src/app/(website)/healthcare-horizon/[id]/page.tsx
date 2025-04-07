@@ -95,7 +95,7 @@ const page = () => {
             alt="Key Drivers"
             width={50000}
             height={50000}
-            className="w-20 h-20 object-cover rounded-lg"
+            className="w-20 h-20 object-contain rounded-lg"
           />
           <p className="text-3xl font-bold text-secondary">
             Key Drivers of Rising Healthcare Costs
@@ -298,7 +298,7 @@ const page = () => {
             alt="Consequences"
             width={50000}
             height={50000}
-            className="w-20 h-20 object-cover rounded-lg"
+            className="w-20 h-20 object-contain rounded-lg"
           />
           <p className="text-3xl font-bold text-secondary">
             Consequences of Healthcare Affordability Issues
@@ -409,21 +409,24 @@ const page = () => {
             alt="Consequences"
             width={50000}
             height={50000}
-            className="w-20 h-20 object-cover rounded-lg"
+            className="w-20 h-20 object-contain rounded-lg"
           />
-          <p className="text-3xl font-bold text-secondary">
+          <p className="text-3xl font-bold bg-gradientBg p-4 rounded-2xl text-secondary">
             How Can HC Financial Consultants Help?
           </p>
         </div>
 
         {lastSectionData?.map((item, index) => (
-          <div key={index} className="flex gap-5 items-center mx-10 my-8">
+          <div
+            key={index}
+            className="flex gap-5 items-center mx-10 my-8 border-4 border-[#b99755] rounded-2xl p-4"
+          >
             <div className="w-14 h-14 bg-secondary rounded-full">
               <p className="h-14 w-14 flex justify-center items-center text-xl text-white font-bold">
                 {item?.id}
               </p>
             </div>
-            <div className="w-full p-2 rounded-2xl border border-secondary">
+            <div className="w-full">
               <p className="w-full">{item?.description}</p>
             </div>
           </div>
