@@ -1,5 +1,6 @@
-// components/CircularMenu.tsx
-import { useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useState, useRef } from "react";
 import logo1 from "@/assets/image 61.svg";
 import logo2 from "@/assets/image 62.svg";
 import logo3 from "@/assets/image 63.svg";
@@ -13,7 +14,7 @@ const items = [
     label: "DIE",
     icon: (
       <Image
-        src={logo1}
+        src={logo1 || "/placeholder.svg"}
         alt="Logo"
         width={34545100}
         height={3535100}
@@ -26,7 +27,7 @@ const items = [
     label: "CSO",
     icon: (
       <Image
-        src={logo2}
+        src={logo2 || "/placeholder.svg"}
         alt="Logo"
         width={34545100}
         height={3535100}
@@ -39,7 +40,7 @@ const items = [
     label: "PTR",
     icon: (
       <Image
-        src={logo3}
+        src={logo5 || "/placeholder.svg"}
         alt="Logo"
         width={34545100}
         height={3535100}
@@ -52,7 +53,7 @@ const items = [
     label: "ITI",
     icon: (
       <Image
-        src={logo4}
+        src={logo3 || "/placeholder.svg"}
         alt="Logo"
         width={34545100}
         height={3535100}
@@ -65,7 +66,7 @@ const items = [
     label: "CCA",
     icon: (
       <Image
-        src={logo5}
+        src={logo4 || "/placeholder.svg"}
         alt="Logo"
         width={34545100}
         height={3535100}
@@ -83,6 +84,7 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
     radius: 300,
     innerRadius: 120,
   });
+  const svgRef = useRef<SVGSVGElement>(null);
 
   // Add useEffect to handle resize
   useEffect(() => {
@@ -133,9 +135,15 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
   const centerX = svgWidth / 2;
   const centerY = svgHeight / 2;
 
+  // Calculate the transform origin for the selected item
+  const getTransformOrigin = () => {
+    return `${centerX}px ${centerY}px`;
+  };
+
   return (
     <div className="absolute -left-24 md:-left-72">
       <svg
+        ref={svgRef}
         width={svgWidth}
         height={svgHeight}
         viewBox={`0 0 ${svgWidth} ${svgHeight}`}
@@ -204,7 +212,7 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
           // Keep the angle calculation the same
           const totalArc = 180; // Half-circle (180 degrees)
           const gapAngle = 2; // Gap between slices in degrees
-          const itemAngle = (totalArc - items.length * gapAngle) / items.length;
+          const itemAngle = (totalArc - items.length * gapAngle) / 5;
 
           // Start at 180° (left side) and progress clockwise
           const startAngleDeg = 270 + index * (itemAngle + gapAngle);
@@ -213,27 +221,82 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
           // Convert to radians
           const startAngle = startAngleDeg * (Math.PI / 180);
           const endAngle = endAngleDeg * (Math.PI / 180);
+          const midAngle = (startAngle + endAngle) / 2;
 
           // Add radial gap from center circle
           const gapRadial = 8;
           const effectiveInnerRadius = innerRadius + gapRadial;
 
-          // Path coordinates (keep existing calculations but use effectiveInnerRadius)
-          const x1 = centerX + effectiveInnerRadius * Math.cos(startAngle);
-          const y1 = centerY + effectiveInnerRadius * Math.sin(startAngle);
-          const x4 = centerX + effectiveInnerRadius * Math.cos(endAngle);
-          const y4 = centerY + effectiveInnerRadius * Math.sin(endAngle);
+          // Corner radius for the outer corners
+          // const cornerRadius = 15; // Increased for more visible rounding
 
-          // Keep the rest of the path calculation the same
-          const x2 = centerX + radius * Math.cos(startAngle);
-          const y2 = centerY + radius * Math.sin(startAngle);
-          const x3 = centerX + radius * Math.cos(endAngle);
-          const y3 = centerY + radius * Math.sin(endAngle);
+          // Calculate points for inner corners (where radial lines meet inner arc)
+          // Move slightly outward from the inner circle edge
+          const innerCornerOffset = 5;
+          const x1 =
+            centerX +
+            (effectiveInnerRadius + innerCornerOffset) * Math.cos(startAngle);
+          const y1 =
+            centerY +
+            (effectiveInnerRadius + innerCornerOffset) * Math.sin(startAngle);
+          const x4 =
+            centerX +
+            (effectiveInnerRadius + innerCornerOffset) * Math.cos(endAngle);
+          const y4 =
+            centerY +
+            (effectiveInnerRadius + innerCornerOffset) * Math.sin(endAngle);
 
-          const path = `M ${x1} ${y1} L ${x2} ${y2} A ${radius} ${radius} 0 0 1 ${x3} ${y3} L ${x4} ${y4} A ${effectiveInnerRadius} ${effectiveInnerRadius} 0 0 0 ${x1} ${y1}`;
+          // Calculate points for outer corners (where radial lines meet outer arc)
+          // Move slightly inward from the outer circle edge
+          const outerCornerOffset = 5;
+          const x2 =
+            centerX + (radius - outerCornerOffset) * Math.cos(startAngle);
+          const y2 =
+            centerY + (radius - outerCornerOffset) * Math.sin(startAngle);
+          const x3 =
+            centerX + (radius - outerCornerOffset) * Math.cos(endAngle);
+          const y3 =
+            centerY + (radius - outerCornerOffset) * Math.sin(endAngle);
+
+          // Calculate control points for the quadratic Bézier curves for the corners
+          // For the outer corners
+          const outerStartControlX = centerX + radius * Math.cos(startAngle);
+          const outerStartControlY = centerY + radius * Math.sin(startAngle);
+          const outerEndControlX = centerX + radius * Math.cos(endAngle);
+          const outerEndControlY = centerY + radius * Math.sin(endAngle);
+
+          // For the inner corners
+          const innerStartControlX =
+            centerX + effectiveInnerRadius * Math.cos(startAngle);
+          const innerStartControlY =
+            centerY + effectiveInnerRadius * Math.sin(startAngle);
+          const innerEndControlX =
+            centerX + effectiveInnerRadius * Math.cos(endAngle);
+          const innerEndControlY =
+            centerY + effectiveInnerRadius * Math.sin(endAngle);
+
+          // Calculate points for the outer arc
+          // We need to find points on the outer circle that are between the two outer corners
+          const outerArcStartX = centerX + radius * Math.cos(startAngle + 0.05);
+          const outerArcStartY = centerY + radius * Math.sin(startAngle + 0.05);
+          const outerArcEndX = centerX + radius * Math.cos(endAngle - 0.05);
+          const outerArcEndY = centerY + radius * Math.sin(endAngle - 0.05);
+
+          // Create path with rounded corners and circular outer edge
+          // Using quadratic Bézier curves (Q) for the corners and an arc (A) for the outer edge
+          const path = `
+            M ${innerStartControlX} ${innerStartControlY}
+            Q ${innerStartControlX} ${innerStartControlY} ${x1} ${y1}
+            L ${x2} ${y2}
+            Q ${outerStartControlX} ${outerStartControlY} ${outerArcStartX} ${outerArcStartY}
+            A ${radius} ${radius} 0 0 1 ${outerArcEndX} ${outerArcEndY}
+            Q ${outerEndControlX} ${outerEndControlY} ${x3} ${y3}
+            L ${x4} ${y4}
+            Q ${innerEndControlX} ${innerEndControlY} ${innerEndControlX} ${innerEndControlY}
+            A ${effectiveInnerRadius} ${effectiveInnerRadius} 0 0 0 ${innerStartControlX} ${innerStartControlY}
+          `;
 
           // Adjust positions for label and icon
-          const midAngle = (startAngle + endAngle) / 2;
           const labelRadius = innerRadius + (radius - innerRadius) * 0.3;
           const iconRadius = innerRadius + (radius - innerRadius) * 0.65;
           const labelX = centerX + labelRadius * Math.cos(midAngle);
@@ -245,22 +308,39 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
           const iconSize = svgWidth / 12;
           const labelSize = svgWidth / 20;
 
+          // Calculate the direction vector for the selected item to move outward
+          const dirX = Math.cos(midAngle);
+          const dirY = Math.sin(midAngle);
+
+          // Calculate the transform for the selected item
+          const selectedScale = 1.08;
+          const moveDistance = 10;
+          const translateX = selected === item.key ? dirX * moveDistance : 0;
+          const translateY = selected === item.key ? dirY * moveDistance : 0;
+          const transform =
+            selected === item.key
+              ? `translate(${translateX}px, ${translateY}px) scale(${selectedScale})`
+              : "translate(0, 0) scale(1)";
+
           return (
             <g
               key={item.key}
+              id={`menu-item-${item.key}`}
               onClick={() => {
                 setSelected(item.key);
                 onSelect(item.key);
               }}
-              style={{ cursor: "pointer" }}
-              className={`transition-transform transform ${
-                selected === item.key ? "scale(1.5)" : "scale(1)"
-              }`}
+              style={{
+                cursor: "pointer",
+                transform: transform,
+                transformOrigin: getTransformOrigin(),
+                transition: "transform 0.3s ease-out",
+              }}
             >
               <path
                 d={path}
-                fill={selected === item.key ? "#C8A95C" : "#032237"}
-                stroke={selected === item.key ? "#032237" : "#fff"}
+                fill={"#032237"}
+                stroke={selected === item.key ? "#C8A95C" : "#fff"}
                 strokeWidth={
                   selected === item.key
                     ? svgWidth / 100 // Thicker stroke for selected
@@ -277,11 +357,7 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
               >
                 <div className="flex items-center justify-center h-full">
                   <span
-                    className={`${
-                      selected === item.key
-                        ? "text-secondary"
-                        : "text-[#C8A95C]"
-                    } font-semibold text-center`}
+                    className={`text-[#C8A95C] font-semibold text-center`}
                     style={{ fontSize: `${svgWidth / 40}px` }}
                   >
                     {item.label}
@@ -299,10 +375,6 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
                   <div
                     style={{
                       transform: `scale(${svgWidth / 420})`,
-                      filter:
-                        selected === item.key
-                          ? "brightness(0) saturate(100%) invert(9%) sepia(29%) saturate(1632%) hue-rotate(182deg) brightness(97%) contrast(95%)"
-                          : "brightness(0) saturate(100%) invert(78%) sepia(28%) saturate(638%) hue-rotate(358deg) brightness(103%) contrast(101%)",
                     }}
                   >
                     {item.icon}

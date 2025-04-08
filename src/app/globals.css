@@ -37,3 +37,16 @@
 .ant-collapse-content-box {
   padding: 1rem !important;
 }
+
+/* Custom styles for Ant Design Collapse */
+.ant-collapse-item-active .ant-collapse-header {
+  background: linear-gradient(to right, #b99755, #f5ec9b, #b99755) !important;
+}
+
+.ant-collapse-item-active .ant-collapse-header-text {
+  color: #032237 !important;
+}
+
+.ant-collapse-item-active .ant-collapse-expand-icon {
+  color: #032237 !important;
+}
