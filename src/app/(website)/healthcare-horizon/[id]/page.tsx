@@ -35,10 +35,10 @@ const lastSectionData = [
 
 const page = () => {
   return (
-    <div>
+    <div className="">
       <div className="relative">
         <Image
-          src={howWeWorkImg}
+          src={howWeWorkImg || "/placeholder.svg"}
           alt="howWeWorkImg"
           width={50000}
           height={50000}
@@ -62,7 +62,7 @@ const page = () => {
           <div className="container absolute -top-48 left-1/2 transform -translate-x-1/2 flex justify-center items-center gap-10 py-20">
             <div className="w-1/2">
               <Image
-                src={costImage}
+                src={costImage || "/placeholder.svg"}
                 alt="Rising Costs and Affordability"
                 width={50000}
                 height={50000}
@@ -91,7 +91,7 @@ const page = () => {
         {/* First Collapse Section */}
         <div className="flex items-center gap-3 mb-5">
           <Image
-            src={titleLogo1}
+            src={titleLogo1 || "/placeholder.svg"}
             alt="Key Drivers"
             width={50000}
             height={50000}
@@ -102,10 +102,8 @@ const page = () => {
           </p>
         </div>
 
-        <Collapse
-          className="mt-8 border-none bg-transparent"
-          expandIconPosition="end"
-          items={[
+        <div className="mt-8">
+          {[
             {
               key: "1",
               label: "Increasing Costs of Medical Technology & Innovation",
@@ -137,11 +135,6 @@ const page = () => {
                   </li>
                 </ul>
               ),
-              className: "bg-[#032237] border-0 rounded-lg mb-4",
-              style: {
-                marginBottom: "1rem",
-                border: "none",
-              },
             },
             {
               key: "2",
@@ -173,11 +166,6 @@ const page = () => {
                   </li>
                 </ul>
               ),
-              className: "bg-[#032237] border-0 rounded-lg mb-4",
-              style: {
-                marginBottom: "1rem",
-                border: "none",
-              },
             },
             {
               key: "3",
@@ -207,11 +195,6 @@ const page = () => {
                   </li>
                 </ul>
               ),
-              className: "bg-[#032237] border-0 rounded-lg mb-4",
-              style: {
-                marginBottom: "1rem",
-                border: "none",
-              },
             },
             {
               key: "4",
@@ -238,8 +221,6 @@ const page = () => {
                   </li>
                 </ul>
               ),
-              className: "bg-[#032237] border-0 rounded-lg mb-4",
-              style: { marginBottom: "1rem", border: "none" },
             },
             {
               key: "5",
@@ -264,8 +245,6 @@ const page = () => {
                   </li>
                 </ul>
               ),
-              className: "bg-[#032237] border-0 rounded-lg mb-4",
-              style: { marginBottom: "1rem", border: "none" },
             },
             {
               key: "6",
@@ -285,16 +264,41 @@ const page = () => {
                   </li>
                 </ul>
               ),
-              className: "bg-[#032237] border-0 rounded-lg mb-4",
-              style: { marginBottom: "1rem", border: "none" },
             },
-          ]}
-        />
+          ].map((item, index) => (
+            <Collapse
+              key={item.key}
+              className="border-none bg-transparent"
+              expandIconPosition="end"
+              style={{
+                marginLeft:
+                  index < 8
+                    ? `${index * 70}px`
+                    : index < 16
+                    ? `${(15 - index) * 70}px`
+                    : `${(index - 16) * 70}px`,
+                width: "700px",
+              }}
+              items={[
+                {
+                  key: item.key,
+                  label: item.label,
+                  children: item.children,
+                  className: "bg-[#032237] border-0 rounded-lg mb-4",
+                  style: {
+                    marginBottom: "1rem",
+                    border: "none",
+                  },
+                },
+              ]}
+            />
+          ))}
+        </div>
 
         {/* Second Collapse Section */}
-        <div className="flex items-center gap-3 mb-5 mt-16">
+        <div className="flex items-center gap-3 mb-5 mt-32">
           <Image
-            src={titleLogo2}
+            src={titleLogo2 || "/placeholder.svg"}
             alt="Consequences"
             width={50000}
             height={50000}
@@ -305,10 +309,8 @@ const page = () => {
           </p>
         </div>
 
-        <Collapse
-          className="mt-8 border-none bg-transparent"
-          expandIconPosition="end"
-          items={[
+        <div className="mt-8">
+          {[
             {
               key: "1",
               label: "Reduced Access to Care",
@@ -327,8 +329,6 @@ const page = () => {
                   </li>
                 </ul>
               ),
-              className: "bg-[#032237] border-0 rounded-lg mb-4",
-              style: { marginBottom: "1rem", border: "none" },
             },
             {
               key: "2",
@@ -348,8 +348,6 @@ const page = () => {
                   </li>
                 </ul>
               ),
-              className: "bg-[#032237] border-0 rounded-lg mb-4",
-              style: { marginBottom: "1rem", border: "none" },
             },
             {
               key: "3",
@@ -372,8 +370,6 @@ const page = () => {
                   </li>
                 </ul>
               ),
-              className: "bg-[#032237] border-0 rounded-lg mb-4",
-              style: { marginBottom: "1rem", border: "none" },
             },
             {
               key: "4",
@@ -395,17 +391,42 @@ const page = () => {
                   </li>
                 </ul>
               ),
-              className: "bg-[#032237] border-0 rounded-lg mb-4",
-              style: { marginBottom: "1rem", border: "none" },
             },
-          ]}
-        />
+          ].map((item, index) => (
+            <Collapse
+              key={item.key}
+              className="border-none bg-transparent"
+              expandIconPosition="end"
+              style={{
+                marginLeft:
+                  index < 8
+                    ? `${index * 70}px`
+                    : index < 16
+                    ? `${(15 - index) * 70}px`
+                    : `${(index - 16) * 70}px`,
+                width: "700px",
+              }}
+              items={[
+                {
+                  key: item.key,
+                  label: item.label,
+                  children: item.children,
+                  className: "bg-[#032237] border-0 rounded-lg mb-4",
+                  style: {
+                    marginBottom: "1rem",
+                    border: "none",
+                  },
+                },
+              ]}
+            />
+          ))}
+        </div>
       </div>
 
-      <div className="container">
+      <div className="container mt-32">
         <div className="flex items-center gap-3 mb-5">
           <Image
-            src={titleLogo3}
+            src={titleLogo3 || "/placeholder.svg"}
             alt="Consequences"
             width={50000}
             height={50000}

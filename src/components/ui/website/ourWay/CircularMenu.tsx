@@ -297,7 +297,7 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
           `;
 
           // Adjust positions for label and icon
-          const labelRadius = innerRadius + (radius - innerRadius) * 0.3;
+          const labelRadius = innerRadius + (radius - innerRadius) * 0.25;
           const iconRadius = innerRadius + (radius - innerRadius) * 0.65;
           const labelX = centerX + labelRadius * Math.cos(midAngle);
           const labelY = centerY + labelRadius * Math.sin(midAngle);
@@ -306,7 +306,7 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
 
           // Calculate sizes based on current dimensions
           const iconSize = svgWidth / 12;
-          const labelSize = svgWidth / 20;
+          const labelSize = svgWidth / 5;
 
           // Calculate the direction vector for the selected item to move outward
           const dirX = Math.cos(midAngle);
@@ -356,12 +356,14 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
                 height={labelSize / 2}
               >
                 <div className="flex items-center justify-center h-full">
-                  <span
-                    className={`text-[#C8A95C] font-semibold text-center`}
-                    style={{ fontSize: `${svgWidth / 40}px` }}
-                  >
-                    {item.label}
-                  </span>
+                  <div className="border border-[#C8A95C] w-12 h-12 flex items-center justify-center rounded-full">
+                    <span
+                      className={`text-[#C8A95C] font-semibold text-center`}
+                      style={{ fontSize: `${svgWidth / 40}px` }}
+                    >
+                      {item.label}
+                    </span>
+                  </div>
                 </div>
               </foreignObject>
               {/* Responsive foreignObject for icon */}
