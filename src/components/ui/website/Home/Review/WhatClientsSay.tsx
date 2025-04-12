@@ -119,7 +119,7 @@ const WhatClientsSay = () => {
             {testimonials.map((testimonial) => (
               <SwiperSlide key={testimonial.id}>
                 <div className="relative p-[2px] hover:shadow-xl rounded-lg bg-gradient-to-r from-[#b99755] via-[#F5EC9B] to-[#b99755]">
-                  <div className="bg-white hover:text-white hover:bg-[#032237] dark:bg-gray-900 p-5 rounded-lg">
+                  <div className="bg-white hover:text-white hover:bg-[#032237]  p-5 rounded-lg">
                     <div className="flex items-center border-b-2 pb-2 gap-3">
                       <div className="w-20 h-20 rounded-full">
                         <Image
