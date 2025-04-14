@@ -20,13 +20,37 @@
 }
 
 .ant-collapse-header-text {
-  color: white !important;
-  font-weight: 600 !important;
+  background: linear-gradient(90deg, #b99755 0%, #f5ec9b 50%, #b99755 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 500 !important;
   font-size: 1.125rem !important;
 }
 
 .ant-collapse-expand-icon {
-  color: white !important;
+  color: #f5ec9b !important;
+}
+
+/* Active state styles */
+.ant-collapse-item-active .ant-collapse-header {
+  background: linear-gradient(
+    90deg,
+    #b99755 0%,
+    #f5ec9b 50%,
+    #b99755 100%
+  ) !important;
+}
+
+.ant-collapse-item-active .ant-collapse-header-text {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: #032237 !important;
+  color: #032237 !important;
+}
+
+.ant-collapse-item-active .ant-collapse-expand-icon {
+  color: #032237 !important;
 }
 
 .ant-collapse-content {
@@ -41,6 +65,7 @@
 /* Custom styles for Ant Design Collapse */
 .ant-collapse-item-active .ant-collapse-header {
   background: linear-gradient(to right, #b99755, #f5ec9b, #b99755) !important;
+  color: #df0d0d !important;
 }
 
 .ant-collapse-item-active .ant-collapse-header-text {
@@ -49,4 +74,11 @@
 
 .ant-collapse-item-active .ant-collapse-expand-icon {
   color: #032237 !important;
+}
+
+.golden-gradient-text {
+  background: linear-gradient(90deg, #b99755 0%, #f5ec9b 50%, #b99755 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

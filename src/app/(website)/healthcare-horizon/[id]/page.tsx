@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import costImage from "@/assets/1200-x-675-Economic-chart-and-money-696x385.webp";
 import howWeWorkImg from "@/assets/image (33).png";
@@ -5,6 +7,7 @@ import titleLogo1 from "@/assets/image 67.png";
 import titleLogo2 from "@/assets/image 68.png";
 import titleLogo3 from "@/assets/image 70.png";
 import { Collapse } from "antd";
+import { useState } from "react";
 
 const lastSectionData = [
   {
@@ -33,7 +36,9 @@ const lastSectionData = [
   },
 ];
 
-const page = () => {
+const SingleInsightPage = () => {
+  const [isStepsVisible, setIsStepsVisible] = useState(false);
+
   return (
     <div className="">
       <div className="relative">
@@ -284,7 +289,7 @@ const page = () => {
                   key: item.key,
                   label: item.label,
                   children: item.children,
-                  className: "bg-[#032237] border-0 rounded-lg mb-4",
+                  className: "bg-[#032237]  border-0 rounded-lg mb-4",
                   style: {
                     marginBottom: "1rem",
                     border: "none",
@@ -424,7 +429,10 @@ const page = () => {
       </div>
 
       <div className="container mt-32">
-        <div className="flex items-center gap-3 mb-5">
+        <div
+          className="flex items-center gap-3 mb-5 cursor-pointer"
+          onClick={() => setIsStepsVisible(!isStepsVisible)}
+        >
           <Image
             src={titleLogo3 || "/placeholder.svg"}
             alt="Consequences"
@@ -437,24 +445,32 @@ const page = () => {
           </p>
         </div>
 
-        {lastSectionData?.map((item, index) => (
-          <div
-            key={index}
-            className="flex gap-5 items-center mx-10 my-8 border-4 border-[#b99755] rounded-2xl p-4"
-          >
-            <div className="w-14 h-14 bg-secondary rounded-full">
-              <p className="h-14 w-14 flex justify-center items-center text-xl text-white font-bold">
-                {item?.id}
-              </p>
+        <div
+          className={`transition-all duration-500 ${
+            isStepsVisible
+              ? "opacity-100 max-h-[2000px]"
+              : "opacity-0 max-h-0 overflow-hidden"
+          }`}
+        >
+          {lastSectionData?.map((item, index) => (
+            <div
+              key={index}
+              className="flex gap-5 items-center mx-10 my-8 border-4 border-[#b99755] rounded-2xl p-4"
+            >
+              <div className="w-14 h-14 bg-secondary rounded-full">
+                <p className="h-14 w-14 flex justify-center items-center text-xl text-white font-bold">
+                  {item?.id}
+                </p>
+              </div>
+              <div className="w-full">
+                <p className="w-full">{item?.description}</p>
+              </div>
             </div>
-            <div className="w-full">
-              <p className="w-full">{item?.description}</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default page;
+export default SingleInsightPage;

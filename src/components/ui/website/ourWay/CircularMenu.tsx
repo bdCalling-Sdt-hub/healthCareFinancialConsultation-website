@@ -82,7 +82,7 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
     width: 700,
     height: 700,
     radius: 300,
-    innerRadius: 120,
+    innerRadius: 100,
   });
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -95,7 +95,7 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
           width: 400,
           height: 400,
           radius: 170,
-          innerRadius: 70,
+          innerRadius: 50,
         });
       } else if (window.innerWidth < 1024) {
         // Medium screens
@@ -103,7 +103,7 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
           width: 550,
           height: 550,
           radius: 230,
-          innerRadius: 90,
+          innerRadius: 70,
         });
       } else {
         // Large screens
@@ -111,7 +111,7 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
           width: 700,
           height: 700,
           radius: 300,
-          innerRadius: 120,
+          innerRadius: 100,
         });
       }
     };
@@ -178,31 +178,31 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
         />
         <text
           x={centerX}
-          y={centerY - innerRadius / 8}
+          y={centerY - innerRadius / 2.5}
           textAnchor="middle"
           fill="#1B2A41"
           fontWeight="bold"
-          fontSize={innerRadius / 5.5}
+          fontSize={innerRadius / 3.8}
         >
           HC
         </text>
         <text
           x={centerX}
-          y={centerY + innerRadius / 8}
+          y={centerY + innerRadius / 60}
           textAnchor="middle"
           fill="#1B2A41"
           fontWeight="bold"
-          fontSize={innerRadius / 5.5}
+          fontSize={innerRadius / 3.8}
         >
           Financial
         </text>
         <text
           x={centerX}
-          y={centerY + innerRadius / 2.7}
+          y={centerY + innerRadius / 2.5}
           textAnchor="middle"
           fill="#1B2A41"
           fontWeight="bold"
-          fontSize={innerRadius / 5.5}
+          fontSize={innerRadius / 3.9}
         >
           Consultants
         </text>
@@ -297,16 +297,16 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
           `;
 
           // Adjust positions for label and icon
-          const labelRadius = innerRadius + (radius - innerRadius) * 0.25;
-          const iconRadius = innerRadius + (radius - innerRadius) * 0.65;
+          const labelRadius = innerRadius + (radius - innerRadius) * 0.3;
+          const iconRadius = innerRadius + (radius - innerRadius) * 0.7;
           const labelX = centerX + labelRadius * Math.cos(midAngle);
           const labelY = centerY + labelRadius * Math.sin(midAngle);
           const iconX = centerX + iconRadius * Math.cos(midAngle);
           const iconY = centerY + iconRadius * Math.sin(midAngle);
 
           // Calculate sizes based on current dimensions
-          const iconSize = svgWidth / 12;
-          const labelSize = svgWidth / 5;
+          const iconSize = svgWidth / 14;
+          const labelSize = svgWidth / 6;
 
           // Calculate the direction vector for the selected item to move outward
           const dirX = Math.cos(midAngle);
