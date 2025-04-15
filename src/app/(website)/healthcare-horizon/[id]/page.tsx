@@ -7,7 +7,7 @@ import titleLogo1 from "@/assets/image 67.png";
 import titleLogo2 from "@/assets/image 68.png";
 import titleLogo3 from "@/assets/image 70.png";
 import { Collapse } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const lastSectionData = [
   {
@@ -38,6 +38,22 @@ const lastSectionData = [
 
 const SingleInsightPage = () => {
   const [isStepsVisible, setIsStepsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    // Set initial value
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className="">
@@ -63,9 +79,9 @@ const SingleInsightPage = () => {
       </div>
 
       <div className="mt-64">
-        <div className="w-full relative bg-[#032237] h-[250px]">
-          <div className="container absolute -top-48 left-1/2 transform -translate-x-1/2 flex justify-center items-center gap-10 py-20">
-            <div className="w-1/2">
+        <div className="w-full relative bg-[#032237] md:h-[250px] h-[600px]">
+          <div className="container absolute -top-48 left-1/2 transform -translate-x-1/2 md:flex justify-center items-center gap-10 py-20">
+            <div className="md:w-1/2">
               <Image
                 src={costImage || "/placeholder.svg"}
                 alt="Rising Costs and Affordability"
@@ -74,9 +90,10 @@ const SingleInsightPage = () => {
                 className="w-full h-[300px] object-cover rounded-lg"
               />
             </div>
-            <div className="w-1/2 space-y-4">
-              <h2 className="text-4xl mb-10 font-bold">
-                Rising Costs <br /> and Affordability
+            <div className="md:w-1/2 space-y-4">
+              <h2 className="md:text-4xl text-2xl text-white md:text-black mb-10 mt-5 md:mt-0 font-bold">
+                Rising Costs <br className="md:block hidden" /> and
+                Affordability
               </h2>
               <p className="text-white">
                 The rising cost of healthcare is a global challenge, impacting
@@ -102,7 +119,7 @@ const SingleInsightPage = () => {
             height={50000}
             className="w-20 h-20 object-contain rounded-lg"
           />
-          <p className="text-3xl font-bold text-secondary">
+          <p className="md:text-3xl text-xl font-bold text-secondary">
             Key Drivers of Rising Healthcare Costs
           </p>
         </div>
@@ -276,13 +293,14 @@ const SingleInsightPage = () => {
               className="border-none bg-transparent"
               expandIconPosition="end"
               style={{
-                marginLeft:
-                  index < 8
+                marginLeft: !isMobile
+                  ? index < 8
                     ? `${index * 70}px`
                     : index < 16
                     ? `${(15 - index) * 70}px`
-                    : `${(index - 16) * 70}px`,
-                width: "700px",
+                    : `${(index - 16) * 70}px`
+                  : 0,
+                width: !isMobile ? "700px" : "100%",
               }}
               items={[
                 {
@@ -309,7 +327,7 @@ const SingleInsightPage = () => {
             height={50000}
             className="w-20 h-20 object-contain rounded-lg"
           />
-          <p className="text-3xl font-bold text-secondary">
+          <p className="md:text-3xl text-xl font-bold text-secondary">
             Consequences of Healthcare Affordability Issues
           </p>
         </div>
@@ -403,13 +421,14 @@ const SingleInsightPage = () => {
               className="border-none bg-transparent"
               expandIconPosition="end"
               style={{
-                marginLeft:
-                  index < 8
+                marginLeft: !isMobile
+                  ? index < 8
                     ? `${index * 70}px`
                     : index < 16
                     ? `${(15 - index) * 70}px`
-                    : `${(index - 16) * 70}px`,
-                width: "700px",
+                    : `${(index - 16) * 70}px`
+                  : 0,
+                width: !isMobile ? "700px" : "100%",
               }}
               items={[
                 {
@@ -440,7 +459,7 @@ const SingleInsightPage = () => {
             height={50000}
             className="w-20 h-20 object-contain rounded-lg"
           />
-          <p className="text-3xl font-bold bg-gradientBg p-4 rounded-2xl text-secondary">
+          <p className="md:text-3xl text-xl font-bold bg-gradientBg p-4 rounded-2xl text-secondary">
             How Can HC Financial Consultants Help?
           </p>
         </div>
@@ -455,7 +474,7 @@ const SingleInsightPage = () => {
           {lastSectionData?.map((item, index) => (
             <div
               key={index}
-              className="flex gap-5 items-center mx-10 my-8 border-4 border-[#b99755] rounded-2xl p-4"
+              className="flex gap-5 items-center md:mx-10 my-8 border-4 border-[#b99755] rounded-2xl p-4"
             >
               <div className="w-14 h-14 bg-secondary rounded-full">
                 <p className="h-14 w-14 flex justify-center items-center text-xl text-white font-bold">

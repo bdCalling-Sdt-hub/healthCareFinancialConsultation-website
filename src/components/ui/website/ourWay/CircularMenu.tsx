@@ -356,7 +356,7 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
                 height={labelSize / 2}
               >
                 <div className="flex items-center justify-center h-full">
-                  <div className="border border-[#C8A95C] w-12 h-12 flex items-center justify-center rounded-full">
+                  <div className="border border-[#C8A95C] md:w-12 md:h-12 w-8 h-8 flex items-center justify-center rounded-full">
                     <span
                       className={`text-[#C8A95C] font-semibold text-center`}
                       style={{ fontSize: `${svgWidth / 40}px` }}
