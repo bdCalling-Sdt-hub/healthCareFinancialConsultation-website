@@ -104,9 +104,11 @@ const ServicesPage = () => {
           <h1 className="md:text-3xl text-2xl text-center bg-gradientBg text-transparent bg-clip-text font-bold">
             Need A Consultation For Health care Finance?
           </h1>
-          <button className="bg-gradientBg px-5 py-2 my-5 rounded-md">
-            Book Now
-          </button>
+          <Link href={"/book-your-consultation"}>
+            <button className="bg-gradientBg px-5 py-2 my-5 rounded-md">
+              Book Now
+            </button>
+          </Link>
         </div>
       </div>
 

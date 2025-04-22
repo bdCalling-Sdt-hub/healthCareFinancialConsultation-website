@@ -19,7 +19,7 @@ const AboutUsPage = () => {
           <h1 className="md:text-5xl text-3xl mb-5 font-bold bg-gradientBg text-transparent bg-clip-text leading-normal">
             About Us
           </h1>
-          <p className="text-white md:text-lg text-md">
+          <p className=" text-white md:text-lg text-md">
             Leveraging years of expertise in healthcare finance, we deliver
             tailored solutions that drive efficiency, reduce financial risks,
             and maximize profitability—empowering your organization to focus on

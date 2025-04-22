@@ -69,7 +69,7 @@ const SingleInsightPage = () => {
           <h1 className="md:text-5xl text-3xl mb-5 font-bold bg-gradientBg text-transparent bg-clip-text leading-normal">
             Healthcare Horizon
           </h1>
-          <p className="text-white md:text-lg text-md">
+          <p className="md:text-lg text-md text-white">
             What sets us apart is our deep expertise in the healthcare sector,
             with over 20 years of industry experience. We offer tailored
             solutions backed by a strong network of industry connections and a
@@ -95,7 +95,7 @@ const SingleInsightPage = () => {
                 Rising Costs <br className="md:block hidden" /> and
                 Affordability
               </h2>
-              <p className="text-white">
+              <p className="bg-gradientBg text-transparent bg-clip-text">
                 The rising cost of healthcare is a global challenge, impacting
                 patients, healthcare providers, insurers, and governments.
                 Factors such as advancing medical technologies, administrative

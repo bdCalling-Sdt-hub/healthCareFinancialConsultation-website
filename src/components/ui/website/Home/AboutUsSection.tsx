@@ -9,7 +9,7 @@ const AboutUsSection = () => {
           About Us
         </h1>
         <div className="bg-[#032237] md:p-10 p-5 md:ps-80 flex flex-col justify-center items-start space-y-5 rounded-2xl md:h-[400px] md:w-[75%]">
-          <p className="text-white text-[16px] mb-3">
+          <p className="text-transparent bg-gradientBg bg-clip-text text-[16px] mb-3">
             At HC Financial, we specialize in empowering healthcare
             organizations with expert financial guidance tailored to their
             unique needs. With deep industry expertise, we provide strategic

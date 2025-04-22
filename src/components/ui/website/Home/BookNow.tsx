@@ -2,6 +2,7 @@ import Image from "next/image";
 import bookingImage1 from "@/assets/image (16).png";
 import bookingImage2 from "@/assets/image (17).png";
 import bookingImage3 from "@/assets/image (18).png";
+import Link from "next/link";
 
 const BookNow = () => {
   return (
@@ -17,9 +18,11 @@ const BookNow = () => {
               Expert financial consulting tailored to your unique challenges in
               the ever-evolving healthcare industry!
             </p>
-            <button className="font-semibold bg-gradientBg px-5 py-2 hover:opacity-90 rounded-md border-none">
-              Book Now
-            </button>
+            <Link href={"/book-your-consultation"}>
+              <button className="font-semibold bg-gradientBg px-5 py-2 mt-6 hover:opacity-90 rounded-md border-none">
+                Book Now
+              </button>
+            </Link>
           </div>
           <div className="md:w-[70%] flex mt-5 md:mt-0 md:relative">
             <div className="md:absolute -top-40 left-0">

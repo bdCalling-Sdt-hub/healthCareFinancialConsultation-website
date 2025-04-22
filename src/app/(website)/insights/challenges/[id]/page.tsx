@@ -118,7 +118,7 @@ const TopFiveChallengesPage = () => {
               className="w-[600px] md:absolute -top-40 md:h-[450px] rounded-2xl object-cover"
             />
           </div>
-          <p className="md:w-[50%] text-white text-lg">
+          <p className="md:w-[50%] text-transparent bg-gradientBg bg-clip-text text-lg">
             Before partnering with [Your Company], we were facing numerous
             financial challenges. Our revenue cycle was inefficient, and our
             billing errors were impacting our cash flow. [Your Company] not only

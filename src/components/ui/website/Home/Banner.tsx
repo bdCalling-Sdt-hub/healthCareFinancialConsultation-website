@@ -1,5 +1,6 @@
 import Image from "next/image";
 import bannerImg from "@/assets/bannerImg.png";
+import Link from "next/link";
 
 const Banner = () => {
   return (
@@ -19,9 +20,11 @@ const Banner = () => {
           Specialized operational finance consultation tailored to your
           healthcare organization’s needs
         </p>
-        <button className="bg-gradientBg px-10 text-lg font-medium ms-5 md:ms-0 py-4 rounded-md border-none">
-          Book Now
-        </button>
+        <Link href={"/book-your-consultation"}>
+          <button className="bg-gradientBg px-10 text-lg font-medium ms-5 md:ms-0 py-4 mt-4 rounded-md border-none">
+            Book Now
+          </button>
+        </Link>
       </div>
     </div>
   );
