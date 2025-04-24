@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Image from "next/image";
 import costImage from "@/assets/1200-x-675-Economic-chart-and-money-696x385.webp";
 import howWeWorkImg from "@/assets/image (33).png";
@@ -58,14 +59,34 @@ const SingleInsightPage = () => {
   return (
     <div className="">
       <div className="relative">
-        <Image
-          src={howWeWorkImg || "/placeholder.svg"}
-          alt="howWeWorkImg"
-          width={50000}
-          height={50000}
-          className="w-full h-[600px] object-cover"
-        />
-        <div className="max-w-[750px] absolute -bottom-20 right-20 p-10 rounded-2xl bg-[#032237] bg-opacity-30 backdrop-blur-md">
+        <div className="relative">
+          <Image
+            src={howWeWorkImg || "/placeholder.svg"}
+            alt="howWeWorkImg"
+            width={50000}
+            height={50000}
+            className="w-full h-[600px] object-cover"
+          />
+          {/* White overlay animations */}
+          <motion.div
+            initial={{ width: "100%" }}
+            animate={{ width: "0%" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="absolute top-0 left-0 h-full bg-white"
+          />
+          <motion.div
+            initial={{ width: "100%" }}
+            animate={{ width: "0%" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="absolute top-0 right-0 h-full bg-white"
+          />
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
+          className="max-w-[750px] absolute -bottom-20 right-20 p-10 rounded-2xl bg-[#032237] bg-opacity-30 backdrop-blur-md"
+        >
           <h1 className="md:text-5xl text-3xl mb-5 font-bold bg-gradientBg text-transparent bg-clip-text leading-normal">
             Healthcare Horizon
           </h1>
@@ -75,7 +96,7 @@ const SingleInsightPage = () => {
             solutions backed by a strong network of industry connections and a
             commitment to innovative technologies.
           </p>
-        </div>
+        </motion.div>
       </div>
 
       <div className="mt-64">

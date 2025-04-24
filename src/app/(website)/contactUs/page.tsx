@@ -4,7 +4,7 @@ import Image from "next/image";
 import contactUsImg from "@/assets/2149256084.jpg";
 import { Button, Form, Input, Select } from "antd";
 import { FaMailBulk, FaPhone } from "react-icons/fa";
-
+import { motion } from "framer-motion";
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -23,15 +23,32 @@ const ContactUsPage = () => {
   return (
     <div>
       <div className="relative mb-20">
-        <Image
-          src={contactUsImg}
-          alt="servicesMenuImg"
-          width={50000}
-          height={50000}
-          className="w-full h-[600px] object-cover"
-        />
-        <div
-          style={{}}
+        <div className="relative">
+          <Image
+            src={contactUsImg}
+            alt="servicesMenuImg"
+            width={50000}
+            height={50000}
+            className="w-full h-[600px] object-cover"
+          />
+          {/* White overlay animations */}
+          <motion.div
+            initial={{ width: "100%" }}
+            animate={{ width: "0%" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="absolute top-0 left-0 h-full bg-white"
+          />
+          <motion.div
+            initial={{ width: "100%" }}
+            animate={{ width: "0%" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="absolute top-0 right-0 h-full bg-white"
+          />
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
           className="max-w-[750px] absolute -bottom-20 right-20 p-10 rounded-2xl bg-[#032237] bg-opacity-30 backdrop-blur-md"
         >
           <h1 className="md:text-5xl text-3xl mb-5 font-bold bg-gradientBg text-transparent bg-clip-text leading-normal">
@@ -42,7 +59,7 @@ const ContactUsPage = () => {
             solutions that drive efficiency, reduce financial risks, and
             maximize profitability while keeping patient care at the forefront
           </p>
-        </div>
+        </motion.div>
       </div>
       <div className="max-w-5xl mx-auto px-5 py-10 grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
         {/* Left Section */}
