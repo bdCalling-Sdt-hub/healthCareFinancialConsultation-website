@@ -56,7 +56,11 @@ const SingleServicesPage = () => {
   const tabs = allTabs?.data;
 
   // Find the currently selected tab
-  const activeTab = tabs?.find((tab: TabContent) => tab._id === selectedTab);
+  const activeTab = tabs?.find(
+    (tab: TabContent) => tab._id.toString() === selectedTab
+  );
+
+  console.log(activeTab);
 
   const relatedChallenges = [
     {
@@ -125,7 +129,12 @@ const SingleServicesPage = () => {
               {/* Display videos */}
               {activeTab?.videos?.map((video: any, index: number) => (
                 <div key={`vid-${index}`} className="col-span-1">
-                  <video className="w-full rounded-2xl shadow-xl" controls loop>
+                  <video
+                    key={`${selectedTab}-video-${index}`}
+                    className="w-full rounded-2xl shadow-xl"
+                    controls
+                    loop
+                  >
                     <source src={getImageUrl(video)} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>

@@ -10,7 +10,7 @@ import Image from "next/image";
 
 const items = [
   {
-    key: "menu1",
+    key: "DIE",
     label: "DIE",
     icon: (
       <Image
@@ -23,7 +23,7 @@ const items = [
     ),
   },
   {
-    key: "menu2",
+    key: "CSO",
     label: "CSO",
     icon: (
       <Image
@@ -36,7 +36,7 @@ const items = [
     ),
   },
   {
-    key: "menu3",
+    key: "PTR",
     label: "PTR",
     icon: (
       <Image
@@ -49,7 +49,7 @@ const items = [
     ),
   },
   {
-    key: "menu4",
+    key: "ITI",
     label: "ITI",
     icon: (
       <Image
@@ -62,7 +62,7 @@ const items = [
     ),
   },
   {
-    key: "menu5",
+    key: "CCA",
     label: "CCA",
     icon: (
       <Image
@@ -77,7 +77,7 @@ const items = [
 ];
 
 const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
-  const [selected, setSelected] = useState("menu1");
+  const [selected, setSelected] = useState("DIE");
   const [dimensions, setDimensions] = useState({
     width: 700,
     height: 700,
