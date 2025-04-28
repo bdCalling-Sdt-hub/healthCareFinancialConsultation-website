@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import insightImage from "@/assets/image (33).png";
@@ -11,6 +11,8 @@ import RelatedChallengeCard from "@/components/ui/website/RelatedChallengeCard";
 import WhatClientsSay from "@/components/ui/website/Home/Review/WhatClientsSay";
 import GrowthChart from "@/components/ui/website/insights/GrowthChart";
 import BestServicesChart from "@/components/ui/website/insights/BestServicesChart";
+import { Spin } from "antd";
+import { useGetAllChallengesQuery } from "@/redux/apiSlices/challengeSlice";
 
 const InsightsPage = () => {
   const topFiveChallenges = [
@@ -41,6 +43,21 @@ const InsightsPage = () => {
     },
   ];
 
+  const { data: allChallenges, isLoading } =
+    useGetAllChallengesQuery(undefined);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spin />
+      </div>
+    );
+  }
+
+  const topFiveChallengesInfo = allChallenges?.data;
+
+  console.log(topFiveChallengesInfo);
+
   return (
     <div>
       <div className="relative mb-20">
@@ -66,7 +83,7 @@ const InsightsPage = () => {
             className="absolute top-0 right-0 h-full bg-white"
           />
         </div>
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
@@ -97,7 +114,7 @@ const InsightsPage = () => {
         <div className="container my-20">
           <h1 className="text-3xl mb-5 font-bold">Top 5 Challenges</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {topFiveChallenges?.map((item) => (
+            {topFiveChallengesInfo?.map((item: any) => (
               <RelatedChallengeCard key={item.id} item={item} />
             ))}
           </div>

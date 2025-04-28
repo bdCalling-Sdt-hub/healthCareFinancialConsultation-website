@@ -2,22 +2,50 @@
 
 import Image from "next/image";
 import contactUsImg from "@/assets/2149256084.jpg";
-import { Button, Form, Input, Select } from "antd";
+import { Button, Form, Input, Modal, Select } from "antd";
 import { FaMailBulk, FaPhone } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useContactUsMutation } from "@/redux/apiSlices/contactSlice";
+import toast from "react-hot-toast";
 const { TextArea } = Input;
 const { Option } = Select;
 
 const ContactUsPage = () => {
   const [form] = Form.useForm();
 
-  const onFinish = (values: {
+  const [contactUs] = useContactUsMutation();
+
+  const onFinish = async (values: {
     name: string;
     email: string;
     phone: string;
     message: string;
+    country: string;
   }) => {
-    console.log("Form submitted:", values);
+    const data = {
+      name: values?.name,
+      email: values?.email,
+      phone: values?.phone,
+      message: values?.message,
+      country: values?.country,
+    };
+    try {
+      const response = await contactUs(data).unwrap();
+
+      if (response?.success) {
+        Modal.success({
+          title: "Success",
+          content: response?.message || "Message sent successfully!",
+        });
+        // toast.success(response?.message || "Message sent successfully!");
+        form.resetFields(); // Reset form after successful submission
+      } else {
+        toast.error(response?.message || "Failed to send message");
+      }
+    } catch (error: any) {
+      const message = error?.data?.message || "Something went wrong";
+      toast.error(message);
+    }
   };
 
   return (
