@@ -1,52 +1,30 @@
 "use client";
 
 import servicesMenuImg from "@/assets/image (19).png";
-import servicesImage1 from "@/assets/image (9).png";
-import servicesImage2 from "@/assets/image (10).png";
-import servicesImage3 from "@/assets/image (11).png";
-import servicesImage4 from "@/assets/image (12).png";
-import servicesImage5 from "@/assets/image (13).png";
-import servicesImage6 from "@/assets/image (14).png";
+
 import serviceBookImg from "@/assets/Group 27.png";
 import whatMakesUsDifferentImg from "@/assets/image (20).png";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-
-const services = [
-  {
-    id: 1,
-    image: servicesImage1,
-    title: "Operational Finance Optimization",
-  },
-  {
-    id: 2,
-    image: servicesImage2,
-    title: "Cost Containment",
-  },
-  {
-    id: 3,
-    image: servicesImage3,
-    title: "Revenue Cycle Management",
-  },
-  {
-    id: 4,
-    image: servicesImage4,
-    title: "Cost Accounting - CM Analysis",
-  },
-  {
-    id: 5,
-    image: servicesImage5,
-    title: "Regulatory Compliance",
-  },
-  {
-    id: 6,
-    image: servicesImage6,
-    title: "Technology Integration",
-  },
-];
+import { useGetAllServicesQuery } from "@/redux/apiSlices/serviceSlice";
+import { Spin } from "antd";
+import { getImageUrl } from "@/utils/getImageUrl";
 
 const ServicesPage = () => {
+  const { data: services, isLoading } = useGetAllServicesQuery(undefined);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spin />
+      </div>
+    );
+  }
+
+  const allServices = services?.data;
+  // console.log(allServices);
+
   return (
     <div className="">
       <div className="relative mb-20">
@@ -90,11 +68,11 @@ const ServicesPage = () => {
       </div>
       <div className="container py-20">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-          {services.map((service, index) => (
-            <Link href={`/services/${service?.id}`} key={index}>
+          {allServices.map((service: any) => (
+            <Link href={`/services/${service?._id}`} key={service?._id}>
               <div className="relative group hover:shadow-2xl cursor-pointer">
                 <Image
-                  src={service.image}
+                  src={getImageUrl(service.image)}
                   alt={service.title}
                   width={50000}
                   height={50000}

@@ -12,7 +12,9 @@ import MobileDrawer from "./MobileDrawer";
 import CustomDropdown from "../ui/CustomDropdown";
 import { FaBell } from "react-icons/fa";
 import randomImage from "@/assets/randomProfile3.jpg";
-import { Badge } from "antd";
+import { Badge, Spin } from "antd";
+import { useGetUserProfileQuery } from "@/redux/apiSlices/authSlice";
+import { getImageUrl } from "@/utils/getImageUrl";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -21,6 +23,19 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 const Navbar = () => {
   const [showDrawer, setShowDrawer] = useState(false);
+
+  const { data: userData, isLoading } = useGetUserProfileQuery(undefined);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spin />
+      </div>
+    );
+  }
+
+  const userInfo = userData?.data;
+  // console.log(userInfo);
 
   const items = [
     { key: "insights", label: "Our Insights", path: "/insights" },
@@ -83,39 +98,47 @@ const Navbar = () => {
               <NavItems items={items} />
             </div>
 
-            <div className="flex items-center gap-2">
-              <div className="mr-3">
-                <Link href={"/notifications"}>
-                  <Badge count={3} offset={[-3, 4]}>
-                    <FaBell
-                      className="text-primaryText text-[#ba9956] cursor-pointer"
-                      size={25}
-                    />
-                  </Badge>
-                </Link>
-              </div>
-              <div className="hidden md:block w-40">
-                <CustomDropdown />
-              </div>
-              {/* <Link href="/login">
+            {/* Login and Profile */}
+            {userInfo?.role !== "user" ? (
+              <Link href="/login">
                 <button className="bg-gradientBg px-10 py-2 rounded-md">
                   Login
                 </button>
-              </Link> */}
-              <Link href={"/profile"}>
-                <div className="flex items-center gap-2 cursor-pointer text-white">
-                  <Image
-                    alt="Profile"
-                    src={randomImage}
-                    width={4654646}
-                    height={45634560}
-                    className="w-12 h-12 border object-cover border-[#ba9956] rounded-full"
-                  />
-
-                  <h1 className="text-lg font-[500]">John Doe</h1>
-                </div>
               </Link>
-            </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <div className="mr-3">
+                  <Link href={"/notifications"}>
+                    <Badge count={3} offset={[-3, 4]}>
+                      <FaBell
+                        className="text-primaryText text-[#ba9956] cursor-pointer"
+                        size={25}
+                      />
+                    </Badge>
+                  </Link>
+                </div>
+                <div className="hidden md:block w-40">
+                  <CustomDropdown />
+                </div>
+                <Link href={"/profile"}>
+                  <div className="flex items-center gap-2 cursor-pointer text-white">
+                    <Image
+                      alt="Profile"
+                      src={
+                        userInfo?.image
+                          ? getImageUrl(userInfo.image)
+                          : randomImage
+                      }
+                      width={4654646}
+                      height={45634560}
+                      className="w-12 h-12 border object-cover border-[#ba9956] rounded-full"
+                    />
+
+                    <h1 className="text-lg font-[500]">{userInfo?.name}</h1>
+                  </div>
+                </Link>
+              </div>
+            )}
           </div>
         </nav>
 

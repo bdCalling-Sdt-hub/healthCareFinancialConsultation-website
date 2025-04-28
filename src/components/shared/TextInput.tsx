@@ -1,32 +1,28 @@
-"use client";
-
-import {  Form, Input } from "antd";
+import { Form, Input, InputProps } from "antd";
+import { Rule } from "antd/es/form";
 import React from "react";
 
-const TextInput: React.FC<{ name: string; label: string }> = ({ name, label }) => {
+interface TextInputProps extends InputProps {
+  name: string;
+  label?: string;
+  rules?: Rule[];
+}
+
+const TextInput: React.FC<TextInputProps> = ({ name, label, rules }) => {
   return (
-    <Form.Item
-      name={name}
-      label={<p className="text-[#4E4E4E] text-[16px]">{label}</p>}
-      rules={[
-        {
-          required: true,
-          message: `Please enter your ${label.toLowerCase()}`,
-        },
-      ]}
-    > 
-
+    <Form.Item name={name} label={label} rules={rules}>
       <Input
-        placeholder={`Enter your ${label.toLowerCase()}`}
+        placeholder={
+          label ? `Enter your ${label.toLowerCase()}` : `Enter value`
+        }
         style={{
-            height: 48,
-            border: "1px solid #d9d9d9",
-            outline: "none",
-            boxShadow: "none",
-            backgroundColor: "white",
-          }}
+          height: 48,
+          border: "1px solid #d9d9d9",
+          outline: "none",
+          boxShadow: "none",
+          backgroundColor: "white",
+        }}
       />
-
     </Form.Item>
   );
 };

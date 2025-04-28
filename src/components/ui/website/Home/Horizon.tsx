@@ -1,15 +1,29 @@
 "use client";
 
 import Image from "next/image";
-import horizonImage1 from "@/assets/image (11).png";
-import horizonImage2 from "@/assets/image (12).png";
-import horizonImage3 from "@/assets/image (13).png";
-import horizonImage4 from "@/assets/image (14).png";
-import horizonImage5 from "@/assets/image (15).png";
+
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useGetAllHorizonQuery } from "@/redux/apiSlices/horizonSlice";
+import { Spin } from "antd";
+import { getImageUrl } from "@/utils/getImageUrl";
+import moment from "moment";
 
 const Horizon = () => {
+  const { data: insights, isLoading } = useGetAllHorizonQuery(undefined);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spin />
+      </div>
+    );
+  }
+
+  const insightsData = insights?.data;
+  const firstInsight = insightsData?.[0];
+  console.log(firstInsight);
+
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -30,29 +44,6 @@ const Horizon = () => {
       duration: 0.2,
     },
   };
-
-  const cardData = [
-    {
-      image: horizonImage2,
-      title: "AI and Technology",
-      link: "/healthcare-horizon/2",
-    },
-    {
-      image: horizonImage3,
-      title: "Regulatory Risks",
-      link: "/healthcare-horizon/3",
-    },
-    {
-      image: horizonImage4,
-      title: "Workforce",
-      link: "/healthcare-horizon/4",
-    },
-    {
-      image: horizonImage5,
-      title: "Market Consolidation (Competition)",
-      link: "/healthcare-horizon/5",
-    },
-  ];
 
   return (
     <div className="container md:py-20">
@@ -87,27 +78,24 @@ const Horizon = () => {
             transition={{ duration: 0.2 }}
           >
             <Image
-              src={horizonImage1}
+              src={getImageUrl(firstInsight?.image)}
               alt="horizonImage1"
               width={50000}
               height={50000}
+              className="md:w-full md:h-[500px] w-full h-44 object-contain rounded-lg"
             />
           </motion.div>
           <div className="my-5">
             <h1 className="text-xl md:text-xl font-bold mb-5 md:mb-0">
-              Rising Costs and Affordability
+              {firstInsight?.title}
             </h1>
             <div className="flex text-lg justify-between items-center my-4 text-gray-600">
-              <p>14 Jan,2025</p>
+              <p>{moment(firstInsight?.createdAt).format("ll")}</p>
               <p>London,UK</p>
             </div>
             <p className="text-gray-600">
-              Expert operational finance consulting tailored for healthcare
-              providers. Secure your financial future today. Revenue Integrity
-              Consulting Secure your financial future today. Revenue Integrity
-              Revenue Integrity Consulting Secure your financial future today.
-              Revenue Integrity...{" "}
-              <Link href={"/healthcare-horizon/1"}>
+              {firstInsight?.description.slice(0, 200)}...
+              <Link href={`/healthcare-horizon/${firstInsight?._id}`}>
                 <span className="text-blue-700 underline cursor-pointer">
                   See More
                 </span>
@@ -121,17 +109,17 @@ const Horizon = () => {
           whileInView="animate"
           className="md:w-[50%] flex flex-col gap-2 justify-between"
         >
-          {cardData.map((card, index) => (
+          {insightsData?.slice(1)?.map((card: any) => (
             <motion.div
-              key={index}
+              key={card?._id}
               variants={fadeInUp}
               whileHover={cardHover}
               className="md:flex gap-5 items-center border p-3 rounded-3xl"
             >
               <Image
-                className="md:w-56 md:h-32 object-cover"
-                src={card.image}
-                alt={`horizonImage${index + 2}`}
+                className="md:w-56 md:h-32 object-cover rounded-lg"
+                src={getImageUrl(card.image)}
+                alt={`horizonImage${card?._id + 2}`}
                 width={50000}
                 height={50000}
               />
@@ -140,13 +128,12 @@ const Horizon = () => {
                   {card.title}
                 </h1>
                 <div className="flex text-lg justify-between my-1 items-center text-gray-600">
-                  <p>14 Jan,2025</p>
+                  <p>{moment(card?.createdAt).format("ll")}</p>
                   <p>London,UK</p>
                 </div>
                 <p className="text-gray-600">
-                  Expert operational finance consulting tailored for health care
-                  providers. Secure healthcare service providers ...
-                  <Link href={card.link}>
+                  {card.description.slice(0, 100)}...
+                  <Link href={`/healthcare-horizon/${card?._id}`}>
                     <span className="text-blue-700 underline cursor-pointer">
                       See More
                     </span>

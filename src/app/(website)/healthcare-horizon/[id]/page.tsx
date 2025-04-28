@@ -7,39 +7,55 @@ import howWeWorkImg from "@/assets/image (33).png";
 import titleLogo1 from "@/assets/image 67.png";
 import titleLogo2 from "@/assets/image 68.png";
 import titleLogo3 from "@/assets/image 70.png";
-import { Collapse } from "antd";
+import { Collapse, Spin } from "antd";
 import { useEffect, useState } from "react";
+import { useGetSingleInsightQuery } from "@/redux/apiSlices/horizonSlice";
+import { useParams } from "next/navigation";
+import { getImageUrl } from "@/utils/getImageUrl";
+import moment from "moment";
 
-const lastSectionData = [
-  {
-    id: 1,
-    description:
-      "Provision of Analysis to understand where your costs are and how best to manage them based on reimbursement rules and the company’s patient population.",
-  },
-  {
-    id: 2,
-    description:
-      "Provision of how best to implement a value-based care model where providers are rewarded for improving patient health outcomes.",
-  },
-  {
-    id: 3,
-    description: "Negotiate better Pharmaceutical Reimbursement Rates.",
-  },
-  {
-    id: 4,
-    description:
-      "Streamline EHR and standardize insurance claim processing (Workflow Optimization).",
-  },
-  {
-    id: 5,
-    description:
-      "Helping the organization understand how they can best leverage AI and Telemedicine for its service lines.",
-  },
-];
+// Define TypeScript interfaces for the API response
+interface Bar {
+  title: string;
+  body: string[];
+}
+
+interface Section {
+  _id: string;
+  insight: string;
+  title: string;
+  image: string;
+  bars: Bar[];
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+interface InsightData {
+  _id: string;
+  title: string;
+  description: string;
+  image: string;
+  sections: Section[];
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+interface ApiResponse {
+  statusCode: number;
+  success: boolean;
+  message: string;
+  data: InsightData;
+}
 
 const SingleInsightPage = () => {
   const [isStepsVisible, setIsStepsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
+
+  const { id } = useParams();
+
+  const { data: singleInsight, isLoading } = useGetSingleInsightQuery(id);
 
   useEffect(() => {
     const handleResize = () => {
@@ -55,6 +71,23 @@ const SingleInsightPage = () => {
     // Cleanup
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spin />
+      </div>
+    );
+  }
+
+  const data = singleInsight?.data || {};
+  console.log(data);
+
+  // Separate the sections - all except the last one
+  const regularSections = data?.sections?.slice(0, -1) || [];
+  // Get the last section if it exists
+  const lastSection =
+    data?.sections?.length > 0 ? data.sections[data.sections.length - 1] : null;
 
   return (
     <div className="">
@@ -104,410 +137,149 @@ const SingleInsightPage = () => {
           <div className="container absolute -top-48 left-1/2 transform -translate-x-1/2 md:flex justify-center items-center gap-10 py-20">
             <div className="md:w-1/2">
               <Image
-                src={costImage || "/placeholder.svg"}
-                alt="Rising Costs and Affordability"
+                src={
+                  data?.image
+                    ? getImageUrl(data.image)
+                    : costImage || "/placeholder.svg"
+                }
+                alt={data?.title || "Rising Costs and Affordability"}
                 width={50000}
                 height={50000}
-                className="w-full h-[300px] object-cover rounded-lg"
+                className="w-full h-[300px] object-contain rounded-lg"
               />
             </div>
             <div className="md:w-1/2 space-y-4">
               <h2 className="md:text-4xl text-2xl text-white md:text-black mb-10 mt-5 md:mt-0 font-bold">
-                Rising Costs <br className="md:block hidden" /> and
-                Affordability
+                {data?.title || ""}{" "}
               </h2>
-              <p className="bg-gradientBg text-transparent bg-clip-text">
-                The rising cost of healthcare is a global challenge, impacting
-                patients, healthcare providers, insurers, and governments.
-                Factors such as advancing medical technologies, administrative
-                inefficiencies, pharmaceutical price surges, and an aging
-                population all contribute to increasing expenses. As costs rise,
-                affordability becomes a critical issue, with many individuals
-                struggling to access necessary medical care.
+              <p className="bg-gradientBg text-transparent h-[150px] flex items-center justify-center bg-clip-text">
+                {data?.description}
               </p>
             </div>
           </div>
         </div>
       </div>
 
+      {/* Dynamic Sections from API (all except the last one) */}
       <div className="container my-20">
-        {/* First Collapse Section */}
-        <div className="flex items-center gap-3 mb-5">
-          <Image
-            src={titleLogo1 || "/placeholder.svg"}
-            alt="Key Drivers"
-            width={50000}
-            height={50000}
-            className="w-20 h-20 object-contain rounded-lg"
-          />
-          <p className="md:text-3xl text-xl font-bold text-secondary">
-            Key Drivers of Rising Healthcare Costs
-          </p>
-        </div>
-
-        <div className="mt-8">
-          {[
-            {
-              key: "1",
-              label: "Increasing Costs of Medical Technology & Innovation",
-              children: (
-                <ul className="list-disc pl-5 text-md text-gray-600 space-y-2">
-                  <li>
-                    Advanced medical devices, robotic surgeries, and AI-driven
-                    diagnostics{" "}
-                    <span className="font-semibold">
-                      enhance healthcare quality
-                    </span>{" "}
-                    but come at a high cost.
-                  </li>
-                  <li>
-                    The rapid adoption of{" "}
-                    <span className="font-semibold">
-                      personalized medicine and genomics-based treatments
-                    </span>{" "}
-                    increases research and development (R&D) expenses, driving
-                    up prices.
-                  </li>
-                  <li>
-                    High costs of{" "}
-                    <span className="font-semibold">
-                      specialized equipment and facilities
-                    </span>{" "}
-                    (e.g., proton therapy centers for cancer treatment)
-                    contribute to overall expenditure.
-                  </li>
-                </ul>
-              ),
-            },
-            {
-              key: "2",
-              label: "Pharmaceutical & Prescription Drug Costs",
-              children: (
-                <ul className="list-disc pl-5 text-md text-gray-600 space-y-2">
-                  <li>
-                    <span className="font-semibold">High R&D costs:</span> On
-                    average, it costs over{" "}
-                    <span className="font-semibold">$2.6 billion</span> to bring
-                    a new drug to market.
-                  </li>
-                  <li>
-                    <span className="font-semibold">
-                      Patent protection laws
-                    </span>{" "}
-                    prevent generic alternatives from entering the market
-                    quickly, keeping drug prices high.
-                  </li>
-                  <li>
-                    <span className="font-semibold">
-                      Price gouging & monopolies:
-                    </span>{" "}
-                    Some pharmaceutical companies{" "}
-                    <span className="font-semibold">
-                      increase drug prices exponentially
-                    </span>
-                    , even for essential medications.
-                  </li>
-                </ul>
-              ),
-            },
-            {
-              key: "3",
-              label: "Administrative & Operational Inefficiencies",
-              children: (
-                <ul className="list-disc pl-5 text-md text-gray-600 space-y-2">
-                  <li>
-                    <span className="font-semibold">
-                      Complex insurance & billing processes
-                    </span>{" "}
-                    lead to excessive administrative costs.
-                  </li>
-                  <li>
-                    The U.S. spends{" "}
-                    <span className="font-semibold">
-                      over 25% of healthcare expenses on administration
-                    </span>
-                    , compared to 10-15% in other developed nations.
-                  </li>
-                  <li>
-                    Inefficiencies in{" "}
-                    <span className="font-semibold">
-                      Electronic Health Records (EHR) systems
-                    </span>
-                    , claim processing, and provider reimbursements add
-                    financial burdens.
-                  </li>
-                </ul>
-              ),
-            },
-            {
-              key: "4",
-              label: "Aging Population & Chronic Disease Burden",
-              children: (
-                <ul className="list-disc pl-5 text-md text-gray-600 space-y-2">
-                  <li>
-                    <span className="font-semibold">
-                      Longer life expectancy
-                    </span>{" "}
-                    leads to increased demand for long-term care, geriatric
-                    services, and chronic disease management.
-                  </li>
-                  <li>
-                    Chronic conditions such as diabetes, heart disease, and
-                    obesity drive long-term medical expenses.
-                  </li>
-                  <li>
-                    The cost of treating chronic diseases accounts for{" "}
-                    <span className="font-semibold">
-                      more than 75% of total healthcare expenditures
-                    </span>{" "}
-                    in many developed nations.
-                  </li>
-                </ul>
-              ),
-            },
-            {
-              key: "5",
-              label: "Hospital Consolidation & Reduced Competition",
-              children: (
-                <ul className="list-disc pl-5 text-md text-gray-600 space-y-2">
-                  <li>
-                    Mergers between hospitals create{" "}
-                    <span className="font-semibold">regional monopolies</span>,
-                    reducing price competition.
-                  </li>
-                  <li>
-                    Hospitals charge significantly more for procedures in areas
-                    with fewer competitors.
-                  </li>
-                  <li>
-                    Private equity firms buying hospitals often{" "}
-                    <span className="font-semibold">
-                      prioritize profit over patient affordability
-                    </span>
-                    .
-                  </li>
-                </ul>
-              ),
-            },
-            {
-              key: "6",
-              label: "Medical Malpractice & Defensive Medicine",
-              children: (
-                <ul className="list-disc pl-5 text-md text-gray-600 space-y-2">
-                  <li>
-                    Fear of lawsuits causes doctors to order{" "}
-                    <span className="font-semibold">
-                      unnecessary tests, procedures, and imaging
-                    </span>{" "}
-                    (defensive medicine), driving up costs.
-                  </li>
-                  <li>
-                    Malpractice insurance premiums further increase the
-                    financial burden on providers and patients.
-                  </li>
-                </ul>
-              ),
-            },
-          ].map((item, index) => (
-            <Collapse
-              key={item.key}
-              className="border-none bg-transparent"
-              expandIconPosition="end"
-              style={{
-                marginLeft: !isMobile
-                  ? index < 8
-                    ? `${index * 70}px`
-                    : index < 16
-                    ? `${(15 - index) * 70}px`
-                    : `${(index - 16) * 70}px`
-                  : 0,
-                width: !isMobile ? "700px" : "100%",
-              }}
-              items={[
-                {
-                  key: item.key,
-                  label: item.label,
-                  children: item.children,
-                  className: "bg-[#032237]  border-0 rounded-lg mb-4",
-                  style: {
-                    marginBottom: "1rem",
-                    border: "none",
-                  },
-                },
-              ]}
-            />
-          ))}
-        </div>
-
-        {/* Second Collapse Section */}
-        <div className="flex items-center gap-3 mb-5 mt-32">
-          <Image
-            src={titleLogo2 || "/placeholder.svg"}
-            alt="Consequences"
-            width={50000}
-            height={50000}
-            className="w-20 h-20 object-contain rounded-lg"
-          />
-          <p className="md:text-3xl text-xl font-bold text-secondary">
-            Consequences of Healthcare Affordability Issues
-          </p>
-        </div>
-
-        <div className="mt-8">
-          {[
-            {
-              key: "1",
-              label: "Reduced Access to Care",
-              children: (
-                <ul className="list-disc pl-5 text-md text-gray-600 space-y-2">
-                  <li>
-                    Patients{" "}
-                    <span className="font-semibold">
-                      delay or avoid medical treatment
-                    </span>{" "}
-                    due to high costs, leading to worsened health outcomes.
-                  </li>
-                  <li>
-                    <span className="font-semibold">Preventable diseases</span>{" "}
-                    become more expensive to treat when left unmanaged.
-                  </li>
-                </ul>
-              ),
-            },
-            {
-              key: "2",
-              label: "Increased Medical Debt & Bankruptcy",
-              children: (
-                <ul className="list-disc pl-5 text-md text-gray-600 space-y-2">
-                  <li>
-                    Over 60% of bankruptcies in the U.S. are linked to medical
-                    expenses.
-                  </li>
-                  <li>
-                    Many patients face{" "}
-                    <span className="font-semibold">
-                      high deductibles, co-pays, and out-of-pocket costs
-                    </span>
-                    .
-                  </li>
-                </ul>
-              ),
-            },
-            {
-              key: "3",
-              label: "Strain on Public Healthcare Systems",
-              children: (
-                <ul className="list-disc pl-5 text-md text-gray-600 space-y-2">
-                  <li>
-                    Rising costs{" "}
-                    <span className="font-semibold">
-                      overburden government-funded programs
-                    </span>{" "}
-                    like Medicare and Medicaid.
-                  </li>
-                  <li>
-                    Countries with universal healthcare struggle to balance{" "}
-                    <span className="font-semibold">
-                      cost containment with quality care
-                    </span>
-                    .
-                  </li>
-                </ul>
-              ),
-            },
-            {
-              key: "4",
-              label: "Inequality in Healthcare Access",
-              children: (
-                <ul className="list-disc pl-5 text-md text-gray-600 space-y-2">
-                  <li>
-                    <span className="font-semibold">
-                      Low-income and uninsured individuals
-                    </span>{" "}
-                    suffer the most from affordability issues.
-                  </li>
-                  <li>
-                    Geographic disparities exist—rural populations often have{" "}
-                    <span className="font-semibold">
-                      fewer affordable healthcare options
-                    </span>
-                    .
-                  </li>
-                </ul>
-              ),
-            },
-          ].map((item, index) => (
-            <Collapse
-              key={item.key}
-              className="border-none bg-transparent"
-              expandIconPosition="end"
-              style={{
-                marginLeft: !isMobile
-                  ? index < 8
-                    ? `${index * 70}px`
-                    : index < 16
-                    ? `${(15 - index) * 70}px`
-                    : `${(index - 16) * 70}px`
-                  : 0,
-                width: !isMobile ? "700px" : "100%",
-              }}
-              items={[
-                {
-                  key: item.key,
-                  label: item.label,
-                  children: item.children,
-                  className: "bg-[#032237] border-0 rounded-lg mb-4",
-                  style: {
-                    marginBottom: "1rem",
-                    border: "none",
-                  },
-                },
-              ]}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="container mt-32">
-        <div
-          className="flex items-center gap-3 mb-5 cursor-pointer"
-          onClick={() => setIsStepsVisible(!isStepsVisible)}
-        >
-          <Image
-            src={titleLogo3 || "/placeholder.svg"}
-            alt="Consequences"
-            width={50000}
-            height={50000}
-            className="w-20 h-20 object-contain rounded-lg"
-          />
-          <p className="md:text-3xl text-xl font-bold bg-gradientBg p-4 rounded-2xl text-secondary">
-            How Can HC Financial Consultants Help?
-          </p>
-        </div>
-
-        <div
-          className={`transition-all duration-500 ${
-            isStepsVisible
-              ? "opacity-100 max-h-[2000px]"
-              : "opacity-0 max-h-0 overflow-hidden"
-          }`}
-        >
-          {lastSectionData?.map((item, index) => (
-            <div
-              key={index}
-              className="flex gap-5 items-center md:mx-10 my-8 border-4 border-[#b99755] rounded-2xl p-4"
-            >
-              <div className="w-14 h-14 bg-secondary rounded-full">
-                <p className="h-14 w-14 flex justify-center items-center text-xl text-white font-bold">
-                  {item?.id}
-                </p>
-              </div>
-              <div className="w-full">
-                <p className="w-full">{item?.description}</p>
-              </div>
+        {regularSections.map((section: any) => (
+          <div key={section._id} className="mb-20">
+            {/* Section Header */}
+            <div className="flex items-center gap-3 mb-5">
+              <Image
+                src={
+                  section.image
+                    ? getImageUrl(section.image)
+                    : titleLogo1 || "/placeholder.svg"
+                }
+                alt={section.title}
+                width={50000}
+                height={50000}
+                className="w-20 h-20 object-contain rounded-lg"
+              />
+              <p className="md:text-3xl text-xl font-bold text-secondary">
+                {section.title}
+              </p>
             </div>
-          ))}
-        </div>
+
+            {/* Collapsible Bars */}
+            <div className="mt-8">
+              {section.bars.map((bar: any, barIndex: number) => (
+                <Collapse
+                  key={`${section._id}-${barIndex}`}
+                  className="border-none bg-transparent"
+                  expandIconPosition="end"
+                  style={{
+                    marginLeft: !isMobile
+                      ? barIndex < 8
+                        ? `${barIndex * 70}px`
+                        : barIndex < 16
+                        ? `${(15 - barIndex) * 70}px`
+                        : `${(barIndex - 16) * 70}px`
+                      : 0,
+                    width: !isMobile ? "700px" : "100%",
+                  }}
+                  items={[
+                    {
+                      key: `${barIndex + 1}`,
+                      label: bar.title,
+                      children: (
+                        <ul className="list-disc pl-5 text-md text-gray-600 space-y-2">
+                          {bar.body.map((item: any, itemIndex: number) => (
+                            <li key={itemIndex}>{item}</li>
+                          ))}
+                        </ul>
+                      ),
+                      className: "bg-[#032237] border-0 rounded-lg mb-4",
+                      style: {
+                        marginBottom: "1rem",
+                        border: "none",
+                      },
+                    },
+                  ]}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
+
+        {/* Last Section - "How Can HC Financial Consultants Help?" */}
+        {lastSection && (
+          <div className="container mt-32">
+            <div
+              className="flex items-center gap-3 mb-5 cursor-pointer"
+              onClick={() => setIsStepsVisible(!isStepsVisible)}
+            >
+              <Image
+                src={
+                  lastSection.image
+                    ? getImageUrl(lastSection.image)
+                    : titleLogo3 || "/placeholder.svg"
+                }
+                alt={lastSection.title}
+                width={50000}
+                height={50000}
+                className="w-20 h-20 object-contain rounded-lg"
+              />
+              <p className="md:text-3xl text-xl font-bold bg-gradientBg p-4 rounded-2xl text-secondary">
+                {lastSection.title || "How Can HC Financial Consultants Help?"}
+              </p>
+            </div>
+
+            <div
+              className={`transition-all duration-500 ${
+                isStepsVisible
+                  ? "opacity-100 max-h-[2000px]"
+                  : "opacity-0 max-h-0 overflow-hidden"
+              }`}
+            >
+              {lastSection.bars.map((bar: any, index: number) => (
+                <div
+                  key={index}
+                  className="flex gap-5 items-center md:mx-10 my-8 border-4 border-[#b99755] rounded-2xl p-4"
+                >
+                  <div className="w-14 h-14 bg-secondary rounded-full">
+                    <p className="h-14 w-14 flex justify-center items-center text-xl text-white font-bold">
+                      {bar?.title}
+                    </p>
+                  </div>
+                  <div className="w-full">
+                    <div className="pl-5 mt-2">
+                      {bar.body.map(
+                        (item: string, itemIndex: number) =>
+                          itemIndex === 0 && (
+                            <p key={itemIndex} className="mt-1">
+                              {item}
+                            </p>
+                          )
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

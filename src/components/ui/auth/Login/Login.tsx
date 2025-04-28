@@ -1,41 +1,94 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import TextInput from "@/components/shared/TextInput";
-import { Checkbox, Form, Input } from "antd";
+import { useLoginMutation } from "@/redux/apiSlices/authSlice";
+import { Checkbox, Form, Input, Spin } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+
+interface LoginFormValues {
+  email: string;
+  password: string;
+  remember: boolean; // Changed from optional to required boolean
+}
 
 const Login = () => {
   const router = useRouter();
+  const [form] = Form.useForm<LoginFormValues>();
+  const [login, { isLoading }] = useLoginMutation();
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const onFinish = async (values: { email: string; password: string }) => {
-    console.log(values);
+  const onFinish = async (values: LoginFormValues) => {
+    // Use interface directly
+    try {
+      setErrorMessage("");
+      const res = await login(values).unwrap();
 
-    router.push("/");
+      if (res?.success) {
+        // Use values.remember directly from form
+        if (values.remember) {
+          localStorage.setItem("authenticationToken", res?.data?.accessToken);
+          localStorage.setItem("refreshToken", res?.data?.refreshToken);
+        } else {
+          sessionStorage.setItem("authenticationToken", res?.data?.accessToken);
+          sessionStorage.setItem("refreshToken", res?.data?.refreshToken);
+        }
+        toast.success(res?.message || "Login successful");
+        router.push("/");
+      } else {
+        const message = res?.message || "Login failed";
+        setErrorMessage(message);
+        toast.error(message);
+      }
+    } catch (error: any) {
+      const message =
+        error?.data?.message || "Login failed. Please check your credentials.";
+      setErrorMessage(message);
+      toast.error(message);
+    }
   };
 
   return (
     <div className="flex items-center justify-center w-full">
-      <div className="">
-        <div className="mb-6 w-[400px]">
+      <div className="max-w-md w-full px-4">
+        <div className="mb-6 w-full">
           <h1 className="text-[25px] font-semibold mb-2">Welcome Back</h1>
           <p className="text-transparent bg-gradientBg bg-clip-text">
-            {" "}
             Sign in to your account
           </p>
         </div>
-        <Form onFinish={onFinish} layout="vertical">
-          <TextInput name={"email"} label={"Email"} />
+
+        {errorMessage && (
+          <div className="mb-4 p-3 bg-red-50 text-red-600 rounded-md text-sm">
+            {errorMessage}
+          </div>
+        )}
+
+        <Form
+          form={form}
+          onFinish={onFinish}
+          layout="vertical"
+          requiredMark={false}
+          initialValues={{ remember: false }} // Set initial value directly
+        >
+          <TextInput
+            name="email"
+            label="Email"
+            rules={[
+              { required: true, message: "Please enter your email" },
+              { type: "email", message: "Please enter a valid email" },
+            ]}
+          />
 
           <Form.Item
             name="password"
-            label={<p>Password</p>}
+            label="Password"
             rules={[
-              {
-                required: true,
-                message: "Please input your Password!",
-              },
+              { required: true, message: "Please enter your password" },
+              { min: 6, message: "Password must be at least 6 characters" },
             ]}
           >
             <Input.Password
@@ -56,40 +109,40 @@ const Login = () => {
               name="remember"
               valuePropName="checked"
             >
-              <Checkbox>Remember me</Checkbox>
+              <Checkbox>Remember me</Checkbox> {/* Removed onChange handler */}
             </Form.Item>
 
-            <a
-              className="login-form-forgot text-transparent bg-gradientBg bg-clip-text font-semibold"
+            <Link
               href="/forgot-password"
+              className="login-form-forgot text-transparent bg-gradientBg bg-clip-text font-semibold"
             >
               Forgot password
-            </a>
+            </Link>
           </div>
 
           <Form.Item style={{ marginBottom: 0 }}>
             <button
               type="submit"
+              disabled={isLoading}
               style={{
                 width: "100%",
                 height: 45,
                 color: "black",
                 fontWeight: "400px",
                 fontSize: "18px",
-
                 marginTop: 20,
               }}
-              className="flex items-center justify-center bg-gradientBg rounded-lg"
+              className="flex items-center justify-center bg-gradientBg rounded-lg hover:opacity-90 transition-opacity disabled:opacity-70"
             >
-              {/* {isLoading? < Spinner/> : "Sign in"} */} Sign in
+              {isLoading ? <Spin size="small" /> : "Sign in"}{" "}
+              {/* Added size prop */}
             </button>
           </Form.Item>
         </Form>
 
-        <div className=" flex items-center justify-center gap-1 py-4">
-          <p className="text-[#636363]">Don’t have any account?</p>
+        <div className="flex items-center justify-center gap-1 py-4">
+          <p className="text-[#636363]">Don&apos;t have any account?</p>
           <Link href="/register" className="text-[#1854F9] font-semibold">
-            {" "}
             Sign Up
           </Link>
         </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import CustomProvider from "@/utils/CustomProvider";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
-        <AntdRegistry>{children}</AntdRegistry>
+        <AntdRegistry>
+          <CustomProvider>{children}</CustomProvider>
+        </AntdRegistry>
       </body>
     </html>
   );

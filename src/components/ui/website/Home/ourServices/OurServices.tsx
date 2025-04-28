@@ -2,8 +2,6 @@
 
 import React from "react";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import sliderImage1 from "@/assets/image (9).png";
-import sliderImage2 from "@/assets/image (10).png";
 
 // Import Swiper styles
 import "swiper/css";
@@ -18,45 +16,9 @@ import { FreeMode, Pagination, Navigation } from "swiper/modules";
 import Image from "next/image";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import Link from "next/link";
-
-const sliderData = [
-  {
-    image: sliderImage1,
-    title: "Cost Reduction Strategies",
-    description: [
-      "Operational efficiency assessments.",
-      "Workflow Optimization",
-    ],
-    seeMoreText: "See More",
-  },
-  {
-    image: sliderImage2,
-    title: "Revenue Cycle Management Optimization",
-    description: [
-      "Assessment and improvement of billing and collections processes.",
-      "Recommendations to reduce denied claims and improve cash flow.",
-    ],
-    seeMoreText: "See More",
-  },
-  {
-    image: sliderImage1,
-    title: "Cost Reduction Strategies",
-    description: [
-      "Operational efficiency assessments.",
-      "Workflow Optimization",
-    ],
-    seeMoreText: "See More",
-  },
-  {
-    image: sliderImage2,
-    title: "Revenue Cycle Management Optimization",
-    description: [
-      "Assessment and improvement of billing and collections processes.",
-      "Recommendations to reduce denied claims and improve cash flow.",
-    ],
-    seeMoreText: "See More",
-  },
-];
+import { useGetAllServicesQuery } from "@/redux/apiSlices/serviceSlice";
+import { Spin } from "antd";
+import { getImageUrl } from "@/utils/getImageUrl";
 
 const SwiperNavButtons = () => {
   const swiper = useSwiper();
@@ -80,6 +42,19 @@ const SwiperNavButtons = () => {
 };
 
 const OurServices = () => {
+  const { data: services, isLoading } = useGetAllServicesQuery(undefined);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spin />
+      </div>
+    );
+  }
+
+  const allServices = services?.data;
+  // console.log(allServices);
+
   return (
     <div className="container">
       <div className="mb-20">
@@ -108,27 +83,24 @@ const OurServices = () => {
               className="mySwiper"
             >
               <SwiperNavButtons />
-              {sliderData?.map((slide, index) => (
-                <SwiperSlide key={index}>
+              {allServices?.map((slide: any) => (
+                <SwiperSlide key={slide?._id}>
                   <div>
                     <Image
-                      src={slide.image}
+                      src={getImageUrl(slide?.image)}
                       alt="SliderImage"
                       width={50000}
                       height={50000}
+                      className="!h-[400px] w-full object-cover rounded-2xl shadow-lg shadow-[#032237]"
                     />
                     <div className="text-start my-5">
                       <h1 className="text-2xl font-bold">{slide.title}</h1>
                       <ul className="list-disc pl-10 my-2">
-                        {slide?.description?.slice(0, 1)?.map((item, idx) => (
-                          <li className="text-[16px]" key={idx}>
-                            {item}
-                          </li>
-                        ))}
+                        {slide?.description}
                       </ul>
-                      <Link href={"/services/1"}>
-                        <p className="text-blue-700 underline text-end text-xl">
-                          {slide.seeMoreText}
+                      <Link href={`/services/${slide?._id}`}>
+                        <p className="text-blue-700 underline font-semibold text-end text-xl">
+                          See More
                         </p>
                       </Link>
                     </div>
