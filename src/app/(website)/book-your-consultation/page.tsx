@@ -12,15 +12,137 @@ import {
   Checkbox,
   Radio,
   DatePicker,
-  TimePicker,
+  Spin,
+  Modal,
 } from "antd";
 import { PhoneOutlined, MailOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { Option } from "antd/es/mentions";
+import {
+  useGetSlotsQuery,
+  useCreateBookingMutation,
+} from "@/redux/apiSlices/bookingSlice";
+import { message } from "antd";
+import { useGetAllServicesQuery } from "@/redux/apiSlices/serviceSlice";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const BookYourConsultationPage = () => {
   const [form] = Form.useForm();
   const [consultationMode, setConsultationMode] = useState("in-person");
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [selectedTimeZone, setSelectedTimeZone] =
+    useState<string>("America/New_York");
+
+  const router = useRouter();
+
+  const { data: availableSlots, isLoading } = useGetSlotsQuery(
+    { date: selectedDate, timeZone: selectedTimeZone },
+    { skip: !selectedDate }
+  );
+  const { data: allServices, isLoading: isServiceLoading } =
+    useGetAllServicesQuery(undefined);
+  const [createBooking, { isLoading: isSubmitting }] =
+    useCreateBookingMutation();
+
+  const timeZones = [
+    "America/New_York",
+    "America/Chicago",
+    "America/Denver",
+    "America/Los_Angeles",
+    "America/Anchorage",
+    "America/Honolulu",
+    "America/Phoenix",
+    "America/Indiana/Indianapolis",
+  ];
+
+  const handleDateChange = (date: any) => {
+    if (date) {
+      setSelectedDate(date.format("YYYY-MM-DD"));
+    } else {
+      setSelectedDate(null);
+    }
+  };
+
+  // Remove the global loading check
+  if (isServiceLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spin />
+      </div>
+    );
+  }
+
+  const services = allServices?.data;
+
+  // Interface for the time slot structure
+  interface TimeSlot {
+    time: string;
+    timeCode: number;
+    isBooked: boolean;
+  }
+
+  interface DaySlot {
+    user: string;
+    day: string;
+    times: TimeSlot[];
+  }
+
+  // Get available time slots
+  const getAvailableSlots = () => {
+    if (!availableSlots?.data?.[0]?.times) return [];
+
+    // Filter out booked slots
+    return availableSlots.data[0].times
+      .filter((slot: TimeSlot) => !slot.isBooked)
+      .map((slot: TimeSlot) => ({
+        label: slot.time,
+        value: slot.timeCode.toString(),
+      }));
+  };
+
+  const handleSubmit = async (values: any) => {
+    try {
+      // Get the selected slot details
+      const selectedSlot = availableSlots?.data[0]?.times.find(
+        (slot: TimeSlot) => slot.timeCode.toString() === values.slot
+      );
+
+      const bookingData = {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        contact: values.phone,
+        email: values.email,
+        industry: values.industry,
+        country: values.country,
+        state: values.state,
+        service: values.service,
+        message: values.message,
+        date: values.date.format("YYYY-MM-DD"),
+        time: selectedSlot?.time,
+        timezone: values.timeZone,
+        timeCode: parseInt(values.slot),
+      };
+
+      const res = await createBooking(bookingData).unwrap();
+      if (res?.success) {
+        Modal.success({
+          title: "Booking Successful",
+          content:
+            res?.message || "Your consultation has been booked successfully!",
+          okText: "OK",
+          centered: true,
+        });
+        router.push("/");
+      } else {
+        toast.error(res?.message);
+      }
+
+      form.resetFields();
+    } catch (error) {
+      message.error("Failed to create booking. Please try again.");
+    }
+  };
 
   return (
     <div>
@@ -48,7 +170,8 @@ const BookYourConsultationPage = () => {
         <Form
           form={form}
           layout="vertical"
-          onFinish={(values) => console.log(values)}
+          onFinish={handleSubmit}
+          disabled={isSubmitting}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Form.Item
@@ -116,8 +239,11 @@ const BookYourConsultationPage = () => {
             rules={[{ required: true }]}
           >
             <Select placeholder="Select the service">
-              <Option value="consulting">Consulting</Option>
-              <Option value="development">Development</Option>
+              {services?.map((service: any) => (
+                <Option key={service._id} value={service._id}>
+                  {service.title}
+                </Option>
+              ))}
             </Select>
           </Form.Item>
 
@@ -137,12 +263,61 @@ const BookYourConsultationPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Form.Item
+              name="timeZone"
+              label="Time Zone"
+              rules={[{ required: true, message: "Please select a time zone" }]}
+            >
+              <Select
+                placeholder="Select Time Zone"
+                onChange={(value) => setSelectedTimeZone(value)}
+                value={selectedTimeZone}
+              >
+                {timeZones.map((zone) => (
+                  <Option key={zone} value={zone}>
+                    {zone}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+            <Form.Item
               name="date"
               label="Select Date"
               rules={[{ required: true }]}
             >
-              <DatePicker className="w-full" />
+              <DatePicker
+                className="w-full"
+                onChange={handleDateChange}
+                disabledDate={(current) => {
+                  return current && current < dayjs().startOf("day");
+                }}
+              />
             </Form.Item>
+          </div>
+
+          <Form.Item
+            name="slot"
+            label="Available Slots"
+            rules={[{ required: true, message: "Please select a time slot" }]}
+          >
+            <div className="relative">
+              {isLoading && (
+                <div className="absolute inset-0 bg-white bg-opacity-50 flex items-center justify-center z-10">
+                  <Spin />
+                </div>
+              )}
+              <Select
+                placeholder={
+                  selectedDate
+                    ? "Select a time slot"
+                    : "Please select a date first"
+                }
+                disabled={!selectedDate}
+                options={getAvailableSlots()}
+              />
+            </div>
+          </Form.Item>
+
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Form.Item
               name="time"
               label="Select Time"
@@ -154,10 +329,10 @@ const BookYourConsultationPage = () => {
                 defaultValue={dayjs("08:00", "HH:mm")}
               />
             </Form.Item>
-          </div>
+          </div> */}
 
           <Form.Item>
-            <Checkbox>
+            <Checkbox required>
               I agree to the Terms & Conditions and Privacy Policy
             </Checkbox>
           </Form.Item>
@@ -166,8 +341,9 @@ const BookYourConsultationPage = () => {
             <Button
               htmlType="submit"
               className="w-full !bg-gradientBg !py-5 !text-xl"
+              loading={isSubmitting}
             >
-              Confirm & Submit
+              {isSubmitting ? "Submitting..." : "Confirm & Submit"}
             </Button>
           </Form.Item>
         </Form>

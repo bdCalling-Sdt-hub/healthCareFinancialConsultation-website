@@ -119,6 +119,8 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
     // Set initial dimensions
     handleResize();
 
+    onSelect("DIE");
+
     // Add event listener
     window.addEventListener("resize", handleResize);
 

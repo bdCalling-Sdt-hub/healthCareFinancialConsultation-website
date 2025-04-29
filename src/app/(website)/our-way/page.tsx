@@ -9,7 +9,7 @@ import { useGetOurWaysQuery } from "@/redux/apiSlices/ourWaySlice";
 import { Spin } from "antd";
 
 const HowWeWorkPage = () => {
-  const [selectedMenu, setSelectedMenu] = useState("menu1");
+  const [selectedMenu, setSelectedMenu] = useState("DIE");
 
   const { data: ourWays, isLoading } = useGetOurWaysQuery(undefined);
 

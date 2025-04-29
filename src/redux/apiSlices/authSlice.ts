@@ -39,7 +39,7 @@ const authApi = api.injectEndpoints({
 
     getUserProfile: builder.query({
       query: () => ({
-        url: "user/profile",
+        url: "/user/profile",
         method: "GET",
       }),
       providesTags: ["userProfile"],
