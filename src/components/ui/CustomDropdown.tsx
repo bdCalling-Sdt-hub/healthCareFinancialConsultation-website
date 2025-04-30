@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Select from "react-select";
 import stateLogo from "@/assets/Vector.png";
+import {
+  useGetUserProfileQuery,
+  useUpdateUserProfileMutation,
+} from "@/redux/apiSlices/authSlice";
+import toast from "react-hot-toast";
 
 const stateOptions = [
   {
@@ -71,15 +76,55 @@ const stateOptions = [
 ];
 
 const CustomDropdown = () => {
-  const [selectedState, setSelectedState] = useState(stateOptions[0]);
+  const { data: userData } = useGetUserProfileQuery(undefined);
+  const [updateProfile] = useUpdateUserProfileMutation();
+
+  // Find the user's state in stateOptions or default to first option
+  const userState =
+    stateOptions.find((option) => option.value === userData?.data?.location) ||
+    stateOptions[0];
+  const [selectedState, setSelectedState] = useState(userState);
+
+  useEffect(() => {
+    if (userData?.data?.location) {
+      const userState =
+        stateOptions.find(
+          (option) => option.value === userData.data.location
+        ) || stateOptions[0];
+      setSelectedState(userState);
+    }
+  }, [userData?.data?.location]);
+
+  const handleStateChange = async (selectedOption: any) => {
+    if (selectedOption) {
+      setSelectedState(selectedOption);
+
+      const formData = new FormData();
+      const data = {
+        ...userData?.data,
+        location: selectedOption.value,
+      };
+
+      formData.append("data", JSON.stringify(data));
+
+      try {
+        const res = await updateProfile(formData);
+        if (res?.data?.success) {
+          toast.success(res?.data?.message || "Location updated successfully!");
+        } else {
+          toast.error(res?.data?.message || "Failed to update location!");
+        }
+      } catch (error) {
+        console.error("Failed to update location:", error);
+      }
+    }
+  };
 
   return (
     <Select
       options={stateOptions}
       value={selectedState}
-      onChange={(selectedOption) =>
-        selectedOption && setSelectedState(selectedOption)
-      }
+      onChange={handleStateChange}
       formatOptionLabel={(option) => option.label}
       styles={{
         control: (provided) => ({

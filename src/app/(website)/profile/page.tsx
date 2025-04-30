@@ -1,19 +1,11 @@
 "use client";
 
-import { ConfigProvider, Tabs } from "antd";
+import { ConfigProvider, Spin, Tabs } from "antd";
 import ProfileBanner from "@/components/ui/website/Profile/ProfileBanner";
 import BookingHistory from "@/components/ui/website/Profile/BookingHistory";
 import PaymentHistory from "@/components/ui/website/Profile/PaymentHistory";
 import SettingsPage from "@/components/ui/website/Profile/SettingsPage";
-
-const clientData = {
-  clientName: "John Doe",
-  industryName: "The Jonas Hospital",
-  email: "johndoe@gmail.com",
-  phone: "+728974308485",
-  location: "Buffalo, The USA",
-  serviceType: "Revenue Integrity & Compliance",
-};
+import { useGetUserProfileQuery } from "@/redux/apiSlices/authSlice";
 
 <style jsx global>{`
   .custom-tabs .ant-tabs-nav {
@@ -30,6 +22,19 @@ const clientData = {
 `}</style>;
 
 const ProfilePage = () => {
+  const { data: userData, isLoading } = useGetUserProfileQuery(undefined);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spin />
+      </div>
+    );
+  }
+
+  const userDataDetails = userData?.data;
+  console.log(userDataDetails);
+
   const items = [
     {
       label: "Profile Information",
@@ -39,22 +44,22 @@ const ProfilePage = () => {
           <div className="rounded-xl border mt-10 p-6 w-full max-w-lg mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 text-gray-700">
               <span className="font-medium">Client Name:</span>
-              <span>{clientData.clientName}</span>
+              <span>{userDataDetails?.name}</span>
 
               <span className="font-medium">Industry Name:</span>
-              <span>{clientData.industryName}</span>
+              <span>{userDataDetails?.industry}</span>
 
               <span className="font-medium">E-mail:</span>
-              <span>{clientData.email}</span>
+              <span>{userDataDetails?.email}</span>
 
               <span className="font-medium">Phone:</span>
-              <span>{clientData.phone}</span>
+              <span>{userDataDetails?.phone}</span>
 
-              <span className="font-medium">Location:</span>
-              <span>{clientData.location}</span>
+              <span className="font-medium">Address:</span>
+              <span>{userDataDetails?.address}</span>
 
-              <span className="font-medium">Service Type:</span>
-              <span>{clientData.serviceType}</span>
+              <span className="font-medium">About:</span>
+              <span>{userDataDetails?.about}</span>
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import aboutImg from "@/assets/Handshake.png";
+import Link from "next/link";
 
 const AboutUsSection = () => {
   return (
@@ -18,9 +19,11 @@ const AboutUsSection = () => {
             the complex challenges of healthcare finance, from revenue cycle
             management to cost containment and compliance.
           </p>
-          <button className="bg-gradientBg py-4 px-10 font-medium hover:opacity-90 rounded-md border-none">
-            Learn More
-          </button>
+          <Link href={"/aboutUs"}>
+            <button className="bg-gradientBg py-4 px-10 font-medium hover:opacity-90 rounded-md border-none">
+              Learn More
+            </button>
+          </Link>
         </div>
       </div>
       <div className="md:absolute hidden md:block md:top-[200px] md:mt-16 md:ms-28 md:left-[200px] left-[400px] transform -translate-x-1/2 -translate-y-1/2">

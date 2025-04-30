@@ -1,68 +1,56 @@
 import React from "react";
-import { ConfigProvider, Table } from "antd";
+import { ConfigProvider, Spin, Table } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
-
-const dataSource = [
-  {
-    key: "1",
-    bookingId: "#647",
-    dateTime: "17 Feb 2024\n4:00 PM - 6:00 PM",
-    service: "Revenue Integrity & Compliance",
-    amount: "300$",
-    status: "Approved",
-  },
-  {
-    key: "2",
-    bookingId: "#647",
-    dateTime: "17 Feb 2024\n4:00 PM - 6:00 PM",
-    service: "Revenue Integrity & Compliance",
-    amount: "300$",
-    status: "Rejected",
-  },
-  {
-    key: "3",
-    bookingId: "#647",
-    dateTime: "17 Feb 2024\n4:00 PM - 6:00 PM",
-    service: "Revenue Integrity & Compliance",
-    amount: "300$",
-    status: "Pending",
-  },
-];
+import { useMyBookingsQuery } from "@/redux/apiSlices/bookingSlice";
+import moment from "moment";
 
 const columns = [
   {
-    title: "Booking ID",
-    dataIndex: "bookingId",
-    key: "bookingId",
-  },
-  {
-    title: "Date/Time",
-    dataIndex: "dateTime",
-    key: "dateTime",
-    render: (text: string) => (
-      <span style={{ whiteSpace: "pre-line" }}>{text}</span>
-    ),
+    title: "Serial",
+    dataIndex: "serial",
+    key: "serial",
+    render: (text: string, record: any, index: number) => index + 1,
   },
   {
     title: "Service",
-    dataIndex: "service",
-    key: "service",
+    dataIndex: ["service", "title"],
+    key: "dateTime",
+  },
+  {
+    title: "Scheduled At",
+    dataIndex: "scheduledAt",
+    key: "scheduledAt",
+    render: (time: string) => <p>{moment(time).format("LLLL")}</p>,
   },
   {
     title: "Amount",
-    dataIndex: "amount",
-    key: "amount",
+    dataIndex: "fee",
+    key: "fee",
+    render: (amount: string) => <p>${amount || "N/A"}</p>,
   },
   {
     title: "Status",
     dataIndex: "status",
     key: "status",
     render: (status: string) => {
-      let color = "";
-      if (status === "Approved") color = "green";
-      if (status === "Rejected") color = "red";
-      if (status === "Pending") color = "orange";
-      return <span style={{ color }}>{status}</span>;
+      const statusColors = {
+        pending: "text-orange-500",
+        completed: "text-green-500",
+        cancelled: "text-red-500",
+        accepted: "text-blue-500",
+        postponed: "text-yellow-500",
+        paid: "text-emerald-500",
+      };
+
+      return (
+        <span
+          className={`font-medium ${
+            statusColors[status as keyof typeof statusColors] || ""
+          }`}
+        >
+          {status}
+        </span>
+      );
     },
   },
   {
@@ -73,6 +61,19 @@ const columns = [
 ];
 
 const BookingHistory = () => {
+  const { data: BookingHistory, isLoading } = useMyBookingsQuery(undefined);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spin />
+      </div>
+    );
+  }
+
+  const bookingsData = BookingHistory?.data;
+  console.log("sadfvsdvsdv", bookingsData);
+
   return (
     <ConfigProvider
       theme={{
@@ -85,9 +86,9 @@ const BookingHistory = () => {
       }}
     >
       <Table
-        dataSource={dataSource}
+        dataSource={bookingsData}
         columns={columns}
-        rowKey="key"
+        rowKey="_id"
         pagination={false}
       />
     </ConfigProvider>

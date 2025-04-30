@@ -8,6 +8,7 @@ import {
 } from "@/redux/apiSlices/authSlice";
 import type { UploadFile } from "antd/es/upload/interface";
 import Image from "next/image";
+import { getImageUrl } from "@/utils/getImageUrl";
 
 const EditProfile = () => {
   const [form] = Form.useForm();
@@ -29,7 +30,7 @@ const EditProfile = () => {
         phone: values.phone,
         address: values.address,
         about: values.about,
-        industry: values.industryName,
+        industry: values.industry,
       };
 
       // Append data object as JSON string
@@ -102,10 +103,10 @@ const EditProfile = () => {
                   width={456465}
                   className="w-full h-full object-cover"
                 />
-              ) : userDataDetails?.image ? (
+              ) : userDataDetails?.profile ? (
                 // Show existing profile image from API
                 <Image
-                  src={userDataDetails.image}
+                  src={getImageUrl(userDataDetails?.profile)}
                   alt="Profile"
                   width={456465}
                   height={456465}

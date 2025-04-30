@@ -13,7 +13,10 @@ import CustomDropdown from "../ui/CustomDropdown";
 import { FaBell } from "react-icons/fa";
 import randomImage from "@/assets/randomProfile3.jpg";
 import { Badge, Spin } from "antd";
-import { useGetUserProfileQuery } from "@/redux/apiSlices/authSlice";
+import {
+  useGetUserProfileQuery,
+  useUpdateUserProfileMutation,
+} from "@/redux/apiSlices/authSlice";
 import { getImageUrl } from "@/utils/getImageUrl";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -25,6 +28,7 @@ const Navbar = () => {
   const [showDrawer, setShowDrawer] = useState(false);
 
   const { data: userData, isLoading } = useGetUserProfileQuery(undefined);
+  const [updateProfile] = useUpdateUserProfileMutation();
 
   if (isLoading) {
     return (
@@ -125,8 +129,8 @@ const Navbar = () => {
                     <Image
                       alt="Profile"
                       src={
-                        userInfo?.image
-                          ? getImageUrl(userInfo.image)
+                        userInfo?.profile
+                          ? getImageUrl(userInfo?.profile)
                           : randomImage
                       }
                       width={4654646}

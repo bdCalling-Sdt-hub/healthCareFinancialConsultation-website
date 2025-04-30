@@ -20,7 +20,20 @@ const bookingSlice = api.injectEndpoints({
         };
       },
     }),
+
+    myBookings: builder.query({
+      query: () => {
+        return {
+          method: "GET",
+          url: `/bookings/my-bookings`,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetSlotsQuery, useCreateBookingMutation } = bookingSlice;
+export const {
+  useGetSlotsQuery,
+  useCreateBookingMutation,
+  useMyBookingsQuery,
+} = bookingSlice;

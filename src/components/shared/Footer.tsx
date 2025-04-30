@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import Image from "next/image";
 import logo from "@/assets/logo.svg";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -27,22 +28,31 @@ const Footer = () => {
             create campaigns.
           </p>
           <div className="mt-4 flex space-x-3">
-            <FaFacebookF
-              size={36}
-              className="text-xl bg-gradientBg p-2 rounded-full"
-            />
-            <FaTwitter
-              size={36}
-              className="text-xl bg-gradientBg p-2 rounded-full"
-            />
-            <FaLinkedinIn
-              size={36}
-              className="text-xl bg-gradientBg p-2 rounded-full"
-            />
-            <FaInstagram
-              size={36}
-              className="text-xl bg-gradientBg p-2 rounded-full"
-            />
+            <Link href={""}>
+              {" "}
+              <FaFacebookF
+                size={36}
+                className="text-xl bg-gradientBg p-2 rounded-full"
+              />
+            </Link>
+            <Link href={""}>
+              <FaTwitter
+                size={36}
+                className="text-xl bg-gradientBg p-2 rounded-full"
+              />
+            </Link>
+            <Link href={""}>
+              <FaLinkedinIn
+                size={36}
+                className="text-xl bg-gradientBg p-2 rounded-full"
+              />
+            </Link>
+            <Link href={""}>
+              <FaInstagram
+                size={36}
+                className="text-xl bg-gradientBg p-2 rounded-full"
+              />
+            </Link>
           </div>
         </div>
 
@@ -51,19 +61,35 @@ const Footer = () => {
           <div className="text-transparent bg-gradientBg bg-clip-text">
             <h3 className="font-bold text-lg mb-5">Pages</h3>
             <ul className="text-transparent bg-gradientBg bg-clip-text space-y-2 mt-2">
-              <li>Home Page</li>
-              <li>Services</li>
-              <li>Insight</li>
-              <li>About</li>
+              <Link href={"/"}>
+                <li>Home Page</li>
+              </Link>
+              <Link href={"/services"}>
+                <li>Services</li>
+              </Link>
+              <Link href={"/insights"}>
+                <li>Insight</li>
+              </Link>
+              <Link href={"/aboutUs"}>
+                <li>About</li>
+              </Link>
             </ul>
           </div>
           <div className="text-transparent bg-gradientBg bg-clip-text">
             <h3 className="font-bold text-lg mb-5">Support</h3>
             <ul className="text-transparent bg-gradientBg bg-clip-text space-y-2 mt-2">
-              <li>Terms & Conditions</li>
-              <li>Privacy Policy</li>
-              <li>Log In</li>
-              <li>FAQ</li>
+              <Link href="/profile?tab=4&menu=menu5">
+                <li>Terms & Conditions</li>
+              </Link>
+              <Link href="/profile?tab=4&menu=menu4">
+                <li>Privacy Policy</li>
+              </Link>
+              <Link href="/login">
+                <li>Log In</li>
+              </Link>
+              <Link href="">
+                <li>FAQ</li>
+              </Link>
             </ul>
           </div>
         </div>
