@@ -64,13 +64,13 @@ const SingleServicesPage = () => {
 
   const relatedChallenges = [
     {
-      id: "1",
-      image: relatedImg1,
+      _id: "1",
+      background: "https://i.ibb.co.com/GfNydhRW/random-Profile-Image.jpg",
       title: "HIPAA & Financial Security",
     },
     {
-      id: "2",
-      image: relatedImg2,
+      _id: "2",
+      background: "https://i.ibb.co.com/GfNydhRW/random-Profile-Image.jpg",
       title: "Avoiding Reimbursement Pitfalls",
     },
   ];
@@ -170,7 +170,7 @@ const SingleServicesPage = () => {
           <h1 className="text-3xl mb-5 font-bold">Related Challenges</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {relatedChallenges?.map((item) => (
-              <RelatedChallengeCard key={item.id} item={item} />
+              <RelatedChallengeCard key={item._id} item={item} />
             ))}
           </div>
         </div>

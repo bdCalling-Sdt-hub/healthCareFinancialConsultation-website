@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import EditProfile from "./settingsOptions/EditProfile";
 import ChangePassword from "./settingsOptions/ChangePassword";
 import LogOut from "./settingsOptions/LogOut";
@@ -7,7 +8,21 @@ import PrivacyPolicy from "./settingsOptions/PrivacyPolicy";
 import DeleteAccount from "./settingsOptions/DeleteAccount";
 
 const SettingsPage = () => {
-  const [selectedMenu, setSelectedMenu] = useState("menu1");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [selectedMenu, setSelectedMenu] = useState(searchParams.get("menu") || "menu1");
+
+  useEffect(() => {
+    const menu = searchParams.get("menu");
+    if (menu) {
+      setSelectedMenu(menu);
+    }
+  }, [searchParams]);
+
+  const handleMenuClick = (menu: string) => {
+    setSelectedMenu(menu);
+    router.replace(`/profile?tab=4&menu=${menu}`, { scroll: false });
+  };
 
   const renderContent = () => {
     switch (selectedMenu) {
@@ -64,7 +79,7 @@ const SettingsPage = () => {
                   ? "bg-[#032237] text-white"
                   : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
               }`}
-              onClick={() => setSelectedMenu("menu1")}
+              onClick={() => handleMenuClick("menu1")}
             >
               Edit Profile
             </button>
@@ -74,7 +89,7 @@ const SettingsPage = () => {
                   ? "bg-[#032237] text-white"
                   : "hover:bg-[#324e63] hover:text-white transition-transform duration-300 hover:scale-105"
               }`}
-              onClick={() => setSelectedMenu("menu2")}
+              onClick={() => handleMenuClick("menu2")}
             >
               Password Settings
             </button>

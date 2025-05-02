@@ -1,6 +1,7 @@
 "use client";
 
 import { ConfigProvider, Spin, Tabs } from "antd";
+import { useRouter, useSearchParams } from "next/navigation";
 import ProfileBanner from "@/components/ui/website/Profile/ProfileBanner";
 import BookingHistory from "@/components/ui/website/Profile/BookingHistory";
 import PaymentHistory from "@/components/ui/website/Profile/PaymentHistory";
@@ -22,7 +23,14 @@ import { useGetUserProfileQuery } from "@/redux/apiSlices/authSlice";
 `}</style>;
 
 const ProfilePage = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const activeTab = searchParams.get("tab") || "1";
   const { data: userData, isLoading } = useGetUserProfileQuery(undefined);
+
+  const handleTabChange = (key: string) => {
+    router.replace(`/profile?tab=${key}`, { scroll: false });
+  };
 
   if (isLoading) {
     return (
@@ -95,7 +103,7 @@ const ProfilePage = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       <ProfileBanner />
       <div className="mt-32 md:mt-40 container mx-auto px-4">
         <ConfigProvider
@@ -107,7 +115,12 @@ const ProfilePage = () => {
             },
           }}
         >
-          <Tabs className="custom-tabs" items={items} defaultActiveKey="1" />
+          <Tabs
+            className="custom-tabs"
+            items={items}
+            activeKey={activeTab}
+            onChange={handleTabChange}
+          />
         </ConfigProvider>
       </div>
     </div>

@@ -10,6 +10,9 @@ import randomImage from "@/assets/randomProfile3.jpg";
 import { FreeMode, Pagination, Navigation } from "swiper/modules";
 import Image from "next/image";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
+import { useGetReviewsQuery } from "@/redux/apiSlices/ourWaySlice";
+import { Spin } from "antd";
+import { getImageUrl } from "@/utils/getImageUrl";
 
 const testimonials = [
   {
@@ -86,6 +89,19 @@ const SwiperNavButtons = () => {
 };
 
 const WhatClientsSay = () => {
+  const { data: reviews, isLoading } = useGetReviewsQuery(undefined);
+
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spin />
+      </div>
+    );
+
+  const allReviews = reviews?.data;
+
+  console.log(allReviews);
+
   return (
     <div className="container md:py-20">
       <style jsx global>{`
@@ -116,34 +132,43 @@ const WhatClientsSay = () => {
             className="mySwiper"
           >
             <SwiperNavButtons />
-            {testimonials.map((testimonial) => (
-              <SwiperSlide key={testimonial.id}>
-                <div className="relative p-[2px] hover:shadow-xl rounded-lg bg-gradient-to-r from-[#b99755] via-[#F5EC9B] to-[#b99755]">
-                  <div className="bg-white hover:text-white hover:bg-[#032237]  p-5 rounded-lg">
+            {allReviews?.map((review: any) => (
+              <SwiperSlide key={review?._id} className="h-auto">
+                <div className="relative h-[350px]  p-[2px] hover:shadow-xl rounded-lg bg-gradient-to-r from-[#b99755] via-[#F5EC9B] to-[#b99755]">
+                  <div className="bg-white hover:text-white hover:bg-[#032237] p-5 rounded-lg flex flex-col h-full">
                     <div className="flex items-center border-b-2 pb-2 gap-3">
                       <div className="w-20 h-20 rounded-full">
                         <Image
-                          src={testimonial.image}
-                          alt={testimonial.name}
+                          src={getImageUrl(review?.image)}
+                          width={46456456}
+                          height={46456456}
+                          alt={review?.name}
                           className="w-20 h-20 rounded-full"
                         />
                       </div>
                       <div>
                         <h2 className="text-lg font-semibold">
-                          {testimonial.name}
+                          {review?.name}
                         </h2>
-                        <p className="text-sm">{testimonial.role}</p>
+                        <p className="text-sm">{review?.industry}</p>
                       </div>
                     </div>
                     <h3 className="mt-3 text-lg font-bold text-start">
-                      {testimonial.title}
+                      {review?.title}
                     </h3>
-                    <p className="text-sm text-start mt-2">
-                      {testimonial.review}
+                    <p className="text-sm text-start mt-2 flex-grow overflow-y-auto">
+                      {review?.review}
                     </p>
                     <div className="flex mt-3">
-                      {Array.from({ length: testimonial.rating }, (_, i) => (
-                        <span key={i} className="text-yellow-500">
+                      {[...Array(5)].map((_, index) => (
+                        <span
+                          key={index}
+                          className={
+                            index < review?.rating
+                              ? "text-yellow-500"
+                              : "text-gray-300"
+                          }
+                        >
                           ★
                         </span>
                       ))}

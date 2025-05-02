@@ -9,7 +9,15 @@ const ourWayApi = api.injectEndpoints({
       }),
       providesTags: ["service"],
     }),
+
+    //reviews
+    getReviews: builder.query({
+      query: () => ({
+        url: `/review`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetOurWaysQuery } = ourWayApi;
+export const { useGetOurWaysQuery, useGetReviewsQuery } = ourWayApi;

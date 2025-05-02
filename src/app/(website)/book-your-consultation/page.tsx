@@ -82,11 +82,11 @@ const BookYourConsultationPage = () => {
     isBooked: boolean;
   }
 
-  interface DaySlot {
-    user: string;
-    day: string;
-    times: TimeSlot[];
-  }
+  // interface DaySlot {
+  //   user: string;
+  //   day: string;
+  //   times: TimeSlot[];
+  // }
 
   // Get available time slots
   const getAvailableSlots = () => {

@@ -78,16 +78,16 @@ const Footer = () => {
           <div className="text-transparent bg-gradientBg bg-clip-text">
             <h3 className="font-bold text-lg mb-5">Support</h3>
             <ul className="text-transparent bg-gradientBg bg-clip-text space-y-2 mt-2">
-              <Link href="/profile?tab=4&menu=menu5">
+              <Link href="/terms-and-conditions">
                 <li>Terms & Conditions</li>
               </Link>
-              <Link href="/profile?tab=4&menu=menu4">
+              <Link href="/privacy-policy">
                 <li>Privacy Policy</li>
               </Link>
               <Link href="/login">
                 <li>Log In</li>
               </Link>
-              <Link href="">
+              <Link href="/faq">
                 <li>FAQ</li>
               </Link>
             </ul>
