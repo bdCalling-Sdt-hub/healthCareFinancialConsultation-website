@@ -66,6 +66,9 @@ const ProfilePage = () => {
               <span className="font-medium">Address:</span>
               <span>{userDataDetails?.address}</span>
 
+              <span className="font-medium">Location:</span>
+              <span>{userDataDetails?.location}</span>
+
               <span className="font-medium">About:</span>
               <span>{userDataDetails?.about}</span>
             </div>

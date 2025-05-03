@@ -139,8 +139,10 @@ const BookYourConsultationPage = () => {
       }
 
       form.resetFields();
-    } catch (error) {
-      message.error("Failed to create booking. Please try again.");
+    } catch (error: any) {
+      message.error(
+        error?.message || "Failed to create booking. Please try again."
+      );
     }
   };
 
@@ -298,6 +300,7 @@ const BookYourConsultationPage = () => {
             name="slot"
             label="Available Slots"
             rules={[{ required: true, message: "Please select a time slot" }]}
+            validateTrigger={["onChange", "onBlur"]}
           >
             <div className="relative">
               {isLoading && (
@@ -313,6 +316,9 @@ const BookYourConsultationPage = () => {
                 }
                 disabled={!selectedDate}
                 options={getAvailableSlots()}
+                onChange={(value) => {
+                  form.setFieldValue("slot", value);
+                }}
               />
             </div>
           </Form.Item>
