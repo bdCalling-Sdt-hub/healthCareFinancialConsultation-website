@@ -105,9 +105,11 @@ const Footer = () => {
               <MailOutlined className="!text-[#b99755]" /> support@gsahd.com
             </p>
           </div>
-          <button className="mt-4 bg-gradientBg text-black font-semibold px-6 py-2 rounded-md">
-            Book Now
-          </button>
+          <Link href={"/book-your-consultation"}>
+            <button className="mt-4 bg-gradientBg text-black font-semibold px-6 py-2 rounded-md">
+              Book Now
+            </button>
+          </Link>
         </div>
       </div>
 

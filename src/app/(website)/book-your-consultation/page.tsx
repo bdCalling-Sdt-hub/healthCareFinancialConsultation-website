@@ -348,6 +348,22 @@ const BookYourConsultationPage = () => {
               htmlType="submit"
               className="w-full !bg-gradientBg !py-5 !text-xl"
               loading={isSubmitting}
+              onClick={(e) => {
+                e.preventDefault();
+                const authToken =
+                  localStorage.getItem("authenticationToken") ||
+                  sessionStorage.getItem("authenticationToken");
+                if (!authToken) {
+                  Modal.error({
+                    title: "Authentication Required",
+                    content: "Please login to book a consultation",
+                    onOk: () => router.push("/login"),
+                    centered: true,
+                  });
+                  return;
+                }
+                form.submit();
+              }}
             >
               {isSubmitting ? "Submitting..." : "Confirm & Submit"}
             </Button>
