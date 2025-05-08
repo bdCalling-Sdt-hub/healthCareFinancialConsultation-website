@@ -5,48 +5,22 @@ import insightImage from "@/assets/image (33).png";
 import { motion } from "framer-motion";
 import Horizon from "@/components/ui/website/Home/Horizon";
 import BookNowBanner from "@/components/ui/website/BookNowBanner";
-import relatedImg1 from "@/assets/image (31).png";
-import relatedImg2 from "@/assets/image (32).png";
 import RelatedChallengeCard from "@/components/ui/website/RelatedChallengeCard";
 import WhatClientsSay from "@/components/ui/website/Home/Review/WhatClientsSay";
 import GrowthChart from "@/components/ui/website/insights/GrowthChart";
 import BestServicesChart from "@/components/ui/website/insights/BestServicesChart";
 import { Spin } from "antd";
 import { useGetAllChallengesQuery } from "@/redux/apiSlices/challengeSlice";
+import { useGetAllInsightChartQuery } from "@/redux/apiSlices/horizonSlice";
 
 const InsightsPage = () => {
-  const topFiveChallenges = [
-    {
-      id: "1",
-      image: relatedImg1,
-      title: "HIPAA & Financial Security",
-    },
-    {
-      id: "2",
-      image: relatedImg2,
-      title: "Avoiding Reimbursement Pitfalls",
-    },
-    {
-      id: "3",
-      image: relatedImg1,
-      title: "HIPAA & Financial Security",
-    },
-    {
-      id: "4",
-      image: relatedImg2,
-      title: "Avoiding Reimbursement Pitfalls",
-    },
-    {
-      id: "5",
-      image: relatedImg1,
-      title: "HIPAA & Financial Security",
-    },
-  ];
-
   const { data: allChallenges, isLoading } =
     useGetAllChallengesQuery(undefined);
 
-  if (isLoading) {
+  const { data: insightChartData, isLoading: isInsightChartLoading } =
+    useGetAllInsightChartQuery(undefined);
+
+  if (isLoading || isInsightChartLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
         <Spin />
@@ -55,8 +29,9 @@ const InsightsPage = () => {
   }
 
   const topFiveChallengesInfo = allChallenges?.data;
+  const chartData = insightChartData?.data[0]?.data;
 
-  console.log(topFiveChallengesInfo);
+  // console.log(chartData);
 
   return (
     <div>
@@ -104,7 +79,7 @@ const InsightsPage = () => {
         <div className="container">
           <h1 className="text-3xl mb-5 font-bold">Our Statistics</h1>
           <div className="border-4 border-gray-200 p-10 rounded-2xl">
-            <GrowthChart />
+            <GrowthChart data={chartData} />
             <BestServicesChart />
           </div>
         </div>
@@ -115,7 +90,7 @@ const InsightsPage = () => {
           <h1 className="text-3xl mb-5 font-bold">Top 5 Challenges</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {topFiveChallengesInfo?.map((item: any) => (
-              <RelatedChallengeCard key={item.id} item={item} />
+              <RelatedChallengeCard key={item._id} item={item} />
             ))}
           </div>
         </div>

@@ -11,22 +11,20 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+// Define the type for each data point
 interface DataPoint {
-  name: string;
-  uv: number;
+  month: string;
+  value: number;
 }
 
-const data: DataPoint[] = [
-  { name: "Page A", uv: 1400 },
-  { name: "Page B", uv: 3000 },
-  { name: "Page C", uv: 2000 },
-  { name: "Page D", uv: 2780 },
-  { name: "Page E", uv: 1890 },
-  { name: "Page F", uv: 2390 },
-  { name: "Page G", uv: 3490 },
-];
+// Define the props interface
+interface GrowthChartProps {
+  data: DataPoint[];
+}
 
-const GrowthChart = () => {
+const GrowthChart = ({ data }: GrowthChartProps) => {
+  console.log(data);
+
   return (
     <ResponsiveContainer width="100%" height={400}>
       <AreaChart
@@ -40,12 +38,12 @@ const GrowthChart = () => {
           </linearGradient>
         </defs>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
+        <XAxis dataKey="month" />
         <YAxis />
         <Tooltip />
         <Area
           type="monotone"
-          dataKey="uv"
+          dataKey="value"
           stroke="#252b30"
           fill="url(#colorUv)"
         />

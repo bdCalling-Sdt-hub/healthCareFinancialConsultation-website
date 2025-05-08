@@ -7,6 +7,7 @@ import BookingHistory from "@/components/ui/website/Profile/BookingHistory";
 import PaymentHistory from "@/components/ui/website/Profile/PaymentHistory";
 import SettingsPage from "@/components/ui/website/Profile/SettingsPage";
 import { useGetUserProfileQuery } from "@/redux/apiSlices/authSlice";
+import { Suspense } from "react";
 
 <style jsx global>{`
   .custom-tabs .ant-tabs-nav {
@@ -22,7 +23,7 @@ import { useGetUserProfileQuery } from "@/redux/apiSlices/authSlice";
   }
 `}</style>;
 
-const ProfilePage = () => {
+const ProfileContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const activeTab = searchParams.get("tab") || "1";
@@ -41,7 +42,6 @@ const ProfilePage = () => {
   }
 
   const userDataDetails = userData?.data;
-  console.log(userDataDetails);
 
   const items = [
     {
@@ -127,6 +127,18 @@ const ProfilePage = () => {
         </ConfigProvider>
       </div>
     </div>
+  );
+};
+
+const ProfilePage = () => {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center h-screen">
+        <Spin />
+      </div>
+    }>
+      <ProfileContent />
+    </Suspense>
   );
 };
 

@@ -17,7 +17,20 @@ const horizonApi = api.injectEndpoints({
       }),
       providesTags: ["service"],
     }),
+
+    getAllInsightChart: builder.query({
+      query: () => {
+        return {
+          method: "GET",
+          url: `/dashboard/chart`,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetAllHorizonQuery, useGetSingleInsightQuery } = horizonApi;
+export const {
+  useGetAllHorizonQuery,
+  useGetSingleInsightQuery,
+  useGetAllInsightChartQuery,
+} = horizonApi;
