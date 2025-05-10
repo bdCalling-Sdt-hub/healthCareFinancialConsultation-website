@@ -13,11 +13,9 @@ import CustomDropdown from "../ui/CustomDropdown";
 import { FaBell } from "react-icons/fa";
 import randomImage from "@/assets/randomProfile3.jpg";
 import { Badge, Spin } from "antd";
-import {
-  useGetUserProfileQuery,
-  useUpdateUserProfileMutation,
-} from "@/redux/apiSlices/authSlice";
+import { useGetUserProfileQuery } from "@/redux/apiSlices/authSlice";
 import { getImageUrl } from "@/utils/getImageUrl";
+import { useNotificationsQuery } from "@/redux/apiSlices/notificationSlice";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -28,9 +26,10 @@ const Navbar = () => {
   const [showDrawer, setShowDrawer] = useState(false);
 
   const { data: userData, isLoading } = useGetUserProfileQuery(undefined);
-  const [updateProfile] = useUpdateUserProfileMutation();
+  const { data: allNotifications, isLoading: isNotificationLoading } =
+    useNotificationsQuery(undefined);
 
-  if (isLoading) {
+  if (isLoading || isNotificationLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
         <Spin />
@@ -39,6 +38,9 @@ const Navbar = () => {
   }
 
   const userInfo = userData?.data;
+  const notificationCount = allNotifications?.data?.filter(
+    (notification: any) => notification?.isRead === false
+  ).length;
   // console.log(userInfo);
 
   const items = [
@@ -113,7 +115,7 @@ const Navbar = () => {
               <div className="flex items-center gap-2">
                 <div className="mr-3">
                   <Link href={"/notifications"}>
-                    <Badge count={3} offset={[-3, 4]}>
+                    <Badge count={notificationCount} offset={[-3, 4]}>
                       <FaBell
                         className="text-primaryText text-[#ba9956] cursor-pointer"
                         size={25}

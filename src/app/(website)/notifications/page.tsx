@@ -1,113 +1,144 @@
-import Image from "next/image";
-import randomImage from "@/assets/randomProfile3.jpg";
+"use client";
 
-const notifications = [
-  {
-    id: 1,
-    image: randomImage,
-    name: "Amiey Sawjia",
-    location: "Buffalo, the USA",
-    message:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque vero molestias quam architecto sed sunt repellendus placeat fugit provident, ratione saepe unde doloribus dolor blanditiis vel libero mollitia qui culpa harum.",
-    isRead: true,
-  },
-  {
-    id: 2,
-    image: randomImage,
-    name: "Khalid Umar",
-    location: "Tampa, Florida",
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, quidem.",
-    isRead: true,
-  },
-  {
-    id: 3,
-    image: randomImage,
-    name: "John Doe",
-    location: "New York, USA",
-    message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, quidem.",
-    isRead: true,
-  },
-  {
-    id: 4,
-    image: randomImage,
-    name: "Maria Doe",
-    location: "Los Angeles, California",
-    message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque vero molestias quam architecto sed sunt repellendus placeat fugit provident, ratione saepe unde doloribus dolor blanditiis vel libero mollitia qui culpa harum.",
-    isRead: false,
-  },
-  {
-    id: 5,
-    image: randomImage,
-    name: "Jane Doe",
-    location: "Chicago, Illinois",
-    message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, quidem.",
-    isRead: false,
-  },
-  {
-    id: 6,
-    image: randomImage,
-    name: "John Smith",
-    location: "London, UK",
-    message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, quidem.",
-    isRead: false,
-  },
-  {
-    id: 7,
-    image: randomImage,
-    name: "Jane Smith",
-    location: "Paris, France",
-    message:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque vero molestias quam architecto sed sunt repellendus placeat fugit provident, ratione saepe unde doloribus dolor blanditiis vel libero mollitia qui culpa harum.",
-    isRead: false,
-  },
-];
+import Image from "next/image";
+
+import {
+  useNotificationsQuery,
+  useReadNotificationMutation,
+} from "@/redux/apiSlices/notificationSlice";
+import { Spin } from "antd";
+import { useState } from "react";
+import { getImageUrl } from "@/utils/getImageUrl";
+
+// Type definition for notification data
+interface Notification {
+  _id: string;
+  receiver: {
+    _id: string;
+    name: string;
+    profile: string;
+  };
+  sender: {
+    _id: string;
+    name: string;
+    profile: string;
+  };
+  title: string;
+  body: string;
+  isRead: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
 
 const Notifications = () => {
+  const { data: allNotifications, isLoading } =
+    useNotificationsQuery(undefined);
+  const [readNotification] = useReadNotificationMutation();
+  const [markAllAsRead, setMarkAllAsRead] = useState(false);
+
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spin />
+      </div>
+    );
+
+  const notificationsData = allNotifications?.data || [];
+
+  const handleMarkAllAsRead = () => {
+    setMarkAllAsRead(true);
+    // Here you would typically call an API to mark all notifications as read
+    // For now, we're just updating the UI state
+  };
+
+  // Handle reading a single notification
+  const handleReadNotification = async (id: string) => {
+    try {
+      await readNotification(id).unwrap();
+      // The notification list will be automatically refreshed due to invalidatesTags in the slice
+    } catch (error) {
+      console.error("Failed to mark notification as read:", error);
+    }
+  };
+
+  // Format date to a more readable format
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
   return (
     <div className="">
       <div className="h-[150px] flex items-center justify-center bg-gradientBg">
         <h1 className="text-2xl font-bold">Notifications</h1>
       </div>
       <div className="container my-10">
-        <div className="flex items-center justify-end mb-5">
-          <button className="bg-gradientBg px-10 py-2 rounded-md">
-            Mark All As Read
-          </button>
-        </div>
-        {notifications.map((notification) => (
-          <div
-            key={notification.id}
-            className={`border-b border-dashed py-4 p-5 rounded-lg border-gray-400 ${
-              notification.isRead ? "bg-gray-200" : ""
-            }`}
-          >
-            <div className="flex items-center gap-2">
-              <Image
-                alt="Profile"
-                src={notification.image}
-                width={4654646}
-                height={45634560}
-                className="w-14 h-14 border border-[#ba9956] rounded-full"
-              />
-              <div>
-                <h1 className="font-semibold">{notification.name}</h1>
-                <p>{notification.location}</p>
+        {notificationsData?.length === 0 ? (
+          <div className="text-center py-10">
+            <p className="text-gray-500 text-lg">No notifications found</p>
+          </div>
+        ) : (
+          notificationsData?.map((notification: Notification) => (
+            <div
+              key={notification._id}
+              className={`border-b border-dashed py-4 cursor-pointer p-5 rounded-lg border-gray-400 mb-4 ${
+                notification?.isRead ? "" : "bg-gray-200"
+              }`}
+              onClick={() =>
+                !notification.isRead && handleReadNotification(notification._id)
+              }
+            >
+              <div className="flex items-center gap-2">
+                <Image
+                  alt="Profile"
+                  src={getImageUrl(notification?.sender?.profile)}
+                  width={56}
+                  height={56}
+                  className="w-14 h-14 border border-[#ba9956] rounded-full object-cover"
+                />
+                <div>
+                  <h1 className="font-semibold">{notification.sender.name}</h1>
+                  <p className="text-sm text-gray-500">
+                    {formatDate(notification.createdAt)}
+                  </p>
+                </div>
+                <p className="text-sm text-gray-500 ml-auto">
+                  {(() => {
+                    const timeDiff =
+                      new Date().getTime() -
+                      new Date(notification.createdAt).getTime();
+                    const minutes = Math.floor(timeDiff / (1000 * 60));
+                    const hours = Math.floor(minutes / 60);
+                    const days = Math.floor(hours / 24);
+
+                    if (minutes < 60) return `${minutes}m ago`;
+                    if (hours < 24) return `${hours}h ago`;
+                    return `${days}d ago`;
+                  })()}
+                </p>
+              </div>
+              <div className="mt-3">
+                <h3 className="font-medium text-gray-800">
+                  {notification.title}
+                </h3>
+                <p
+                  className={`text-gray-600 mt-2 ${
+                    notification.isRead || markAllAsRead ? "" : "font-medium"
+                  }`}
+                >
+                  {notification.body}
+                </p>
               </div>
             </div>
-            <p
-              className={`text-gray-600 mt-2 ${
-                notification.isRead ? "font-bold" : ""
-              }`}
-            >
-              {notification.message}
-            </p>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

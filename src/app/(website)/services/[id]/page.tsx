@@ -85,14 +85,23 @@ const SingleServicesPage = () => {
           {/* Render tab content sections */}
           {activeTab?.contents?.map((content: any, index: number) => (
             <div key={index} className="mb-16">
-              <h1 className="text-3xl mb-5 font-bold">{content.title}</h1>
-              <div className="md:flex gap-10 justify-between items-start w-full">
+              <div className="md:flex gap-10 justify-between items-center w-full">
                 <div className="md:w-1/2">
-                  <ul className="space-y-5 text-[16px] text-gray-600 list-disc pl-5">
-                    {content?.descriptions?.map((desc: any, i: number) => (
-                      <li key={i}>{desc}</li>
-                    ))}
-                  </ul>
+                  {" "}
+                  <h1 className="text-3xl mb-5 font-bold">{content.title}</h1>
+                  <div>
+                    {content?.descriptions?.length === 1 ? (
+                      <p className="text-[16px] text-gray-600">
+                        {content.descriptions[0]}
+                      </p>
+                    ) : (
+                      <ul className="space-y-5 text-[16px] text-gray-600 list-disc pl-5">
+                        {content?.descriptions?.map((desc: any, i: number) => (
+                          <li key={i}>{desc}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
                 {index === 0 && activeTab?.images?.length > 0 && (
                   <div className="md:w-1/2 mt-5 md:mt-0">

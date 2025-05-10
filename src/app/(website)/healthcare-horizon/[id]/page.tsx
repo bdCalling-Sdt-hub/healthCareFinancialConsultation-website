@@ -175,7 +175,7 @@ const SingleInsightPage = () => {
                 alt={section.title}
                 width={50000}
                 height={50000}
-                className="w-20 h-20 object-contain rounded-lg"
+                className="w-20 h-20 object-contain rounded-2xl"
               />
               <p className="md:text-3xl text-xl font-bold text-secondary">
                 {section.title}

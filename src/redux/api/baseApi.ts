@@ -18,7 +18,7 @@ const api = createApi({
     },
   }),
   endpoints: () => ({}),
-  tagTypes: ["service", "userProfile"],
+  tagTypes: ["service", "userProfile", "notification"],
 });
 
 export const { reducer } = api;

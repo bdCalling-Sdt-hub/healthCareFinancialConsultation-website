@@ -93,9 +93,9 @@ const OurServices = () => {
                       height={50000}
                       className="!h-[400px] w-full object-cover rounded-2xl shadow-lg shadow-[#032237]"
                     />
-                    <div className="text-start my-5">
+                    <div className="text-start pb-6 my-5">
                       <h1 className="text-2xl font-bold">{slide.title}</h1>
-                      <ul className="list-disc pl-10 my-2">
+                      <ul className="list-disc line-clamp-3 pl-10 my-2">
                         {slide?.description}
                       </ul>
                       <Link href={`/services/${slide?._id}`}>
