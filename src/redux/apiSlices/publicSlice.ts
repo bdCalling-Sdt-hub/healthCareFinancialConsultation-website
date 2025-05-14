@@ -22,6 +22,13 @@ const publicSlice = api.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    getAboutUs: builder.query({
+      query: () => ({
+        url: "/about",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -29,4 +36,5 @@ export const {
   useGetPrivacyPolicyQuery,
   useGetTermsAndConditionQuery,
   useGetFaqsQuery,
+  useGetAboutUsQuery,
 } = publicSlice;
