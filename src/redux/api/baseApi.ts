@@ -4,8 +4,8 @@ const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     // baseUrl: "http://10.0.80.49:5010/api/v1",
-    baseUrl: "http://10.0.80.49:5020/api/v1",
-    // baseUrl: 'https://tamim.binarybards.online/api/v1',
+    // baseUrl: "http://10.0.80.49:5020/api/v1",
+    baseUrl: "http://52.52.50.140:5000/api/v1",
     prepareHeaders: (headers) => {
       const token =
         localStorage.getItem("authenticationToken") ||
@@ -23,4 +23,4 @@ const api = createApi({
 
 export const { reducer } = api;
 export default api;
-export const imageUrl = "http://10.0.80.49:5020";
+export const imageUrl = "http://52.52.50.140:5000";

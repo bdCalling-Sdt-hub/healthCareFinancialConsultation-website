@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import challengeImage from "@/assets/image (34).png";
-import clientBackgroundImg from "@/assets/image 37.png";
 import { motion } from "framer-motion";
 import { useGetSingleChallengeQuery } from "@/redux/apiSlices/challengeSlice";
 import { Spin } from "antd";
