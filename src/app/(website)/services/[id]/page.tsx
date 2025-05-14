@@ -1,12 +1,8 @@
 "use client";
 
-import image1 from "@/assets/image 36.png";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import servicesMenuImg from "@/assets/image (28).png";
 import serviceBookImg from "@/assets/Group 27.png";
-import relatedImg1 from "@/assets/image (31).png";
-import relatedImg2 from "@/assets/image (32).png";
 import RelatedChallengeCard from "@/components/ui/website/RelatedChallengeCard";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -83,40 +79,50 @@ const SingleServicesPage = () => {
       <div className="mt-10">
         <div className="container">
           {/* Render tab content sections */}
-          {activeTab?.contents?.map((content: any, index: number) => (
-            <div key={index} className="mb-16">
-              <div className="md:flex gap-10 justify-between items-center w-full">
-                <div className="md:w-1/2">
-                  {" "}
-                  <h1 className="text-3xl mb-5 font-bold">{content.title}</h1>
-                  <div>
-                    {content?.descriptions?.length === 1 ? (
-                      <p className="text-[16px] text-gray-600">
-                        {content.descriptions[0]}
-                      </p>
-                    ) : (
-                      <ul className="space-y-5 text-[16px] text-gray-600 list-disc pl-5">
-                        {content?.descriptions?.map((desc: any, i: number) => (
-                          <li key={i}>{desc}</li>
-                        ))}
-                      </ul>
-                    )}
+          {activeTab?.contents
+            ?.slice() // Create a copy to avoid mutating the original array
+            ?.sort((a: any, b: any) => {
+              // Sort to bring "Goal" to the top
+              if (a.title === "Goal") return -1;
+              if (b.title === "Goal") return 1;
+              return 0;
+            })
+            ?.map((content: any, index: number) => (
+              <div key={index} className="mb-16">
+                <div className="md:flex gap-10 justify-between items-center w-full">
+                  <div className="md:w-1/2">
+                    {" "}
+                    <h1 className="text-3xl mb-5 font-bold">{content.title}</h1>
+                    <div>
+                      {content?.descriptions?.length === 1 ? (
+                        <p className="text-[16px] text-gray-600">
+                          {content.descriptions[0]}
+                        </p>
+                      ) : (
+                        <ul className="space-y-5 text-[16px] text-gray-600 list-disc pl-5">
+                          {content?.descriptions?.map(
+                            (desc: any, i: number) => (
+                              <li key={i}>{desc}</li>
+                            )
+                          )}
+                        </ul>
+                      )}
+                    </div>
                   </div>
+                  {index === 1 && activeTab?.images?.length > 0 && (
+                    <div className="md:w-1/2 mt-5 md:mt-0">
+                      <Image
+                        src={getImageUrl(activeTab.images[0])}
+                        alt={`${activeTab.tabName} image`}
+                        width={500}
+                        height={320}
+                        className="w-full h-[320px] rounded-2xl object-cover"
+                      />
+                    </div>
+                  )}
                 </div>
-                {index === 0 && activeTab?.images?.length > 0 && (
-                  <div className="md:w-1/2 mt-5 md:mt-0">
-                    <Image
-                      src={getImageUrl(activeTab.images[0])}
-                      alt={`${activeTab.tabName} image`}
-                      width={500}
-                      height={320}
-                      className="w-full h-[320px] rounded-2xl object-cover"
-                    />
-                  </div>
-                )}
               </div>
-            </div>
-          ))}
+            ))}
 
           {/* Media section */}
           <div className="container mt-10">

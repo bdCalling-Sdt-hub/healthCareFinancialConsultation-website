@@ -12,6 +12,7 @@ import missionAndVisionImg1 from "@/assets/image (24).png";
 import missionAndVisionImg2 from "@/assets/image (25).png";
 import coreValuesImage1 from "@/assets/image (26).png";
 import coreValuesImage2 from "@/assets/image (27).png";
+import { getImageUrl } from "@/utils/getImageUrl";
 
 const AboutUsPage = () => {
   const { data: aboutUs, isLoading } = useGetAboutUsQuery(undefined);
@@ -25,7 +26,12 @@ const AboutUsPage = () => {
   }
 
   const aboutUsData = aboutUs?.data;
-  console.log(aboutUsData);
+
+  const whoWeAre = aboutUsData[0];
+  const ourMission = aboutUsData[1];
+  const coreValues = aboutUsData[2];
+
+  console.log(coreValues);
 
   return (
     <div>
@@ -75,14 +81,14 @@ const AboutUsPage = () => {
         <div className="container md:flex items-center gap-10">
           <div className="md:w-[50%] md:flex gap-6 pt-10 md:pt-0 w-full">
             <Image
-              src={image1}
+              src={getImageUrl(whoWeAre?.images?.[0])}
               alt="image1"
               width={50000}
               height={50000}
               className="md:w-full md:h-[300px] h-[200px] rounded-2xl object-cover"
             />
             <Image
-              src={image2}
+              src={getImageUrl(whoWeAre?.images?.[1])}
               alt="image1"
               width={50000}
               height={50000}
@@ -90,13 +96,10 @@ const AboutUsPage = () => {
             />
           </div>
           <div className="md:w-[50%] w-full">
-            <h1 className="text-3xl mb-5 mt-5 md:mt-0 font-bold">Who We Are</h1>
-            <p className="text-gray-600">
-              With years of experience in healthcare finance, we offer tailored
-              solutions that drive efficiency, reduce financial risks, and
-              maximize profitability, allowing your organization to focus on
-              what lies at the heart of the business: patient care and outcomes.
-            </p>
+            <h1 className="text-3xl mb-5 mt-5 md:mt-0 font-bold">
+              {whoWeAre?.title}
+            </h1>
+            <p className="text-gray-600">{whoWeAre?.descriptions?.[0]?.body}</p>
           </div>
         </div>
       </div>
@@ -107,29 +110,20 @@ const AboutUsPage = () => {
         <div className="container md:flex w-full gap-20 items-center justify-center">
           <div className="md:w-[45%]">
             <h1 className="text-3xl mb-5 text-transparent bg-clip-text bg-gradientBg font-bold">
-              Our Mission & Vision
+              {ourMission?.title}
             </h1>
-            <p className="text-white">
-              At HC Financial Consultants our mission is to empower healthcare
-              organizations with expert financial and operational strategies
-              that drive efficiency, reduce costs, and enhance patient care. We
-              are committed to delivering innovative consulting solutions that
-              optimize revenue, streamline workflows, and ensure long-term
-              financial sustainability. Through collaboration, data-driven
-              insights, and industry expertise, we help healthcare providers
-              navigate the evolving landscape with confidence and success.
-            </p>
+            <p className="text-white">{ourMission?.descriptions?.[0]?.body}</p>
           </div>
           <div className="md:w-[55%] md:flex gap-5 w-full">
             <Image
-              src={missionAndVisionImg1}
+              src={getImageUrl(ourMission?.images?.[0])}
               alt="missionAndVisionImage"
               width={50000}
               height={50000}
               className="md:w-[270px] md:h-[270px] h-[200px] rounded-2xl mt-20 object-cover"
             />
             <Image
-              src={missionAndVisionImg2}
+              src={getImageUrl(ourMission?.images?.[1])}
               alt="missionAndVisionImage"
               width={50000}
               height={50000}
@@ -147,55 +141,33 @@ const AboutUsPage = () => {
         <div className="md:flex items-center gap-10">
           <div className="md:flex gap-8 md:w-[55%] w-full">
             <Image
-              src={coreValuesImage1}
+              src={getImageUrl(coreValues?.images?.[0])}
               alt="coreValuesImage1"
               width={50000}
               height={50000}
               className="md:w-[350px] md:h-[350px] h-full rounded-2xl object-cover"
             />
             <Image
-              src={coreValuesImage2}
+              src={getImageUrl(coreValues?.images?.[1])}
               alt="coreValuesImage1"
               width={50000}
               height={50000}
               className="md:w-[350px] md:h-[350px] h-full md:mt-20 mt-5 rounded-2xl object-cover"
             />
           </div>
-          <div className="md:w-[45%] space-y-5 md:mt-0 mt-10">
-            <h1>
-              <span className="font-bold">Integrity & Transparency</span> – We
-              uphold the highest ethical standards, fostering trust through
-              honest, clear, and accountable consulting practices.
-            </h1>
-            <h1>
-              <span className="font-bold">Excellence & Innovation</span> – We
-              continuously seek new strategies and cutting-edge solutions to
-              help our clients stay ahead in an ever-changing healthcare
-              industry.
-            </h1>
-            <h1>
-              <span className="font-bold">Client-Centered Approach</span> – We
-              prioritize the unique needs of each healthcare organization,
-              tailoring solutions to maximize their financial and operational
-              success.
-            </h1>
-            <h1>
-              <span className="font-bold">Efficiency & Sustainability</span> –
-              We are committed to optimizing financial and operational
-              workflows, ensuring long-term growth and stability for healthcare
-              providers.
-            </h1>
-            <h1>
-              <span className="font-bold">Collaboration & Partnership</span> –
-              We work hand in hand with our clients, acting as strategic
-              partners to create meaningful, lasting impact.
-            </h1>
-            <h1>
-              <span className="font-bold">Compliance & Best Practices</span> –
-              We adhere to regulatory standards and industry best practices,
-              ensuring that our clients remain compliant while optimizing
-              financial performance.
-            </h1>
+          <div className="md:w-[45%] space-y-5 md:mt-0 mt-10 ml-10">
+            {coreValues?.descriptions?.map(
+              (description: any, index: number) => (
+                <div key={index}>
+                  <p className="text-gray-600">
+                    {" "}
+                    <span className="font-bold">
+                      {description?.heading}
+                    </span> - {description.body}
+                  </p>
+                </div>
+              )
+            )}
           </div>
         </div>
       </div>

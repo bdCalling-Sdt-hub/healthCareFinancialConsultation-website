@@ -126,6 +126,7 @@ const CircularMenu = ({ onSelect }: { onSelect: (key: string) => void }) => {
 
     // Clean up
     return () => window.removeEventListener("resize", handleResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const {

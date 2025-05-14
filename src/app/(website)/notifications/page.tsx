@@ -7,7 +7,6 @@ import {
   useReadNotificationMutation,
 } from "@/redux/apiSlices/notificationSlice";
 import { Spin } from "antd";
-import { useState } from "react";
 import { getImageUrl } from "@/utils/getImageUrl";
 
 // Type definition for notification data
@@ -35,7 +34,7 @@ const Notifications = () => {
   const { data: allNotifications, isLoading } =
     useNotificationsQuery(undefined);
   const [readNotification] = useReadNotificationMutation();
-  const [markAllAsRead, setMarkAllAsRead] = useState(false);
+  // const [markAllAsRead, setMarkAllAsRead] = useState(false);
 
   if (isLoading)
     return (
@@ -46,11 +45,11 @@ const Notifications = () => {
 
   const notificationsData = allNotifications?.data || [];
 
-  const handleMarkAllAsRead = () => {
-    setMarkAllAsRead(true);
-    // Here you would typically call an API to mark all notifications as read
-    // For now, we're just updating the UI state
-  };
+  // const handleMarkAllAsRead = () => {
+  //   setMarkAllAsRead(true);
+  //   // Here you would typically call an API to mark all notifications as read
+  //   // For now, we're just updating the UI state
+  // };
 
   // Handle reading a single notification
   const handleReadNotification = async (id: string) => {
@@ -130,7 +129,7 @@ const Notifications = () => {
                 </h3>
                 <p
                   className={`text-gray-600 mt-2 ${
-                    notification.isRead || markAllAsRead ? "" : "font-medium"
+                    notification.isRead ? "" : "font-medium"
                   }`}
                 >
                   {notification.body}

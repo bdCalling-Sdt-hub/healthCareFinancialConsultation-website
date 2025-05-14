@@ -1,14 +1,7 @@
-import profileImage from "@/assets/randomProfile3.jpg";
 import { useGetUserProfileQuery } from "@/redux/apiSlices/authSlice";
 import { getImageUrl } from "@/utils/getImageUrl";
 import { Spin } from "antd";
 import Image from "next/image";
-
-const profileData = {
-  image: profileImage,
-  name: "John Doe",
-  company: "The Jonas Northern Hospital",
-};
 
 const ProfileBanner = () => {
   const { data: userData, isLoading } = useGetUserProfileQuery(undefined);

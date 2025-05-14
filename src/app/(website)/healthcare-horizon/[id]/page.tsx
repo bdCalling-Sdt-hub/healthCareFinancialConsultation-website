@@ -5,49 +5,47 @@ import Image from "next/image";
 import costImage from "@/assets/1200-x-675-Economic-chart-and-money-696x385.webp";
 import howWeWorkImg from "@/assets/image (33).png";
 import titleLogo1 from "@/assets/image 67.png";
-import titleLogo2 from "@/assets/image 68.png";
 import titleLogo3 from "@/assets/image 70.png";
 import { Collapse, Spin } from "antd";
 import { useEffect, useState } from "react";
 import { useGetSingleInsightQuery } from "@/redux/apiSlices/horizonSlice";
 import { useParams } from "next/navigation";
 import { getImageUrl } from "@/utils/getImageUrl";
-import moment from "moment";
 
 // Define TypeScript interfaces for the API response
-interface Bar {
-  title: string;
-  body: string[];
-}
+// interface Bar {
+//   title: string;
+//   body: string[];
+// }
 
-interface Section {
-  _id: string;
-  insight: string;
-  title: string;
-  image: string;
-  bars: Bar[];
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
+// interface Section {
+//   _id: string;
+//   insight: string;
+//   title: string;
+//   image: string;
+//   bars: Bar[];
+//   createdAt: string;
+//   updatedAt: string;
+//   __v: number;
+// }
 
-interface InsightData {
-  _id: string;
-  title: string;
-  description: string;
-  image: string;
-  sections: Section[];
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
+// interface InsightData {
+//   _id: string;
+//   title: string;
+//   description: string;
+//   image: string;
+//   sections: Section[];
+//   createdAt: string;
+//   updatedAt: string;
+//   __v: number;
+// }
 
-interface ApiResponse {
-  statusCode: number;
-  success: boolean;
-  message: string;
-  data: InsightData;
-}
+// interface ApiResponse {
+//   statusCode: number;
+//   success: boolean;
+//   message: string;
+//   data: InsightData;
+// }
 
 const SingleInsightPage = () => {
   const [isStepsVisible, setIsStepsVisible] = useState(false);

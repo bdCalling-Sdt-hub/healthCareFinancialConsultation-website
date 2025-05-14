@@ -6,66 +6,12 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import randomImage from "@/assets/randomProfile3.jpg";
 import { FreeMode, Pagination, Navigation } from "swiper/modules";
 import Image from "next/image";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import { useGetReviewsQuery } from "@/redux/apiSlices/ourWaySlice";
 import { Spin } from "antd";
 import { getImageUrl } from "@/utils/getImageUrl";
-
-const testimonials = [
-  {
-    id: 1,
-    name: "James Mik",
-    role: "Customer",
-    title: "Very Oriented",
-    review:
-      "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    image: randomImage,
-    rating: 5,
-  },
-  {
-    id: 2,
-    name: "James Mik",
-    role: "Customer",
-    title: "Very Oriented",
-    review:
-      "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    image: randomImage,
-    rating: 5,
-  },
-  {
-    id: 3,
-    name: "James Mik",
-    role: "Customer",
-    title: "Very Oriented",
-    review:
-      "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    image: randomImage,
-    rating: 5,
-  },
-  {
-    id: 4,
-    name: "James Mik",
-    role: "Customer",
-    title: "Very Oriented",
-    review:
-      "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    image: randomImage,
-    rating: 5,
-  },
-  {
-    id: 5,
-    name: "James Mik",
-    role: "Customer",
-    title: "Very Oriented",
-    review:
-      "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    image: randomImage,
-    rating: 5,
-  },
-];
 
 const SwiperNavButtons = () => {
   const swiper = useSwiper();
