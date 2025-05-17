@@ -26,7 +26,7 @@ const Footer = () => {
   }
 
   const footerInfo = footerData?.data;
-  // console.log("footerr", footerInfo);
+  // //console.log("footerr", footerInfo);
 
   return (
     <footer className="bg-[#032237] pt-10">

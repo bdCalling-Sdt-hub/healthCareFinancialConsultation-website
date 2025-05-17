@@ -23,7 +23,7 @@ const TopFiveChallengesPage = () => {
   const singleChallengeData = singleChallenge?.data;
   const challengeContent = singleChallengeData?.contents;
 
-  console.log(singleChallengeData, challengeContent);
+  //console.log(singleChallengeData, challengeContent);
 
   return (
     <div>

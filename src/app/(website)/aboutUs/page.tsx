@@ -31,7 +31,7 @@ const AboutUsPage = () => {
   const ourMission = aboutUsData[1];
   const coreValues = aboutUsData[2];
 
-  console.log(coreValues);
+  //console.log(coreValues);
 
   return (
     <div>

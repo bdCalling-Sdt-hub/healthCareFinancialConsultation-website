@@ -26,7 +26,7 @@ const ContactUsPage = () => {
   }
 
   const contactInfo = footerData?.data;
-  console.log("footerr", contactInfo);
+  //console.log("footerr", contactInfo);
 
   const onFinish = async (values: {
     name: string;

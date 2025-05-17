@@ -18,7 +18,7 @@ const TermsAndConditionsPage = () => {
 
   const termsData = termsAndConditions?.data?.content;
 
-  //   console.log("termsData", termsData);
+  //   //console.log("termsData", termsData);
 
   return (
     <div className="container mx-auto px-4 py-16 min-h-screen">

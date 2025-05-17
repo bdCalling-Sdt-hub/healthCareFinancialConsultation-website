@@ -18,11 +18,11 @@ const VerifyOtp = () => {
     setEmail(emailFromQuery);
   }, []);
 
-  console.log(email);
+  //console.log(email);
 
   const onFinish = async (values: { otp: string }) => {
     const userType = localStorage.getItem("userType");
-    console.log(values);
+    //console.log(values);
     if (userType === "forget") {
       router.push(`/reset-password`);
     } else {

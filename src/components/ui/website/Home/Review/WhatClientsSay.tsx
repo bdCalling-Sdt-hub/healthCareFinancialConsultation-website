@@ -46,7 +46,7 @@ const WhatClientsSay = () => {
 
   const allReviews = reviews?.data;
 
-  // console.log(allReviews);
+  // //console.log(allReviews);
 
   return (
     <div className="container md:py-20">

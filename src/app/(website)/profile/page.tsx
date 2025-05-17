@@ -85,15 +85,15 @@ const ProfileContent = () => {
         </div>
       ),
     },
-    {
-      label: "Payment History",
-      key: "3",
-      children: (
-        <div className="mt-10">
-          <PaymentHistory />
-        </div>
-      ),
-    },
+    // {
+    //   label: "Payment History",
+    //   key: "3",
+    //   children: (
+    //     <div className="mt-10">
+    //       <PaymentHistory />
+    //     </div>
+    //   ),
+    // },
     {
       label: "Settings",
       key: "4",
@@ -132,11 +132,13 @@ const ProfileContent = () => {
 
 const ProfilePage = () => {
   return (
-    <Suspense fallback={
-      <div className="flex items-center justify-center h-screen">
-        <Spin />
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center h-screen">
+          <Spin />
+        </div>
+      }
+    >
       <ProfileContent />
     </Suspense>
   );

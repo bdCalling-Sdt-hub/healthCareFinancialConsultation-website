@@ -15,7 +15,7 @@ const ProfileBanner = () => {
   }
 
   const userDataDetails = userData?.data;
-  console.log(userDataDetails);
+  //console.log(userDataDetails);
 
   return (
     <div className="relative">

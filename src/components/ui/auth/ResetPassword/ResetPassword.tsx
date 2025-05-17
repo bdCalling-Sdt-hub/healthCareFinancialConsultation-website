@@ -10,7 +10,7 @@ const ResetPassword = () => {
     newPassword: string;
     confirmPassword: string;
   }) => {
-    console.log(values);
+    //console.log(values);
     router.push(`/login`);
   };
 

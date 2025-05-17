@@ -57,7 +57,7 @@ const SingleServicesPage = () => {
     (tab: TabContent) => tab._id.toString() === selectedTab
   );
 
-  console.log(activeTab);
+  //console.log(activeTab);
 
   const relatedChallenges = [
     {

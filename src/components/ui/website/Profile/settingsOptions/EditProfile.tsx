@@ -62,7 +62,7 @@ const EditProfile = () => {
   }
 
   const userDataDetails = userData?.data;
-  console.log(userDataDetails);
+  //console.log(userDataDetails);
 
   // Handle file upload
   const uploadProps = {

@@ -79,7 +79,7 @@ const SingleInsightPage = () => {
   }
 
   const data = singleInsight?.data || {};
-  console.log(data);
+  //console.log(data);
 
   // Separate the sections - all except the last one
   const regularSections = data?.sections?.slice(0, -1) || [];

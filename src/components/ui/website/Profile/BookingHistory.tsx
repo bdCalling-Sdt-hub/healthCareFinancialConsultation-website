@@ -72,7 +72,7 @@ const BookingHistory = () => {
   }
 
   const bookingsData = BookingHistory?.data;
-  console.log("sadfvsdvsdv", bookingsData);
+  //console.log("sadfvsdvsdv", bookingsData);
 
   return (
     <ConfigProvider

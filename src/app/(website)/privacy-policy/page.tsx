@@ -18,7 +18,7 @@ const PrivacyPolicyPage = () => {
 
   const privacyPolicyDataContent = privacyPolicyData?.data?.content;
 
-  //   console.log("privacyPolicyDataContent", privacyPolicyDataContent);
+  //   //console.log("privacyPolicyDataContent", privacyPolicyDataContent);
 
   return (
     <div className="container mx-auto px-4 py-16 min-h-screen">

@@ -53,7 +53,7 @@ const OurServices = () => {
   }
 
   const allServices = services?.data;
-  // console.log(allServices);
+  // //console.log(allServices);
 
   return (
     <div className="container">

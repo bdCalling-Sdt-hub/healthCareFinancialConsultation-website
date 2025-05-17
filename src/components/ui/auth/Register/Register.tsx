@@ -18,7 +18,7 @@ const Register: React.FC = () => {
   const router = useRouter();
 
   const onFinish = async (values: ValuesType) => {
-    console.log(values);
+    //console.log(values);
     localStorage.setItem("userType", "register");
     router.push(`/verify-otp?email=${values.email}`);
   };

@@ -18,7 +18,7 @@ const WhatMakesUsDifferent = () => {
   }
 
   const ourWaysInfo = ourWays?.data;
-  console.log(ourWaysInfo);
+  //console.log(ourWaysInfo);
 
   return (
     <div className="container my-20">

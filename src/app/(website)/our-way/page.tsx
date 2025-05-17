@@ -22,7 +22,7 @@ const HowWeWorkPage = () => {
   }
 
   const ourWaysInfo = ourWays?.data;
-  console.log(ourWaysInfo);
+  //console.log(ourWaysInfo);
 
   const renderContent = () => {
     if (!ourWaysInfo || !ourWaysInfo?.length) {
