@@ -4,7 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineMenu } from "react-icons/ai";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import logo from "@/assets/logo.svg";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import NavItems from "./NavItems";
@@ -24,27 +24,29 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 const Navbar = () => {
   const [showDrawer, setShowDrawer] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [isLoading, setIsLoading] = useState(true);
 
   // Check if user is authenticated
-  useEffect(() => {
-    const token = localStorage.getItem("authenticationToken") || sessionStorage.getItem("authenticationToken");
-    setIsAuthenticated(!!token);
-    setIsLoading(false);
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("authenticationToken") || sessionStorage.getItem("authenticationToken");
+  //   setIsAuthenticated(!!token);
+  //   setIsLoading(false);
+  // }, []);
 
   // Only call APIs if user is authenticated
-  const { data: userData, isLoading: isProfileLoading } = useGetUserProfileQuery(undefined, {
-    skip: !isAuthenticated,
-  });
-  
-  const { data: allNotifications, isLoading: isNotificationLoading } = useNotificationsQuery(undefined, {
-    skip: !isAuthenticated,
-  });
+  const { data: userData, isLoading: isProfileLoading } =
+    useGetUserProfileQuery(undefined, {
+      // skip: !isAuthenticated,
+    });
+
+  const { data: allNotifications, isLoading: isNotificationLoading } =
+    useNotificationsQuery(undefined, {
+      // skip: !isAuthenticated,
+    });
 
   // Show loading only when authenticated and APIs are loading
-  if (isLoading || (isAuthenticated && (isProfileLoading || isNotificationLoading))) {
+  if (isProfileLoading || isNotificationLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
         <Spin />
@@ -53,11 +55,10 @@ const Navbar = () => {
   }
 
   const userInfo = userData?.data;
-  const notificationCount = isAuthenticated 
-    ? allNotifications?.data?.filter(
-        (notification: any) => notification?.isRead === false
-      ).length 
-    : 0;
+  const notificationCount =
+    allNotifications?.data?.filter(
+      (notification: any) => notification?.isRead === false
+    ).length || 0;
 
   const items = [
     { key: "insights", label: "Our Insights", path: "/insights" },
@@ -121,7 +122,7 @@ const Navbar = () => {
             </div>
 
             {/* Login and Profile */}
-            {!isAuthenticated || userInfo?.role !== "user" ? (
+            {userInfo?.role !== "user" ? (
               <Link href="/login">
                 <button className="bg-gradientBg px-10 py-2 rounded-md">
                   Login
