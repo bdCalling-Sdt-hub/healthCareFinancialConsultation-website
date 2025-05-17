@@ -48,7 +48,8 @@ const SingleServicesPage = () => {
       </div>
     );
 
-  const serviceInfo = singleService?.data;
+  const serviceInfo = singleService?.data?.result;
+  const challengesInfo = singleService?.data?.challenges;
   const tabs = allTabs?.data;
 
   // Find the currently selected tab
@@ -183,11 +184,15 @@ const SingleServicesPage = () => {
         {/* Related challenges section */}
         <div className="container">
           <h1 className="text-3xl mb-5 font-bold">Related Challenges</h1>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {relatedChallenges?.map((item) => (
-              <RelatedChallengeCard key={item._id} item={item} />
-            ))}
-          </div>
+          {challengesInfo && challengesInfo.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              {challengesInfo.map((item: any) => (
+                <RelatedChallengeCard key={item._id} item={item} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-500 text-lg">No related challenges found</p>
+          )}
         </div>
       </div>
     );

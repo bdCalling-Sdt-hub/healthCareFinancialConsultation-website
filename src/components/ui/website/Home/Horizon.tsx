@@ -22,7 +22,7 @@ const Horizon = () => {
 
   const insightsData = insights?.data;
   const firstInsight = insightsData?.[0];
-  console.log(firstInsight);
+  // console.log(firstInsight);
 
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },

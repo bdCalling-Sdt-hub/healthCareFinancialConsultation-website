@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { MailOutlined, PhoneOutlined } from "@ant-design/icons";
 import {
@@ -9,8 +11,23 @@ import {
 import Image from "next/image";
 import logo from "@/assets/logo.svg";
 import Link from "next/link";
+import { useGetFooterApiQuery } from "@/redux/apiSlices/publicSlice";
+import { Spin } from "antd";
 
 const Footer = () => {
+  const { data: footerData, isLoading } = useGetFooterApiQuery(undefined);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spin />
+      </div>
+    );
+  }
+
+  const footerInfo = footerData?.data;
+  // console.log("footerr", footerInfo);
+
   return (
     <footer className="bg-[#032237] pt-10">
       <div className="container mx-auto px-5 md:px-10 lg:px-20 md:flex space-y-8 md:space-y-0 justify-between items-center gap-8">
@@ -24,30 +41,29 @@ const Footer = () => {
             />
           </div>
           <p className="text-transparent bg-gradientBg bg-clip-text">
-            Authentic Job Bulletins for Influencer. Friendly for brands to
-            create campaigns.
+            {footerInfo?.footerDescription}
           </p>
           <div className="mt-4 flex space-x-3">
-            <Link href={""}>
+            <Link href={footerInfo?.facebook || ""}>
               {" "}
               <FaFacebookF
                 size={36}
                 className="text-xl bg-gradientBg p-2 rounded-full"
               />
             </Link>
-            <Link href={""}>
+            <Link href={footerInfo?.x || ""}>
               <FaTwitter
                 size={36}
                 className="text-xl bg-gradientBg p-2 rounded-full"
               />
             </Link>
-            <Link href={""}>
+            <Link href={footerInfo?.linkedin}>
               <FaLinkedinIn
                 size={36}
                 className="text-xl bg-gradientBg p-2 rounded-full"
               />
             </Link>
-            <Link href={""}>
+            <Link href={footerInfo?.instagram}>
               <FaInstagram
                 size={36}
                 className="text-xl bg-gradientBg p-2 rounded-full"
@@ -99,10 +115,11 @@ const Footer = () => {
           <h3 className="font-bold text-lg mb-5">Contact Us</h3>
           <div className="mt-2">
             <p className="flex items-center gap-2">
-              <PhoneOutlined className="!text-[#b99755]" /> 317-449-3031
+              <PhoneOutlined className="!text-[#b99755]" /> {}
+              {footerInfo?.contact}
             </p>
             <p className="flex items-center gap-2 mt-2">
-              <MailOutlined className="!text-[#b99755]" /> support@gsahd.com
+              <MailOutlined className="!text-[#b99755]" /> {footerInfo?.email}
             </p>
           </div>
           <Link href={"/book-your-consultation"}>

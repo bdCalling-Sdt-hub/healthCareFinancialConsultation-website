@@ -4,7 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineMenu } from "react-icons/ai";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logo from "@/assets/logo.svg";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import NavItems from "./NavItems";
@@ -24,12 +24,27 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 const Navbar = () => {
   const [showDrawer, setShowDrawer] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const { data: userData, isLoading } = useGetUserProfileQuery(undefined);
-  const { data: allNotifications, isLoading: isNotificationLoading } =
-    useNotificationsQuery(undefined);
+  // Check if user is authenticated
+  useEffect(() => {
+    const token = localStorage.getItem("authenticationToken") || sessionStorage.getItem("authenticationToken");
+    setIsAuthenticated(!!token);
+    setIsLoading(false);
+  }, []);
 
-  if (isLoading || isNotificationLoading) {
+  // Only call APIs if user is authenticated
+  const { data: userData, isLoading: isProfileLoading } = useGetUserProfileQuery(undefined, {
+    skip: !isAuthenticated,
+  });
+  
+  const { data: allNotifications, isLoading: isNotificationLoading } = useNotificationsQuery(undefined, {
+    skip: !isAuthenticated,
+  });
+
+  // Show loading only when authenticated and APIs are loading
+  if (isLoading || (isAuthenticated && (isProfileLoading || isNotificationLoading))) {
     return (
       <div className="flex items-center justify-center h-screen">
         <Spin />
@@ -38,10 +53,11 @@ const Navbar = () => {
   }
 
   const userInfo = userData?.data;
-  const notificationCount = allNotifications?.data?.filter(
-    (notification: any) => notification?.isRead === false
-  ).length;
-  // console.log(userInfo);
+  const notificationCount = isAuthenticated 
+    ? allNotifications?.data?.filter(
+        (notification: any) => notification?.isRead === false
+      ).length 
+    : 0;
 
   const items = [
     { key: "insights", label: "Our Insights", path: "/insights" },
@@ -105,7 +121,7 @@ const Navbar = () => {
             </div>
 
             {/* Login and Profile */}
-            {userInfo?.role !== "user" ? (
+            {!isAuthenticated || userInfo?.role !== "user" ? (
               <Link href="/login">
                 <button className="bg-gradientBg px-10 py-2 rounded-md">
                   Login

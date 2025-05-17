@@ -29,6 +29,14 @@ const publicSlice = api.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    //footer
+    getFooterApi: builder.query({
+      query: () => ({
+        url: "/public/information/get",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -37,4 +45,6 @@ export const {
   useGetTermsAndConditionQuery,
   useGetFaqsQuery,
   useGetAboutUsQuery,
+
+  useGetFooterApiQuery,
 } = publicSlice;

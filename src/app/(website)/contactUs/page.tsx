@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import contactUsImg from "@/assets/2149256084.jpg";
-import { Button, Form, Input, Modal, Select } from "antd";
+import { Button, Form, Input, Modal, Select, Spin } from "antd";
 import { FaMailBulk, FaPhone } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useContactUsMutation } from "@/redux/apiSlices/contactSlice";
 import toast from "react-hot-toast";
+import { useGetFooterApiQuery } from "@/redux/apiSlices/publicSlice";
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -14,6 +15,18 @@ const ContactUsPage = () => {
   const [form] = Form.useForm();
 
   const [contactUs] = useContactUsMutation();
+  const { data: footerData, isLoading } = useGetFooterApiQuery(undefined);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spin />
+      </div>
+    );
+  }
+
+  const contactInfo = footerData?.data;
+  console.log("footerr", contactInfo);
 
   const onFinish = async (values: {
     name: string;
@@ -102,17 +115,20 @@ const ContactUsPage = () => {
           <p className="text-gray-700 font-medium mb-5">
             <strong>Working Hours</strong>
             <br />
-            Monday – Friday (09:00 AM – 06:00 PM)
+            {contactInfo?.businessStartDay} – {contactInfo?.businessEndDay} (
+            {contactInfo?.businessStartTime} – {contactInfo?.businessEndTime})
           </p>
           <div className="space-y-4">
             <div className="flex items-center p-4 border border-gray-300 py-7 bg-white rounded-lg">
               <FaPhone className="text-xl text-gray-800 mr-3" />
-              <span className="text-gray-800 font-semibold">317-449-3031</span>
+              <span className="text-gray-800 font-semibold">
+                {contactInfo?.contact}
+              </span>
             </div>
             <div className="flex items-center p-4 border border-gray-300 py-7 bg-white rounded-lg">
               <FaMailBulk className="text-xl text-gray-800 mr-3" />
               <span className="text-gray-800 font-semibold">
-                support@hdshy.com
+                {contactInfo?.email}
               </span>
             </div>
           </div>

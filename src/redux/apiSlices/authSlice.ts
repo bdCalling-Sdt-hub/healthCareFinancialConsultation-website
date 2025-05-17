@@ -20,7 +20,7 @@ const authApi = api.injectEndpoints({
 
     verifyOtp: builder.mutation({
       query: (data) => ({
-        url: "/auth/verify-email",
+        url: "/auth/verify-account",
         method: "POST",
         body: data,
       }),

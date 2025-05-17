@@ -11,24 +11,13 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-// Define the type for each data point
-interface DataPoint {
-  month: string;
-  value: number;
-}
-
-// Define the props interface
-interface GrowthChartProps {
-  data: DataPoint[];
-}
-
-const GrowthChart = ({ data }: GrowthChartProps) => {
-  console.log(data);
+const GrowthChart = ({ data }: any) => {
+  // console.log("serviceData", data);
 
   return (
     <ResponsiveContainer width="100%" height={400}>
       <AreaChart
-        data={data}
+        data={data?.data}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
       >
         <defs>

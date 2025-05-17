@@ -29,9 +29,10 @@ const InsightsPage = () => {
   }
 
   const topFiveChallengesInfo = allChallenges?.data;
-  const chartData = insightChartData?.data[0]?.data;
+  const chartData = insightChartData?.data?.chartData?.[0];
+  const topServices = insightChartData?.data?.topServices;
 
-  // console.log(chartData);
+  // console.log("sdgvsdvsgv", topServices);
 
   return (
     <div>
@@ -77,10 +78,14 @@ const InsightsPage = () => {
       <div>
         <Horizon />
         <div className="container">
-          <h1 className="text-3xl mb-5 font-bold">Our Statistics</h1>
+          <h1 className="text-3xl mb-5 font-bold">Statistics</h1>
           <div className="border-4 border-gray-200 p-10 rounded-2xl">
+            <div className="text-center mb-5">
+              <h1 className="text-2xl font-semibold">{chartData?.title}</h1>
+              <p>{chartData?.description}</p>
+            </div>
             <GrowthChart data={chartData} />
-            <BestServicesChart />
+            <BestServicesChart serviceData={topServices} />
           </div>
         </div>
         <BookNowBanner />
