@@ -1,17 +1,12 @@
 /** @type {import('next').NextConfig} */
+// next.config.js
 const nextConfig = {
   images: {
-      remotePatterns: [
-        {
-          protocol: "http",
-          hostname: "**",
-        },
-        {
-          protocol: "https",
-          hostname: "**",
-        },
-      ],
-    },
+    remotePatterns: [
+      { protocol: "http", hostname: "**" },
+      { protocol: "https", hostname: "**" },
+    ],
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
