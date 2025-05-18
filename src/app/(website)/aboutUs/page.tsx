@@ -6,12 +6,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useGetAboutUsQuery } from "@/redux/apiSlices/publicSlice";
 import { Spin } from "antd";
-import image1 from "@/assets/image (22).png";
-import image2 from "@/assets/image (23).png";
-import missionAndVisionImg1 from "@/assets/image (24).png";
-import missionAndVisionImg2 from "@/assets/image (25).png";
-import coreValuesImage1 from "@/assets/image (26).png";
-import coreValuesImage2 from "@/assets/image (27).png";
 import { getImageUrl } from "@/utils/getImageUrl";
 
 const AboutUsPage = () => {

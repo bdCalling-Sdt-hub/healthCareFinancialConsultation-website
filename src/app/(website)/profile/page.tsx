@@ -4,7 +4,6 @@ import { ConfigProvider, Spin, Tabs } from "antd";
 import { useRouter, useSearchParams } from "next/navigation";
 import ProfileBanner from "@/components/ui/website/Profile/ProfileBanner";
 import BookingHistory from "@/components/ui/website/Profile/BookingHistory";
-import PaymentHistory from "@/components/ui/website/Profile/PaymentHistory";
 import SettingsPage from "@/components/ui/website/Profile/SettingsPage";
 import { useGetUserProfileQuery } from "@/redux/apiSlices/authSlice";
 import { Suspense } from "react";

@@ -6,10 +6,7 @@ import React from "react";
 const ResetPassword = () => {
   const router = useRouter();
 
-  const onFinish = async (values: {
-    newPassword: string;
-    confirmPassword: string;
-  }) => {
+  const onFinish = async () => {
     //console.log(values);
     router.push(`/login`);
   };

@@ -57,21 +57,6 @@ const SingleServicesPage = () => {
     (tab: TabContent) => tab._id.toString() === selectedTab
   );
 
-  //console.log(activeTab);
-
-  const relatedChallenges = [
-    {
-      _id: "1",
-      background: "https://i.ibb.co.com/GfNydhRW/random-Profile-Image.jpg",
-      title: "HIPAA & Financial Security",
-    },
-    {
-      _id: "2",
-      background: "https://i.ibb.co.com/GfNydhRW/random-Profile-Image.jpg",
-      title: "Avoiding Reimbursement Pitfalls",
-    },
-  ];
-
   // Render dynamic content based on the active tab
   const renderContent = () => {
     if (!activeTab) return <div>Please select a tab</div>;
