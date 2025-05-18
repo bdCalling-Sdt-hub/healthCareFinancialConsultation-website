@@ -45,34 +45,50 @@ const Footer = () => {
           </p>
           <div className="mt-4 flex space-x-3">
             {footerInfo?.facebook && (
-              <Link href={footerInfo.facebook} target="_blank" rel="noopener noreferrer">
+              <Link
+                href={footerInfo.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaFacebookF
                   size={36}
                   className="text-xl bg-gradientBg p-2 rounded-full"
                 />
               </Link>
             )}
-            
+
             {footerInfo?.x && (
-              <Link href={footerInfo.x} target="_blank" rel="noopener noreferrer">
+              <Link
+                href={footerInfo.x}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaTwitter
                   size={36}
                   className="text-xl bg-gradientBg p-2 rounded-full"
                 />
               </Link>
             )}
-            
+
             {footerInfo?.linkedin && (
-              <Link href={footerInfo.linkedin} target="_blank" rel="noopener noreferrer">
+              <Link
+                href={footerInfo.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaLinkedinIn
                   size={36}
                   className="text-xl bg-gradientBg p-2 rounded-full"
                 />
               </Link>
             )}
-            
+
             {footerInfo?.instagram && (
-              <Link href={footerInfo.instagram} target="_blank" rel="noopener noreferrer">
+              <Link
+                href={footerInfo.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaInstagram
                   size={36}
                   className="text-xl bg-gradientBg p-2 rounded-full"
