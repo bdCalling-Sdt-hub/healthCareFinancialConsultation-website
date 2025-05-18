@@ -37,13 +37,10 @@ const Navbar = () => {
   }, []);
 
   // Only call APIs if user is authenticated
-  /* const { data: userData, isLoading: isProfileLoading } =
+  const { data: userData, isLoading: isProfileLoading } =
     useGetUserProfileQuery(undefined, {
       skip: !isAuthenticated,
-    }); */
-
-  const { data: userData, isLoading: isProfileLoading } =
-    useGetUserProfileQuery(undefined);
+    });
 
   const { data: allNotifications, isLoading: isNotificationLoading } =
     useNotificationsQuery(undefined, {
@@ -66,7 +63,7 @@ const Navbar = () => {
   const notificationCount = isAuthenticated
     ? allNotifications?.data?.filter(
         (notification: any) => notification?.isRead === false
-      )?.length
+      ).length
     : 0;
 
   const items = [
