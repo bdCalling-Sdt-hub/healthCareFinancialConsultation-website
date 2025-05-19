@@ -7,6 +7,7 @@ import BookingHistory from "@/components/ui/website/Profile/BookingHistory";
 import SettingsPage from "@/components/ui/website/Profile/SettingsPage";
 import { useGetUserProfileQuery } from "@/redux/apiSlices/authSlice";
 import { Suspense } from "react";
+import Files from "@/components/ui/website/Profile/Files";
 
 <style jsx global>{`
   .custom-tabs .ant-tabs-nav {
@@ -84,15 +85,15 @@ const ProfileContent = () => {
         </div>
       ),
     },
-    // {
-    //   label: "Payment History",
-    //   key: "3",
-    //   children: (
-    //     <div className="mt-10">
-    //       <PaymentHistory />
-    //     </div>
-    //   ),
-    // },
+    {
+      label: "Files",
+      key: "3",
+      children: (
+        <div className="mt-10">
+          <Files />
+        </div>
+      ),
+    },
     {
       label: "Settings",
       key: "4",

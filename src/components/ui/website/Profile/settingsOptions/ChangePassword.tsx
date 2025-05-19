@@ -1,20 +1,22 @@
+import { useChangePasswordMutation } from "@/redux/apiSlices/authSlice";
 import { Form, Input, Button } from "antd";
+import toast from "react-hot-toast";
 
 const ChangePassword = () => {
   const [form] = Form.useForm();
 
-  //   const [changePassword, { isLoading }] = useChangePasswordMutation();
+  const [changePassword, { isLoading }] = useChangePasswordMutation();
 
-  const onFinish = async () => {
-    //     try {
-    //     //   const res = await changePassword(values).unwrap();
-    //     //   if (res.success) {
-    //     //     toast.success(res?.message);
-    //     //     form.resetFields();
-    //     //   }
-    //     // } catch (error: any) {
-    //     //   toast.error(error?.data?.message || 'Something went wrong');
-    //     // }
+  const onFinish = async (values: any) => {
+    try {
+      const res = await changePassword(values).unwrap();
+      if (res.success) {
+        toast.success(res?.message);
+        form.resetFields();
+      }
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Something went wrong");
+    }
   };
 
   return (
@@ -70,6 +72,7 @@ const ChangePassword = () => {
           <Button
             className="!bg-gradientBg !py-5 !rounded-xl !shadow-lg !font-bold !px-6"
             htmlType="submit"
+            loading={isLoading}
           >
             Change Password
           </Button>

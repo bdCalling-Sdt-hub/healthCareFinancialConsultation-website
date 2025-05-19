@@ -1,15 +1,24 @@
 "use client";
+import { useForgetPasswordMutation } from "@/redux/apiSlices/authSlice";
 import { Form, Input } from "antd";
 import { useRouter } from "next/navigation";
 import React from "react";
+import toast from "react-hot-toast";
 
 const ForgetPassword = () => {
   const router = useRouter();
 
-  const onFinish = async (values: { email: string }) => {
-    localStorage.setItem("userType", "forget");
+  const [forgetPassword] = useForgetPasswordMutation();
 
-    router.push(`/verify-otp?email=${values?.email}`);
+  const onFinish = async (values: { email: string }) => {
+    const res = await forgetPassword({ email: values.email }).unwrap();
+
+    if (res?.success) {
+      toast.success(res?.message);
+      router.push(`/verify-otp?email=${values?.email}`);
+    } else {
+      toast.error(res?.message);
+    }
   };
 
   return (

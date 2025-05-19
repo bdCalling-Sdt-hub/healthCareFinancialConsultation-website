@@ -1,14 +1,35 @@
 "use client";
+import { useResetPasswordMutation } from "@/redux/apiSlices/authSlice";
 import { Button, Form, Input } from "antd";
 import { useRouter } from "next/navigation";
 import React from "react";
+import toast from "react-hot-toast";
 
 const ResetPassword = () => {
   const router = useRouter();
 
-  const onFinish = async () => {
-    //console.log(values);
-    router.push(`/login`);
+  const [resetPassword] = useResetPasswordMutation();
+
+  const onFinish = async (values: {
+    newPassword: string;
+    confirmPassword: string;
+  }) => {
+    const data = { ...values };
+
+    try {
+      const response = await resetPassword(data).unwrap();
+      console.log(response);
+      if (response?.success) {
+        toast.success("Password updated successfully!");
+        router.push(`/login`);
+      } else {
+        toast.error(response?.message || "Failed to update password.");
+      }
+    } catch (error: any) {
+      toast.error(
+        error?.data?.message || "An error occurred. Please try again."
+      );
+    }
   };
 
   return (

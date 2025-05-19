@@ -1,7 +1,9 @@
 "use client";
-import { Button, Form, Typography } from "antd";
+import { useOtpVerifyMutation } from "@/redux/apiSlices/authSlice";
+import { Button, Form, Typography, message } from "antd";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import OTPInput from "react-otp-input";
 
 const { Text } = Typography;
@@ -10,6 +12,9 @@ const VerifyOtp = () => {
   const router = useRouter();
   const [otp, setOtp] = useState<string>("");
   const [email, setEmail] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const [otpVerify] = useOtpVerifyMutation();
 
   useEffect(() => {
     const emailFromQuery = new URLSearchParams(window.location.search).get(
@@ -18,26 +23,59 @@ const VerifyOtp = () => {
     setEmail(emailFromQuery);
   }, []);
 
-  //console.log(email);
+  const onFinish = async () => {
+    if (!email) {
+      message.error("Email is required for verification");
+      return;
+    }
 
-  const onFinish = async (values: { otp: string }) => {
-    const userType = localStorage.getItem("userType");
-    console.log(values, email);
-    if (userType === "forget") {
-      router.push(`/reset-password`);
-    } else {
-      router.push(`/login`);
+    if (otp.length !== 6) {
+      message.error("Please enter the complete 6-digit verification code");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response = await otpVerify({
+        email,
+        oneTimeCode: otp,
+      }).unwrap();
+
+      if (response?.success) {
+        toast.success(response?.message);
+        if (response?.data?.token) {
+          localStorage.setItem("oneTimeToken", response?.data?.token);
+          router.push(`/reset-password`);
+        } else {
+          router.push("/login");
+        }
+      } else {
+        toast.error(
+          response?.message || "Verification failed. Please try again."
+        );
+      }
+    } catch (error: any) {
+      toast.error(
+        error?.data?.message || "Something went wrong. Please try again."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleResendEmail = async () => {};
+  const handleResendEmail = async () => {
+    // Implement resend functionality here
+    message.info("Resending verification code...");
+    // You can add the actual API call for resending the code here
+  };
+
   return (
     <div>
-      <div className=" mb-6">
-        <h1 className="text-[25px] font-semibold mb-6 text-transparent bg-gradientBg bg-clip-text ">
+      <div className="mb-6">
+        <h1 className="text-[25px] font-semibold mb-6 text-transparent bg-gradientBg bg-clip-text">
           Verification code
         </h1>
-        <p className=" ">
+        <p>
           We&apos;ll send a verification code to your email. Check your inbox
           and enter the code here.
         </p>
@@ -48,7 +86,7 @@ const VerifyOtp = () => {
           <OTPInput
             value={otp}
             onChange={setOtp}
-            numInputs={5}
+            numInputs={6}
             inputStyle={{
               height: 50,
               width: 50,
@@ -64,7 +102,7 @@ const VerifyOtp = () => {
           />
         </div>
 
-        <div className="flex items-center justify-between mb-6 ">
+        <div className="flex items-center justify-between mb-6">
           <Text>Don&apos;t received code?</Text>
 
           <p
@@ -79,6 +117,7 @@ const VerifyOtp = () => {
         <Form.Item style={{ marginBottom: 0 }}>
           <Button
             htmlType="submit"
+            loading={loading}
             style={{
               width: "100%",
               height: 40,

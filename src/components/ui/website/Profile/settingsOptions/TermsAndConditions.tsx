@@ -1,47 +1,30 @@
+import { useGetTermsAndConditionQuery } from "@/redux/apiSlices/publicSlice";
+import { Spin } from "antd";
+
 const TermsAndConditions = () => {
+  const { data: termsAndConditions, isLoading } =
+    useGetTermsAndConditionQuery(undefined);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Spin />
+      </div>
+    );
+  }
+
+  const termsData = termsAndConditions?.data?.content;
+
   return (
     <div>
-      <div className="space-y-3 mb-5">
-        <h1 className="font-bold text-xl">1. Introduction</h1>
-        <p className="text-lg text-gray-600">
-          Welcome to HC Financial Consultants Website. This Privacy Policy
-          explains how HC Financial Consultants (we, us, or our) collects, uses,
-          discloses, and protects your personal information when you visit our
-          Website or use our consulting services. By accessing or using our
-          Website, you agree to the practices described in this Privacy Policy.
-        </p>
-      </div>
-      <div className="space-y-3 mb-5">
-        <h1 className="font-bold text-xl">2. Information We Collect</h1>
-        <p className="text-lg text-gray-600">
-          Welcome to HC Financial Consultants Website. This Privacy Policy
-          explains how HC Financial Consultants (we, us, or our) collects, uses,
-          discloses, and protects your personal information when you visit our
-          Website or use our consulting services. By accessing or using our
-          Website, you agree to the practices described in this Privacy Policy.
-        </p>
-      </div>
-      <div className="space-y-3 mb-5">
-        <h1 className="font-bold text-xl">3. How We Use Your Information</h1>
-        <p className="text-lg text-gray-600">
-          Welcome to HC Financial Consultants Website. This Privacy Policy
-          explains how HC Financial Consultants (we, us, or our) collects, uses,
-          discloses, and protects your personal information when you visit our
-          Website or use our consulting services. By accessing or using our
-          Website, you agree to the practices described in this Privacy Policy.
-        </p>
-      </div>
-      <div className="space-y-3 mb-5">
-        <h1 className="font-bold text-xl">
-          4. Cookies and Tracking Technologies
+      <div className="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <h1 className="text-3xl font-bold mb-8 text-center bg-gradientBg text-transparent bg-clip-text">
+          Terms and Conditions
         </h1>
-        <p className="text-lg text-gray-600">
-          Our Website uses cookies and similar tracking technologies to: Enhance
-          your browsing experience. Analyze Website traffic and usage patterns.
-          Provide personalized content and advertisements. You may adjust your
-          browser settings to refuse cookies, but please note that some parts of
-          the Website may not function properly.
-        </p>
+
+        <div className="space-y-6">
+          <div dangerouslySetInnerHTML={{ __html: termsData }} />
+        </div>
       </div>
     </div>
   );

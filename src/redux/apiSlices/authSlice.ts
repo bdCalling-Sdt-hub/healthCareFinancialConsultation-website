@@ -10,20 +10,40 @@ const authApi = api.injectEndpoints({
       }),
     }),
 
-    forgerPassword: builder.mutation({
+    register: builder.mutation({
       query: (data) => ({
-        url: "/auth/forgot-password",
+        url: "/user/create-user",
         method: "POST",
         body: data,
       }),
     }),
 
-    verifyOtp: builder.mutation({
+    forgetPassword: builder.mutation({
       query: (data) => ({
-        url: "/auth/verify-account",
+        url: "/auth/forget-password",
         method: "POST",
         body: data,
       }),
+    }),
+
+    changePassword: builder.mutation({
+      query: (value) => {
+        return {
+          method: "POST",
+          url: "/auth/change-password",
+          body: value,
+        };
+      },
+    }),
+
+    otpVerify: builder.mutation({
+      query: (data) => {
+        return {
+          method: "POST",
+          url: "auth/verify-account",
+          body: data,
+        };
+      },
     }),
 
     resetPassword: builder.mutation({
@@ -53,14 +73,28 @@ const authApi = api.injectEndpoints({
       }),
       invalidatesTags: ["userProfile"],
     }),
+
+    deleteUserProfile: builder.mutation({
+      query: (data) => {
+        console.log(data);
+        return {
+          url: "/auth/delete-account",
+          method: "DELETE",
+          body: data,
+        };
+      },
+    }),
   }),
 });
 
 export const {
   useLoginMutation,
+  useRegisterMutation,
   useGetUserProfileQuery,
   useUpdateUserProfileMutation,
-  useForgerPasswordMutation,
-  useVerifyOtpMutation,
+  useForgetPasswordMutation,
+  useChangePasswordMutation,
+  useOtpVerifyMutation,
   useResetPasswordMutation,
+  useDeleteUserProfileMutation,
 } = authApi;

@@ -1,26 +1,54 @@
 "use client";
 
 import TextInput from "@/components/shared/TextInput";
+import { useRegisterMutation } from "@/redux/apiSlices/authSlice";
 import { Checkbox, ConfigProvider, Form, Input } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
 
-interface ValuesType {
+interface RegisterPayload {
   name: string;
   email: string;
-  contact: string;
   password: string;
-  confirm_password: string;
+  role: string;
 }
 
 const Register: React.FC = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [register] = useRegisterMutation();
 
-  const onFinish = async (values: ValuesType) => {
-    //console.log(values);
-    localStorage.setItem("userType", "register");
-    router.push(`/verify-otp?email=${values.email}`);
+  const onFinish = async (values: any) => {
+    try {
+      setLoading(true);
+
+      // Prepare payload according to API requirements
+      const payload: RegisterPayload = {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        role: "user", // Setting default role as user
+      };
+
+      const response = await register(payload).unwrap();
+
+      if (response?.success) {
+        toast.success(response?.message || "Registration successful!");
+        router.push(`/verify-otp?email=${values.email}`);
+      } else {
+        toast.error(
+          response?.message || "Registration failed. Please try again."
+        );
+      }
+    } catch (error: any) {
+      toast.error(
+        error?.data?.message || "Something went wrong. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -28,7 +56,7 @@ const Register: React.FC = () => {
       <div className="mb-6">
         <h1 className="text-[25px] font-semibold mb-2">Get Started Now</h1>
         <p className="text-transparent bg-gradientBg bg-clip-text">
-          Let’s create your account
+          Let&apos;s create your account
         </p>
       </div>
       <ConfigProvider
@@ -38,16 +66,37 @@ const Register: React.FC = () => {
           },
           components: {
             Input: {
-              //   borderColor: "#d9d9d9",
               hoverBorderColor: "#d9d9d9",
             },
           },
         }}
       >
         <Form onFinish={onFinish} layout="vertical">
-          <TextInput name="name" label="Full Name" />
-          <TextInput name="email" label="Email" />
-          {/* <TextInput name="contact" label="Contact Number" /> */}
+          <TextInput
+            name="name"
+            label="Full Name"
+            rules={[
+              {
+                required: true,
+                message: "Please enter your full name!",
+              },
+            ]}
+          />
+
+          <TextInput
+            name="email"
+            label="Email"
+            rules={[
+              {
+                required: true,
+                message: "Please enter your email!",
+              },
+              {
+                type: "email",
+                message: "Please enter a valid email address!",
+              },
+            ]}
+          />
 
           <Form.Item
             name="password"
@@ -56,6 +105,10 @@ const Register: React.FC = () => {
               {
                 required: true,
                 message: "Please enter your password!",
+              },
+              {
+                min: 8,
+                message: "Password must be at least 8 characters!",
               },
             ]}
             className="mb-5"
@@ -117,8 +170,9 @@ const Register: React.FC = () => {
             <button
               type="submit"
               className="w-full h-[45px] font-medium text-lg bg-gradientBg rounded-lg flex items-center justify-center mt-4"
+              disabled={loading}
             >
-              Sign up
+              {loading ? "Signing up..." : "Sign up"}
             </button>
           </Form.Item>
         </Form>
