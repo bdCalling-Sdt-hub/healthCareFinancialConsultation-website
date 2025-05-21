@@ -50,11 +50,13 @@ interface PieChartComponentProps {
   serviceData: ServiceData[];
 }
 
-const PieChartComponent: React.FC<PieChartComponentProps> = ({ serviceData }) => {
+const PieChartComponent: React.FC<PieChartComponentProps> = ({
+  serviceData,
+}) => {
   // Convert percentage strings to numbers for the chart
-  const chartData = serviceData.map(item => ({
+  const chartData = serviceData?.map((item) => ({
     ...item,
-    percentage: parseFloat(item.percentage)
+    percentage: parseFloat(item.percentage),
   }));
 
   return (
@@ -72,7 +74,7 @@ const PieChartComponent: React.FC<PieChartComponentProps> = ({ serviceData }) =>
               fill="#8884d8"
               dataKey="percentage"
             >
-              {chartData.map((entry, index) => (
+              {chartData?.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}
@@ -85,10 +87,10 @@ const PieChartComponent: React.FC<PieChartComponentProps> = ({ serviceData }) =>
       <div className="w-1/2">
         <h1 className="text-3xl mb-5 font-bold ">Best Services</h1>
         <div className="space-y-5">
-          {chartData.map((service, index) => (
+          {chartData?.map((service, index) => (
             <div key={service._id} className="flex items-center gap-3">
-              <p 
-                className="h-7 w-7 rounded-full" 
+              <p
+                className="h-7 w-7 rounded-full"
                 style={{ backgroundColor: COLORS[index % COLORS.length] }}
               ></p>
               <p className="text-lg font-bold">{service.serviceName}</p>
