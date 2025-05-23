@@ -2,7 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import { Table, Button, Upload, message, Spin, Modal } from "antd";
-import { UploadOutlined, EyeOutlined, CloseOutlined } from "@ant-design/icons";
+import {
+  UploadOutlined,
+  EyeOutlined,
+  DownloadOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 import type { UploadProps } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {
@@ -12,13 +17,15 @@ import {
 } from "@/redux/apiSlices/filesSlice";
 import { useGetUserProfileQuery } from "@/redux/apiSlices/authSlice";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 interface FileData {
   key: string;
   name: string;
   size: string;
   uploadDate: string;
-  rawDate: Date; // Added for sorting
+  rawDate: Date;
+  mimeType: string; // Added to store file type
 }
 
 interface ApiFileData {
@@ -38,7 +45,7 @@ interface ApiFileData {
 
 const Files: React.FC = () => {
   const [fileList, setFileList] = useState<FileData[]>([]);
-  const [selectedPdf, setSelectedPdf] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<string | null>(null);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [currentFileName, setCurrentFileName] = useState<string>("");
   const [uploading, setUploading] = useState(false);
@@ -69,7 +76,8 @@ const Files: React.FC = () => {
           name: file.originalName,
           size: formatFileSize(file.size),
           uploadDate: date.toLocaleDateString(),
-          rawDate: date, // Store the actual date object for sorting
+          rawDate: date,
+          mimeType: file.mimeType,
         };
       });
 
@@ -82,7 +90,52 @@ const Files: React.FC = () => {
     }
   }, [filesResponse, isFilesLoading]);
 
-  const handleView = async (fileId: string, fileName: string) => {
+  // Get file icon based on mime type
+  const getFileIcon = (mimeType: string) => {
+    if (mimeType.includes("pdf")) {
+      return "📄";
+    } else if (
+      mimeType.includes("excel") ||
+      mimeType.includes("spreadsheet") ||
+      mimeType.includes("xlsx") ||
+      mimeType.includes("xls")
+    ) {
+      return "📊";
+    } else if (
+      mimeType.includes("word") ||
+      mimeType.includes("document") ||
+      mimeType.includes("docx") ||
+      mimeType.includes("doc")
+    ) {
+      return "📝";
+    } else if (mimeType.includes("image")) {
+      return "🖼️";
+    } else if (mimeType.includes("audio")) {
+      return "🎵";
+    } else if (mimeType.includes("video")) {
+      return "🎬";
+    } else if (mimeType.includes("zip") || mimeType.includes("compressed")) {
+      return "🗜️";
+    } else {
+      return "📁";
+    }
+  };
+
+  // Check if file is viewable in browser
+  const isViewableInBrowser = (mimeType: string) => {
+    return (
+      mimeType.includes("pdf") ||
+      mimeType.includes("image") ||
+      mimeType.includes("text") ||
+      mimeType.includes("html")
+    );
+  };
+
+  const handleView = async (
+    fileId: string,
+    fileName: string,
+    mimeType: string
+  ) => {
     try {
       setCurrentFileName(fileName);
 
@@ -91,8 +144,34 @@ const Files: React.FC = () => {
 
       // Create a URL for the blob
       const url = URL.createObjectURL(blob);
-      setSelectedPdf(url);
+      setSelectedFile(url);
       setIsViewerOpen(true);
+    } catch (error) {
+      console.error("Error downloading file:", error);
+      toast.error("Failed to download the file");
+    }
+  };
+
+  const handleDownload = async (fileId: string, fileName: string) => {
+    try {
+      // Call the download API to get the file blob
+      const blob = await downloadFile(fileId).unwrap();
+
+      // Create a URL for the blob
+      const url = URL.createObjectURL(blob);
+
+      // Create a temporary anchor element
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+
+      // Clean up
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      toast.success("File downloaded successfully");
     } catch (error) {
       console.error("Error downloading file:", error);
       toast.error("Failed to download the file");
@@ -101,10 +180,10 @@ const Files: React.FC = () => {
 
   const handleCloseViewer = () => {
     // Revoke the object URL to free up memory
-    if (selectedPdf) {
-      URL.revokeObjectURL(selectedPdf);
+    if (selectedFile) {
+      URL.revokeObjectURL(selectedFile);
     }
-    setSelectedPdf(null);
+    setSelectedFile(null);
     setIsViewerOpen(false);
   };
 
@@ -119,8 +198,10 @@ const Files: React.FC = () => {
       title: "File Name",
       dataIndex: "name",
       key: "name",
-      render: (text) => (
-        <span className="text-[#032237] font-medium">{text}</span>
+      render: (text, record) => (
+        <span className="text-[#032237] font-medium">
+          {getFileIcon(record.mimeType)} {text}
+        </span>
       ),
     },
     {
@@ -138,11 +219,23 @@ const Files: React.FC = () => {
       key: "actions",
       render: (_, record) => (
         <div className="flex space-x-2">
+          {isViewableInBrowser(record.mimeType) ? (
+            <Button
+              type="text"
+              icon={<EyeOutlined />}
+              onClick={() =>
+                handleView(record.key, record.name, record.mimeType)
+              }
+              className="text-blue-600"
+              title="View"
+            />
+          ) : null}
           <Button
             type="text"
-            icon={<EyeOutlined />}
-            onClick={() => handleView(record.key, record.name)}
-            className="text-blue-600"
+            icon={<DownloadOutlined />}
+            onClick={() => handleDownload(record.key, record.name)}
+            className="text-green-600"
+            title="Download"
           />
         </div>
       ),
@@ -188,20 +281,30 @@ const Files: React.FC = () => {
 
   const uploadProps: UploadProps = {
     name: "file",
-    accept: ".pdf",
+    accept: ".pdf,.doc,.docx,.xls,.xlsx",
     showUploadList: false,
     customRequest: handleUpload,
     beforeUpload: (file) => {
-      const isPDF = file.type === "application/pdf";
-      if (!isPDF) {
-        message.error(`${file.name} is not a PDF file`);
+      const isLt100M = file.size / 1024 / 1024 < 100;
+      if (!isLt100M) {
+        message.error("File must be smaller than 100MB!");
         return Upload.LIST_IGNORE;
       }
-      const isLt10M = file.size / 1024 / 1024 < 10;
-      if (!isLt10M) {
-        message.error("File must be smaller than 10MB!");
+
+      // Check file type
+      const fileType = file.type;
+      const isAllowedType =
+        fileType.includes("pdf") ||
+        fileType.includes("word") ||
+        fileType.includes("excel") ||
+        fileType.includes("spreadsheetml") ||
+        fileType.includes("officedocument");
+
+      if (!isAllowedType) {
+        message.error("You can only upload PDF, Word, or Excel files!");
         return Upload.LIST_IGNORE;
       }
+
       return true;
     },
   };
@@ -214,6 +317,65 @@ const Files: React.FC = () => {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
+  // Render appropriate viewer based on file type
+  const renderFileViewer = () => {
+    if (!selectedFile) return null;
+
+    const fileExtension = currentFileName.split(".").pop()?.toLowerCase();
+
+    if (fileExtension === "pdf" || currentFileName.includes(".pdf")) {
+      return (
+        <iframe
+          src={selectedFile}
+          title="PDF Viewer"
+          width="100%"
+          height="100%"
+          style={{ border: "none" }}
+        />
+      );
+    } else if (
+      ["jpg", "jpeg", "png", "gif", "bmp", "webp"].includes(fileExtension || "")
+    ) {
+      return (
+        <div className="flex justify-center items-center h-full">
+          <Image
+            src={selectedFile}
+            alt={currentFileName}
+            style={{
+              maxWidth: "100%",
+              maxHeight: "100%",
+              objectFit: "contain",
+            }}
+          />
+        </div>
+      );
+    } else if (["txt", "csv", "html"].includes(fileExtension || "")) {
+      return (
+        <iframe
+          src={selectedFile}
+          title="Text Viewer"
+          width="100%"
+          height="100%"
+          style={{ border: "none" }}
+        />
+      );
+    } else {
+      return (
+        <div className="flex flex-col justify-center items-center h-full">
+          <p>This file type cannot be previewed directly in the browser.</p>
+          <Button
+            type="primary"
+            icon={<DownloadOutlined />}
+            onClick={() => window.open(selectedFile, "_blank")}
+            className="mt-4 bg-gradientBg hover:bg-[#a88a4c] border-none"
+          >
+            Download to view
+          </Button>
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <div className="flex justify-between items-center mb-6">
@@ -224,7 +386,7 @@ const Files: React.FC = () => {
             className="bg-gradientBg hover:bg-[#a88a4c] border-none text-black"
             loading={uploading}
           >
-            Upload PDF
+            Upload File
           </Button>
         </Upload>
       </div>
@@ -245,11 +407,11 @@ const Files: React.FC = () => {
       )}
 
       <div className="mt-4 text-gray-500 text-sm">
-        <p>* Only PDF files are supported</p>
-        <p>* Maximum file size: 10MB</p>
+        <p>* Supported file types: PDF, Word, Excel</p>
+        <p>* Maximum file size: 100MB</p>
       </div>
 
-      {/* PDF Viewer Modal */}
+      {/* File Viewer Modal */}
       <Modal
         title={currentFileName}
         open={isViewerOpen}
@@ -265,15 +427,7 @@ const Files: React.FC = () => {
             <Spin size="large" />
           </div>
         ) : (
-          selectedPdf && (
-            <iframe
-              src={selectedPdf}
-              title="PDF Viewer"
-              width="100%"
-              height="100%"
-              style={{ border: "none" }}
-            />
-          )
+          renderFileViewer()
         )}
       </Modal>
     </div>
