@@ -71,11 +71,11 @@ const EditProfile = () => {
       if (!isImage) {
         message.error("You can only upload image files!");
       }
-      const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isLt2M) {
-        message.error("Image must be smaller than 2MB!");
+      const isLt10M = file.size / 1024 / 1024 < 10;
+      if (!isLt10M) {
+        message.error("Image must be smaller than 10MB!");
       }
-      return (isImage && isLt2M) || Upload.LIST_IGNORE;
+      return (isImage && isLt10M) || Upload.LIST_IGNORE;
     },
     maxCount: 1,
     fileList,

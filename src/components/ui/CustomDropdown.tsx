@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Select from "react-select";
 import stateLogo from "@/assets/Vector.png";
+import stateArrow from "@/assets/Group 1707478307.png";
 import {
   useGetUserProfileQuery,
   useUpdateUserProfileMutation,
@@ -12,13 +13,20 @@ const stateOptions = [
   {
     value: "California",
     label: (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center">
         <Image
           src={stateLogo}
           alt="California"
           width={245450}
           height={2354350}
-          className="w-16 h-10"
+          className="w-[80px] h-12"
+        />
+        <Image
+          src={stateArrow}
+          alt="California"
+          width={245450}
+          height={2354350}
+          className="w-9"
         />
       </div>
     ),
@@ -126,12 +134,18 @@ const CustomDropdown = () => {
       value={selectedState}
       onChange={handleStateChange}
       formatOptionLabel={(option) => option.label}
+      className="state-dropdown"
+      classNamePrefix="state-select"
+      isSearchable={true}
+      placeholder="Select your state..."
+      components={{
+        DropdownIndicator: () => null,
+      }}
       styles={{
         control: (provided) => ({
           ...provided,
           backgroundColor: "transparent",
           border: "none",
-          width: "100%",
           boxShadow: "none",
           cursor: "pointer",
           color: "white",
@@ -140,16 +154,52 @@ const CustomDropdown = () => {
           ...provided,
           display: "flex",
           alignItems: "center",
+          padding: "10px 16px",
           gap: "8px",
-          backgroundColor: state.isSelected ? "#032237" : "white",
-          color: state.isSelected ? "white" : "black",
+          backgroundColor: state.isSelected
+            ? "#032237"
+            : state.isFocused
+            ? "rgba(3, 34, 55, 0.1)"
+            : "white",
+          color: state.isSelected ? "white" : "#032237",
           cursor: "pointer",
+          transition: "background-color 0.2s ease",
+          "&:hover": {
+            backgroundColor: state.isSelected
+              ? "#032237"
+              : "rgba(3, 34, 55, 0.1)",
+          },
         }),
         singleValue: (provided) => ({
           ...provided,
           display: "flex",
           alignItems: "center",
-          gap: "1px",
+          gap: "8px",
+          color: "white",
+          fontWeight: 500,
+        }),
+        menu: (provided) => ({
+          ...provided,
+          backgroundColor: "white",
+          borderRadius: "8px",
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.15)",
+          overflow: "hidden",
+          zIndex: 9999,
+        }),
+        menuList: (provided) => ({
+          ...provided,
+          padding: "8px 0",
+          maxHeight: "250px",
+        }),
+        indicatorSeparator: () => ({
+          display: "none",
+        }),
+        placeholder: (provided) => ({
+          ...provided,
+          color: "rgba(255, 255, 255, 0.7)",
+        }),
+        input: (provided) => ({
+          ...provided,
           color: "white",
         }),
       }}

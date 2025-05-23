@@ -51,9 +51,61 @@ const BookYourConsultationPage = () => {
     "America/Denver",
     "America/Los_Angeles",
     "America/Anchorage",
-    "America/Honolulu",
     "America/Phoenix",
     "America/Indiana/Indianapolis",
+  ];
+
+  const states = [
+    { value: "Alabama", label: "Alabama" },
+    { value: "Alaska", label: "Alaska" },
+    { value: "Arizona", label: "Arizona" },
+    { value: "Arkansas", label: "Arkansas" },
+    { value: "California", label: "California" },
+    { value: "Colorado", label: "Colorado" },
+    { value: "Connecticut", label: "Connecticut" },
+    { value: "Delaware", label: "Delaware" },
+    { value: "Florida", label: "Florida" },
+    { value: "Georgia", label: "Georgia" },
+    { value: "Hawaii", label: "Hawaii" },
+    { value: "Idaho", label: "Idaho" },
+    { value: "Illinois", label: "Illinois" },
+    { value: "Indiana", label: "Indiana" },
+    { value: "Iowa", label: "Iowa" },
+    { value: "Kansas", label: "Kansas" },
+    { value: "Kentucky", label: "Kentucky" },
+    { value: "Louisiana", label: "Louisiana" },
+    { value: "Maine", label: "Maine" },
+    { value: "Maryland", label: "Maryland" },
+    { value: "Massachusetts", label: "Massachusetts" },
+    { value: "Michigan", label: "Michigan" },
+    { value: "Minnesota", label: "Minnesota" },
+    { value: "Mississippi", label: "Mississippi" },
+    { value: "Missouri", label: "Missouri" },
+    { value: "Montana", label: "Montana" },
+    { value: "Nebraska", label: "Nebraska" },
+    { value: "Nevada", label: "Nevada" },
+    { value: "New Hampshire", label: "New hampshire" },
+    { value: "New Jersey", label: "New jersey" },
+    { value: "New Mexico", label: "New mexico" },
+    { value: "New York", label: "New york" },
+    { value: "North Carolina", label: "North carolina" },
+    { value: "North Dakota", label: "North dakota" },
+    { value: "Ohio", label: "Ohio" },
+    { value: "Oklahoma", label: "Oklahoma" },
+    { value: "Oregon", label: "Oregon" },
+    { value: "Pennsylvania", label: "Pennsylvania" },
+    { value: "Rhode Island", label: "Rhode island" },
+    { value: "South Carolina", label: "South carolina" },
+    { value: "South Dakota", label: "South dakota" },
+    { value: "Tennessee", label: "Tennessee" },
+    { value: "Texas", label: "Texas" },
+    { value: "Utah", label: "Utah" },
+    { value: "Vermont", label: "Vermont" },
+    { value: "Virginia", label: "Virginia" },
+    { value: "Washington", label: "Washington" },
+    { value: "West Virginia", label: "West virginia" },
+    { value: "Wisconsin", label: "Wisconsin" },
+    { value: "Wyoming", label: "Wyoming" },
   ];
 
   const handleDateChange = (date: any) => {
@@ -229,8 +281,11 @@ const BookYourConsultationPage = () => {
             </Form.Item>
             <Form.Item name="state" label="State" rules={[{ required: true }]}>
               <Select placeholder="State">
-                <Option value="ny">New York</Option>
-                <Option value="ca">California</Option>
+                {states.map((state) => (
+                  <Option key={state.value} value={state.value}>
+                    {state.label}
+                  </Option>
+                ))}
               </Select>
             </Form.Item>
           </div>

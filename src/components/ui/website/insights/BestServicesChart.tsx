@@ -4,14 +4,23 @@ import React from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 // Define the type for service data
-interface ServiceData {
-  _id: string;
-  serviceName: string;
-  count: number;
-  percentage: string;
+interface ServiceItem {
+  name: string;
+  value: number;
 }
 
-const COLORS = ["#032237", "#1C384B", "#354E5F", "#4F6473"];
+interface ServiceData {
+  _id: string;
+  title: string;
+  description: string;
+  type: string;
+  data: ServiceItem[];
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+const COLORS = ["#032237", "#1C384B", "#354E5F", "#4F6473", "#6A7A87", "#85909B"];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
@@ -40,6 +49,8 @@ const renderCustomizedLabel = ({
       fill="white"
       textAnchor={x > cx ? "start" : "end"}
       dominantBaseline="central"
+      fontSize={12}
+      fontWeight="bold"
     >
       {`${(percent * 100).toFixed(0)}%`}
     </text>
@@ -47,21 +58,30 @@ const renderCustomizedLabel = ({
 };
 
 interface PieChartComponentProps {
-  serviceData: ServiceData[];
+  serviceData: ServiceData;
 }
 
 const PieChartComponent: React.FC<PieChartComponentProps> = ({
   serviceData,
 }) => {
-  // Convert percentage strings to numbers for the chart
-  const chartData = serviceData?.map((item) => ({
-    ...item,
-    percentage: parseFloat(item.percentage),
-  }));
+  // Calculate total value
+  const totalValue = serviceData?.data?.reduce(
+    (sum, item) => sum + item.value,
+    0
+  ) || 0;
+
+  // Calculate percentages
+  const chartData = serviceData?.data?.map((item) => {
+    const percentage = totalValue > 0 ? (item.value / totalValue) * 100 : 0;
+    return {
+      ...item,
+      percentage: parseFloat(percentage.toFixed(1)),
+    };
+  });
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="w-1/2">
+    <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+      <div className="w-full md:w-1/2">
         <ResponsiveContainer width="100%" height={400}>
           <PieChart>
             <Pie
@@ -84,16 +104,17 @@ const PieChartComponent: React.FC<PieChartComponentProps> = ({
           </PieChart>
         </ResponsiveContainer>
       </div>
-      <div className="w-1/2">
-        <h1 className="text-3xl mb-5 font-bold ">Best Services</h1>
+      <div className="w-full md:w-1/2">
+        <h1 className="text-3xl mb-5 font-bold">{serviceData?.title || "Best Services"}</h1>
+        <p className="text-gray-600 mb-4">{serviceData?.description}</p>
         <div className="space-y-5">
           {chartData?.map((service, index) => (
-            <div key={service._id} className="flex items-center gap-3">
-              <p
-                className="h-7 w-7 rounded-full"
+            <div key={index} className="flex items-center gap-3">
+              <div
+                className="h-7 w-7 rounded-full flex-shrink-0"
                 style={{ backgroundColor: COLORS[index % COLORS.length] }}
-              ></p>
-              <p className="text-lg font-bold">{service.serviceName}</p>
+              ></div>
+              <p className="text-lg font-bold">{service.name}</p>
               <p className="text-sm ml-auto">{service.percentage}%</p>
             </div>
           ))}

@@ -27,7 +27,7 @@ const GrowthChart = ({ data }: any) => {
           </linearGradient>
         </defs>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="month" />
+        <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
         <Area

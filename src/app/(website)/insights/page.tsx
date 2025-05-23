@@ -30,9 +30,9 @@ const InsightsPage = () => {
 
   const topFiveChallengesInfo = allChallenges?.data;
   const chartData = insightChartData?.data?.graph?.[0];
-  const topServices = insightChartData?.data?.topServices;
+  const topServices = insightChartData?.data?.pie?.[0];
 
-  // console.log("sdgvsdvsgv", chartData);
+  // console.log("sdgvsdvsgv", topServices);
 
   return (
     <div>
