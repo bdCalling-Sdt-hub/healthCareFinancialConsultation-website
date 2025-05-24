@@ -120,10 +120,21 @@ const CustomDropdown = () => {
         if (res?.data?.success) {
           toast.success(res?.data?.message || "Location updated successfully!");
         } else {
-          toast.error(res?.data?.message || "Failed to update location!");
+          // Type-safe error check
+          if (
+            res?.error &&
+            "data" in res.error &&
+            (res.error.data as { message?: string })?.message ===
+              "Token not found!"
+          ) {
+            toast.error("Please login before setting a location");
+          } else {
+            toast.error(res?.data?.message || "Failed to update location!");
+          }
         }
       } catch (error) {
         console.error("Failed to update location:", error);
+        toast.error("An error occurred while updating location");
       }
     }
   };

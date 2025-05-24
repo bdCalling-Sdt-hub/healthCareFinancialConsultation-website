@@ -44,6 +44,7 @@ const Notifications = () => {
     );
 
   const notificationsData = allNotifications?.data || [];
+  // console.log(notificationsData);
 
   // const handleMarkAllAsRead = () => {
   //   setMarkAllAsRead(true);
@@ -91,7 +92,8 @@ const Notifications = () => {
                 notification?.isRead ? "" : "bg-gray-200"
               }`}
               onClick={() =>
-                !notification.isRead && handleReadNotification(notification._id)
+                !notification?.isRead &&
+                handleReadNotification(notification?._id)
               }
             >
               <div className="flex items-center gap-2">
@@ -103,19 +105,21 @@ const Notifications = () => {
                   className="w-14 h-14 border border-[#ba9956] rounded-full object-cover"
                 />
                 <div>
-                  <h1 className="font-semibold">{notification.sender.name}</h1>
+                  <h1 className="font-semibold">
+                    {notification?.sender?.name || "N/A"}
+                  </h1>
                   <p className="text-sm text-gray-500">
-                    {formatDate(notification.createdAt)}
+                    {formatDate(notification?.createdAt)}
                   </p>
                 </div>
                 <p className="text-sm text-gray-500 ml-auto">
                   {(() => {
                     const timeDiff =
-                      new Date().getTime() -
-                      new Date(notification.createdAt).getTime();
-                    const minutes = Math.floor(timeDiff / (1000 * 60));
-                    const hours = Math.floor(minutes / 60);
-                    const days = Math.floor(hours / 24);
+                      new Date()?.getTime() -
+                      new Date(notification?.createdAt)?.getTime();
+                    const minutes = Math?.floor(timeDiff / (1000 * 60));
+                    const hours = Math?.floor(minutes / 60);
+                    const days = Math?.floor(hours / 24);
 
                     if (minutes < 60) return `${minutes}m ago`;
                     if (hours < 24) return `${hours}h ago`;
@@ -125,14 +129,14 @@ const Notifications = () => {
               </div>
               <div className="mt-3">
                 <h3 className="font-medium text-gray-800">
-                  {notification.title}
+                  {notification?.title}
                 </h3>
                 <p
                   className={`text-gray-600 mt-2 ${
-                    notification.isRead ? "" : "font-medium"
+                    notification?.isRead ? "" : "font-medium"
                   }`}
                 >
-                  {notification.body}
+                  {notification?.body}
                 </p>
               </div>
             </div>

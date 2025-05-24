@@ -17,6 +17,8 @@ import { useGetUserProfileQuery } from "@/redux/apiSlices/authSlice";
 import { getImageUrl } from "@/utils/getImageUrl";
 import { useNotificationsQuery } from "@/redux/apiSlices/notificationSlice";
 import { useGetAllServicesQuery } from "@/redux/apiSlices/serviceSlice";
+import { useGetAllHorizonQuery } from "@/redux/apiSlices/horizonSlice";
+import { useGetAllChallengesQuery } from "@/redux/apiSlices/challengeSlice";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -33,14 +35,6 @@ const Navbar = () => {
   const searchRef = useRef<HTMLDivElement>(null);
 
   // Sample services data - replace with your actual data or API call
-  const services = [
-    { id: 1, name: "General Checkup" },
-    { id: 2, name: "Dental Care" },
-    { id: 3, name: "Eye Care" },
-    { id: 4, name: "Cardiology" },
-    { id: 5, name: "Neurology" },
-    { id: 6, name: "Orthopedics" },
-  ];
 
   // Close search dropdown when clicking outside
   useEffect(() => {
@@ -81,14 +75,26 @@ const Navbar = () => {
   const { data: allServices, isLoading: isServiceLoading } =
     useGetAllServicesQuery(undefined);
 
+  const { data: allInsights, isLoading: isInsightLoading } =
+    useGetAllHorizonQuery(undefined);
+
+  const { data: allChallenges, isLoading: isChallengeLoading } =
+    useGetAllChallengesQuery(undefined);
+
   const servicesData = allServices?.data;
-  console.log(servicesData);
+  const insightsData = allInsights?.data;
+  const challengesData = allChallenges?.data;
+  // console.log(servicesData);
 
   // Show loading only when authenticated and APIs are loading
   if (
     isLoading ||
     (isAuthenticated &&
-      (isProfileLoading || isNotificationLoading || isServiceLoading))
+      (isProfileLoading ||
+        isNotificationLoading ||
+        isServiceLoading ||
+        isInsightLoading ||
+        isChallengeLoading)) // <-- Add isChallengeLoading here
   ) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -114,11 +120,31 @@ const Navbar = () => {
       return;
     }
 
-    // Filter services based on search query
-    const filteredResults = servicesData?.filter((service: any) =>
-      service?.title?.toLowerCase()?.includes(query.toLowerCase())
-    );
-    setSearchResults(filteredResults);
+    // Filter services, insights, and challenges based on search query
+    const filteredServices =
+      servicesData?.filter((service: any) =>
+        service?.title?.toLowerCase()?.includes(query.toLowerCase())
+      ) || [];
+    const filteredInsights =
+      insightsData?.filter((insight: any) =>
+        insight?.title?.toLowerCase()?.includes(query.toLowerCase())
+      ) || [];
+    const filteredChallenges =
+      challengesData?.filter((challenge: any) =>
+        challenge?.title?.toLowerCase()?.includes(query.toLowerCase())
+      ) || [];
+
+    // Combine and tag results
+    const combinedResults = [
+      ...filteredServices.map((item: any) => ({ ...item, _type: "service" })),
+      ...filteredInsights.map((item: any) => ({ ...item, _type: "insight" })),
+      ...filteredChallenges.map((item: any) => ({
+        ...item,
+        _type: "challenge",
+      })),
+    ];
+
+    setSearchResults(combinedResults);
   };
 
   const items = [
@@ -186,45 +212,89 @@ const Navbar = () => {
               <div className="relative" ref={searchRef}>
                 <FaSearch
                   size={24}
-                  color="#ba9956"
+                  color="#F0E595"
                   className="cursor-pointer"
                   onClick={() => setShowSearch(!showSearch)}
                 />
 
-                {/* Search Dropdown */}
+                {/* Full-width Search Dropdown */}
                 {showSearch && (
-                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg p-3 z-20">
-                    <Input
-                      placeholder="Search services..."
-                      value={searchQuery}
-                      onChange={handleSearchChange}
-                      autoFocus
-                      className="mb-2"
-                      suffix={<FaSearch size={16} color="#ba9956" />}
+                  <div className="fixed left-0 top-0 w-full h-full bg-black bg-opacity-40 z-50 flex flex-col items-center justify-start">
+                    {/* Click outside to close */}
+                    <div
+                      className="absolute inset-0"
+                      onClick={() => setShowSearch(false)}
+                      style={{ zIndex: 0 }}
                     />
+                    <div className="w-full max-w-2xl mt-16 bg-white rounded-xl shadow-lg p-8 relative z-10">
+                      <Input
+                        placeholder="Search..."
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                        autoFocus
+                        className="mb-6 text-xl py-4 px-6 rounded-lg border-2 border-[#ba9956]"
+                        suffix={<FaSearch size={20} color="#ba9956" />}
+                        style={{ fontSize: "1.25rem", height: "3.5rem" }}
+                      />
 
-                    {/* Search Results */}
-                    {searchResults?.length > 0 ? (
-                      <div className="max-h-60 overflow-y-auto">
-                        {searchResults.map((service) => (
-                          <Link
-                            href={`/services/${service._id}`}
-                            key={service._id}
-                          >
-                            <div
-                              className="p-2 hover:bg-gray-100 cursor-pointer rounded-md"
+                      {/* Search Results */}
+                      {searchResults?.length > 0 ? (
+                        <div className="max-h-[60vh] overflow-y-auto space-y-4">
+                          {searchResults?.map((item) => (
+                            <Link
+                              href={
+                                item._type === "service"
+                                  ? `/services/${item._id}`
+                                  : item._type === "insight"
+                                  ? `/healthcare-horizon/${item._id}`
+                                  : `/insights/challenges/${item._id}` // For challenge type
+                              }
+                              key={item._id}
                               onClick={() => setShowSearch(false)}
+                              className="block"
                             >
-                              {service.title}
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    ) : searchQuery.trim() !== "" ? (
-                      <div className="p-2 text-gray-500">No services found</div>
-                    ) : null}
+                              <div className="flex items-center gap-4 p-4 hover:bg-gray-100 rounded-lg cursor-pointer transition">
+                                <img
+                                  src={
+                                    getImageUrl(
+                                      item.image || item.background
+                                    ) || "/default-service.jpg"
+                                  }
+                                  alt={item.title}
+                                  className="w-20 h-20 object-cover rounded-md border"
+                                />
+                                <div>
+                                  <div className="font-bold text-lg text-[#032237] flex items-center gap-2">
+                                    {item.title}
+                                    <span className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded ml-2">
+                                      {item._type === "service"
+                                        ? "Service"
+                                        : item._type === "insight"
+                                        ? "Insight"
+                                        : "Challenge"}
+                                    </span>
+                                  </div>
+                                  <div className="text-gray-600 text-sm line-clamp-2">
+                                    {item.description ||
+                                      "No description available."}
+                                  </div>
+                                </div>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      ) : searchQuery.trim() !== "" ? (
+                        <div className="p-4 text-gray-500 text-center">
+                          No services, insights, or challenges found
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
                 )}
+              </div>
+
+              <div className="hidden md:block w-40">
+                <CustomDropdown />
               </div>
 
               {/* Login and Profile */}
@@ -246,9 +316,7 @@ const Navbar = () => {
                       </Badge>
                     </Link>
                   </div>
-                  <div className="hidden md:block w-40">
-                    <CustomDropdown />
-                  </div>
+
                   <Link href={"/profile"}>
                     <div className="flex items-center gap-2 cursor-pointer text-white">
                       <Image

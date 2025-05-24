@@ -79,12 +79,16 @@ const InsightsPage = () => {
         <Horizon />
         <div className="container">
           <h1 className="text-3xl mb-5 font-bold">Statistics</h1>
-          <div className="border-4 border-gray-200 p-10 rounded-2xl">
+          <div className="border-4 border-dashed border-gray-200 p-10 rounded-2xl">
             <div className="text-center mb-5">
               <h1 className="text-2xl font-semibold">{chartData?.title}</h1>
               <p>{chartData?.description}</p>
             </div>
             <GrowthChart data={chartData} />
+            <p className="py-10 border-gray-600 border-b border-dashed">
+              {chartData?.footer}
+            </p>
+
             <BestServicesChart serviceData={topServices} />
           </div>
         </div>
