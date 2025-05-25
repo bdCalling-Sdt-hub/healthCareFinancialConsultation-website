@@ -11,14 +11,17 @@ import NavItems from "./NavItems";
 import MobileDrawer from "./MobileDrawer";
 import CustomDropdown from "../ui/CustomDropdown";
 import { FaBell, FaSearch } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
 import randomImage from "@/assets/randomProfile3.jpg";
-import { Badge, Spin, Input } from "antd";
+import { Badge, Spin, Input, Button } from "antd";
 import { useGetUserProfileQuery } from "@/redux/apiSlices/authSlice";
 import { getImageUrl } from "@/utils/getImageUrl";
 import { useNotificationsQuery } from "@/redux/apiSlices/notificationSlice";
 import { useGetAllServicesQuery } from "@/redux/apiSlices/serviceSlice";
 import { useGetAllHorizonQuery } from "@/redux/apiSlices/horizonSlice";
 import { useGetAllChallengesQuery } from "@/redux/apiSlices/challengeSlice";
+import { useRouter } from "next/navigation";
+import { useGetOurWaysQuery } from "@/redux/apiSlices/ourWaySlice";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -26,6 +29,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 const Navbar = () => {
+  const router = useRouter();
   const [showDrawer, setShowDrawer] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,7 +38,7 @@ const Navbar = () => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const searchRef = useRef<HTMLDivElement>(null);
 
-  // Sample services data - replace with your actual data or API call
+  // console.log("sgvsbv", searchResults);
 
   // Close search dropdown when clicking outside
   useEffect(() => {
@@ -81,10 +85,13 @@ const Navbar = () => {
   const { data: allChallenges, isLoading: isChallengeLoading } =
     useGetAllChallengesQuery(undefined);
 
+  const { data: allOurWays, isLoading: isOurWayLoading } =
+    useGetOurWaysQuery(undefined);
+
   const servicesData = allServices?.data;
   const insightsData = allInsights?.data;
   const challengesData = allChallenges?.data;
-  // console.log(servicesData);
+  const ourWaysData = allOurWays?.data;
 
   // Show loading only when authenticated and APIs are loading
   if (
@@ -94,7 +101,8 @@ const Navbar = () => {
         isNotificationLoading ||
         isServiceLoading ||
         isInsightLoading ||
-        isChallengeLoading)) // <-- Add isChallengeLoading here
+        isChallengeLoading ||
+        isOurWayLoading))
   ) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -120,18 +128,67 @@ const Navbar = () => {
       return;
     }
 
-    // Filter services, insights, and challenges based on search query
+    // Filter services with enhanced search
     const filteredServices =
-      servicesData?.filter((service: any) =>
-        service?.title?.toLowerCase()?.includes(query.toLowerCase())
+      servicesData?.filter(
+        (service: any) =>
+          service?.title?.toLowerCase()?.includes(query.toLowerCase()) ||
+          service?.description?.toLowerCase()?.includes(query.toLowerCase())
       ) || [];
+
+    // Filter insights with enhanced search
     const filteredInsights =
-      insightsData?.filter((insight: any) =>
-        insight?.title?.toLowerCase()?.includes(query.toLowerCase())
+      insightsData?.filter(
+        (insight: any) =>
+          insight?.title?.toLowerCase()?.includes(query.toLowerCase()) ||
+          insight?.description?.toLowerCase()?.includes(query.toLowerCase()) ||
+          insight?.sections?.filter(
+            (section: any) =>
+              section?.title?.toLowerCase()?.includes(query.toLowerCase()) ||
+              section?.bars?.filter(
+                (bar: any) =>
+                  bar?.title?.toLowerCase()?.includes(query.toLowerCase()) ||
+                  bar?.body?.filter((item: any) =>
+                    item.toLowerCase().includes(query.toLowerCase())
+                  )?.length > 0
+              )?.length > 0
+          )?.length > 0
       ) || [];
+
+    // Filter challenges with enhanced search
     const filteredChallenges =
-      challengesData?.filter((challenge: any) =>
-        challenge?.title?.toLowerCase()?.includes(query.toLowerCase())
+      challengesData?.filter(
+        (challenge: any) =>
+          challenge?.title?.toLowerCase()?.includes(query.toLowerCase()) ||
+          challenge?.description
+            ?.toLowerCase()
+            ?.includes(query.toLowerCase()) ||
+          challenge?.footer?.toLowerCase()?.includes(query.toLowerCase()) ||
+          challenge?.contents?.filter(
+            (content: any) =>
+              content?.title?.toLowerCase()?.includes(query.toLowerCase()) ||
+              content?.description
+                ?.toLowerCase()
+                ?.includes(query.toLowerCase()) ||
+              content?.details?.filter((item: any) =>
+                item.toLowerCase().includes(query.toLowerCase())
+              )?.length > 0
+          )?.length > 0
+      ) || [];
+
+    // Filter our ways with enhanced search
+    const filteredOurWays =
+      ourWaysData?.filter(
+        (ourWay: any) =>
+          ourWay?.title?.toLowerCase()?.includes(query.toLowerCase()) ||
+          ourWay?.description?.toLowerCase()?.includes(query.toLowerCase()) ||
+          ourWay?.label?.toLowerCase()?.includes(query.toLowerCase()) ||
+          ourWay?.footer?.toLowerCase()?.includes(query.toLowerCase()) ||
+          ourWay?.contents?.filter(
+            (content: any) =>
+              content?.heading?.toLowerCase()?.includes(query.toLowerCase()) ||
+              content?.body?.toLowerCase()?.includes(query.toLowerCase())
+          )?.length > 0
       ) || [];
 
     // Combine and tag results
@@ -142,9 +199,19 @@ const Navbar = () => {
         ...item,
         _type: "challenge",
       })),
+      ...filteredOurWays.map((item: any) => ({
+        ...item,
+        _type: "ourWay",
+      })),
     ];
 
     setSearchResults(combinedResults);
+  };
+
+  // Navigate to search page with query
+  const handleViewAllResults = () => {
+    router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
+    setShowSearch(false);
   };
 
   const items = [
@@ -180,164 +247,210 @@ const Navbar = () => {
 
   return (
     <div className={`${plusJakarta.className}`}>
-      {/* 2nd navbar */}
-      <header className={`bg-[#032237] shadow w-full`}>
-        <nav className="max-w-[1800px] mx-auto h-[100px] relative z-10 w-full">
-          <div className="flex justify-between items-center h-full w-full">
-            <div className="flex items-center lg:gap-0 gap-1">
-              <div className="md:hidden">
-                <AiOutlineMenu
-                  onClick={() => setShowDrawer(!showDrawer)}
-                  className="text-primaryText text-white cursor-pointer"
-                  size={24}
-                />
+      {/* Navbar */}
+      <header
+        className={`bg-[#032237] shadow w-full transition-all duration-300 ${
+          showSearch ? "h-[200px]" : "h-[100px]"
+        }`}
+      >
+        <nav className="max-w-[1800px] mx-auto h-full relative z-10 w-full">
+          {!showSearch ? (
+            // Regular Navbar
+            <div className="flex justify-between items-center h-full w-full">
+              <div className="flex items-center lg:gap-0 gap-1">
+                <div className="md:hidden">
+                  <AiOutlineMenu
+                    onClick={() => setShowDrawer(!showDrawer)}
+                    className="text-primaryText text-white cursor-pointer"
+                    size={24}
+                  />
+                </div>
+                {/* Logo */}
+                <Link href={"/"}>
+                  <Image
+                    alt="Logo"
+                    src={logo}
+                    width={4654646698985}
+                    height={45634560}
+                    className="md:w-full md:h-24 w-28 h-14"
+                  />
+                </Link>
               </div>
-              {/* Logo */}
-              <Link href={"/"}>
-                <Image
-                  alt="Logo"
-                  src={logo}
-                  width={4654646698985}
-                  height={45634560}
-                  className="md:w-full md:h-24 w-28 h-14"
-                />
-              </Link>
+              {/* Nav Items for Desktop */}
+              <div className="hidden md:flex p-2 items-center gap-5">
+                <NavItems items={items} />
+              </div>
+
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <FaSearch
+                    size={24}
+                    color="#F0E595"
+                    className="cursor-pointer"
+                    onClick={() => setShowSearch(true)}
+                  />
+                </div>
+
+                <div className="hidden md:block w-40">
+                  <CustomDropdown />
+                </div>
+
+                {/* Login and Profile */}
+                {!isAuthenticated || userInfo?.role !== "user" ? (
+                  <Link href="/login">
+                    <button className="bg-gradientBg px-10 py-2 rounded-md">
+                      Login
+                    </button>
+                  </Link>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <div className="mr-3">
+                      <Link href={"/notifications"}>
+                        <Badge count={notificationCount} offset={[-3, 4]}>
+                          <FaBell
+                            className="text-primaryText text-[#ba9956] cursor-pointer"
+                            size={25}
+                          />
+                        </Badge>
+                      </Link>
+                    </div>
+
+                    <Link href={"/profile"}>
+                      <div className="flex items-center gap-2 cursor-pointer text-white">
+                        <Image
+                          alt="Profile"
+                          src={
+                            userInfo?.profile
+                              ? getImageUrl(userInfo?.profile)
+                              : randomImage
+                          }
+                          width={4654646}
+                          height={45634560}
+                          className="w-12 h-12 border object-cover border-[#ba9956] rounded-full"
+                        />
+                      </div>
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
-            {/* Nav Items for Desktop */}
-            <div className="hidden md:flex p-2 items-center gap-5">
-              <NavItems items={items} />
-            </div>
+          ) : (
+            // Search Mode Navbar
+            <div
+              className="flex flex-col justify-center h-full w-full px-4"
+              ref={searchRef}
+            >
+              <div className="flex items-center justify-between mb-4">
+                {/* Logo */}
+                <Link href={"/"}>
+                  <Image
+                    alt="Logo"
+                    src={logo}
+                    width={4654646698985}
+                    height={45634560}
+                    className="md:w-full md:h-16 w-28 h-10"
+                  />
+                </Link>
 
-            <div className="flex items-center gap-4">
-              <div className="relative" ref={searchRef}>
-                <FaSearch
-                  size={24}
-                  color="#F0E595"
-                  className="cursor-pointer"
-                  onClick={() => setShowSearch(!showSearch)}
+                {/* Close button */}
+                <button
+                  onClick={() => {
+                    setShowSearch(false);
+                    setSearchQuery("");
+                    setSearchResults([]);
+                  }}
+                  className="text-white hover:text-[#F0E595] transition-colors"
+                >
+                  <IoMdClose size={28} />
+                </button>
+              </div>
+
+              {/* Search input */}
+              <div className="w-full">
+                <Input
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  autoFocus
+                  className="text-lg py-3 px-6 rounded-lg border-2 border-[#ba9956]"
+                  suffix={<FaSearch size={20} color="#ba9956" />}
+                  style={{ fontSize: "1.1rem", height: "3rem" }}
                 />
 
-                {/* Full-width Search Dropdown */}
-                {showSearch && (
-                  <div className="fixed left-0 top-0 w-full h-full bg-black bg-opacity-40 z-50 flex flex-col items-center justify-start">
-                    {/* Click outside to close */}
-                    <div
-                      className="absolute inset-0"
-                      onClick={() => setShowSearch(false)}
-                      style={{ zIndex: 0 }}
-                    />
-                    <div className="w-full max-w-2xl mt-16 bg-white rounded-xl shadow-lg p-8 relative z-10">
-                      <Input
-                        placeholder="Search..."
-                        value={searchQuery}
-                        onChange={handleSearchChange}
-                        autoFocus
-                        className="mb-6 text-xl py-4 px-6 rounded-lg border-2 border-[#ba9956]"
-                        suffix={<FaSearch size={20} color="#ba9956" />}
-                        style={{ fontSize: "1.25rem", height: "3.5rem" }}
-                      />
-
-                      {/* Search Results */}
-                      {searchResults?.length > 0 ? (
-                        <div className="max-h-[60vh] overflow-y-auto space-y-4">
-                          {searchResults?.map((item) => (
+                {/* Quick search results */}
+                {searchQuery.trim() !== "" && (
+                  <div className="absolute left-0 right-0 bg-white shadow-lg rounded-b-lg mt-1 max-w-[1800px] mx-auto z-50">
+                    {searchResults.length > 0 ? (
+                      <>
+                        <div className="p-4">
+                          {searchResults.slice(0, 3).map((item) => (
                             <Link
                               href={
                                 item._type === "service"
                                   ? `/services/${item._id}`
                                   : item._type === "insight"
                                   ? `/healthcare-horizon/${item._id}`
-                                  : `/insights/challenges/${item._id}` // For challenge type
+                                  : item._type === "ourWay"
+                                  ? `/our-way`
+                                  : `/insights/challenges/${item._id}`
                               }
                               key={item._id}
                               onClick={() => setShowSearch(false)}
-                              className="block"
                             >
-                              <div className="flex items-center gap-4 p-4 hover:bg-gray-100 rounded-lg cursor-pointer transition">
-                                <img
-                                  src={
-                                    getImageUrl(
-                                      item.image || item.background
-                                    ) || "/default-service.jpg"
-                                  }
-                                  alt={item.title}
-                                  className="w-20 h-20 object-cover rounded-md border"
-                                />
+                              <div className="flex items-center gap-3 p-3 hover:bg-gray-100 rounded-lg cursor-pointer transition">
+                                {item?.image ||
+                                  (item?.background && (
+                                    <img
+                                      src={
+                                        getImageUrl(
+                                          item.image || item.background
+                                        ) || "/default-service.jpg"
+                                      }
+                                      alt={item.title}
+                                      className="w-12 h-12 object-cover rounded-md border"
+                                    />
+                                  ))}
                                 <div>
-                                  <div className="font-bold text-lg text-[#032237] flex items-center gap-2">
+                                  <div className="font-medium text-[#032237] flex items-center gap-2">
                                     {item.title}
-                                    <span className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded ml-2">
+                                    <span className="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded">
                                       {item._type === "service"
                                         ? "Service"
                                         : item._type === "insight"
                                         ? "Insight"
+                                        : item._type === "ourWay"
+                                        ? "Our Way"
                                         : "Challenge"}
                                     </span>
-                                  </div>
-                                  <div className="text-gray-600 text-sm line-clamp-2">
-                                    {item.description ||
-                                      "No description available."}
                                   </div>
                                 </div>
                               </div>
                             </Link>
                           ))}
                         </div>
-                      ) : searchQuery.trim() !== "" ? (
-                        <div className="p-4 text-gray-500 text-center">
-                          No services, insights, or challenges found
-                        </div>
-                      ) : null}
-                    </div>
+
+                        {searchResults.length > 3 && (
+                          <div className="p-3 border-t text-center">
+                            <Button
+                              type="link"
+                              onClick={handleViewAllResults}
+                              className="text-[#ba9956] hover:text-[#8a7341]"
+                            >
+                              View all {searchResults.length} results
+                            </Button>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <div className="p-4 text-gray-500 text-center">
+                        No services, insights, or challenges found
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
-
-              <div className="hidden md:block w-40">
-                <CustomDropdown />
-              </div>
-
-              {/* Login and Profile */}
-              {!isAuthenticated || userInfo?.role !== "user" ? (
-                <Link href="/login">
-                  <button className="bg-gradientBg px-10 py-2 rounded-md">
-                    Login
-                  </button>
-                </Link>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <div className="mr-3">
-                    <Link href={"/notifications"}>
-                      <Badge count={notificationCount} offset={[-3, 4]}>
-                        <FaBell
-                          className="text-primaryText text-[#ba9956] cursor-pointer"
-                          size={25}
-                        />
-                      </Badge>
-                    </Link>
-                  </div>
-
-                  <Link href={"/profile"}>
-                    <div className="flex items-center gap-2 cursor-pointer text-white">
-                      <Image
-                        alt="Profile"
-                        src={
-                          userInfo?.profile
-                            ? getImageUrl(userInfo?.profile)
-                            : randomImage
-                        }
-                        width={4654646}
-                        height={45634560}
-                        className="w-12 h-12 border object-cover border-[#ba9956] rounded-full"
-                      />
-
-                      {/* <h1 className="text-lg font-[500]">{userInfo?.name}</h1> */}
-                    </div>
-                  </Link>
-                </div>
-              )}
             </div>
-          </div>
+          )}
         </nav>
 
         {/* Mobile Drawer */}

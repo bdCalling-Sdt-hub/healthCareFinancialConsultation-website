@@ -7,7 +7,7 @@ import {
   useGetUserProfileQuery,
   useUpdateUserProfileMutation,
 } from "@/redux/apiSlices/authSlice";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 
 const stateOptions = [
   {
@@ -116,25 +116,25 @@ const CustomDropdown = () => {
       formData.append("data", JSON.stringify(data));
 
       try {
-        const res = await updateProfile(formData);
-        if (res?.data?.success) {
-          toast.success(res?.data?.message || "Location updated successfully!");
-        } else {
-          // Type-safe error check
-          if (
-            res?.error &&
-            "data" in res.error &&
-            (res.error.data as { message?: string })?.message ===
-              "Token not found!"
-          ) {
-            toast.error("Please login before setting a location");
-          } else {
-            toast.error(res?.data?.message || "Failed to update location!");
-          }
-        }
+        await updateProfile(formData);
+        // if (res?.data?.success) {
+        //   toast.success(res?.data?.message || "Location updated successfully!");
+        // } else {
+        //   // Type-safe error check
+        //   if (
+        //     res?.error &&
+        //     "data" in res.error &&
+        //     (res.error.data as { message?: string })?.message ===
+        //       "Token not found!"
+        //   ) {
+        //     toast.error("Please login before setting a location");
+        //   } else {
+        //     toast.error(res?.data?.message || "Failed to update location!");
+        //   }
+        // }
       } catch (error) {
         console.error("Failed to update location:", error);
-        toast.error("An error occurred while updating location");
+        // toast.error("An error occurred while updating location");
       }
     }
   };
