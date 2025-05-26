@@ -27,6 +27,14 @@ const serviceApi = api.injectEndpoints({
       }),
       providesTags: ["service"],
     }),
+
+    getAllTabs: builder.query({
+      query: () => ({
+        url: `/tabs/all`,
+        method: "GET",
+      }),
+      providesTags: ["service"],
+    }),
   }),
 });
 
@@ -36,4 +44,5 @@ export const {
 
   //tabs
   useGetServiceTabsQuery,
+  useGetAllTabsQuery,
 } = serviceApi;

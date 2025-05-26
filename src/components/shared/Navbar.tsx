@@ -17,7 +17,10 @@ import { Badge, Spin, Input, Button } from "antd";
 import { useGetUserProfileQuery } from "@/redux/apiSlices/authSlice";
 import { getImageUrl } from "@/utils/getImageUrl";
 import { useNotificationsQuery } from "@/redux/apiSlices/notificationSlice";
-import { useGetAllServicesQuery } from "@/redux/apiSlices/serviceSlice";
+import {
+  useGetAllServicesQuery,
+  useGetAllTabsQuery,
+} from "@/redux/apiSlices/serviceSlice";
 import { useGetAllHorizonQuery } from "@/redux/apiSlices/horizonSlice";
 import { useGetAllChallengesQuery } from "@/redux/apiSlices/challengeSlice";
 import { useRouter } from "next/navigation";
@@ -38,7 +41,7 @@ const Navbar = () => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const searchRef = useRef<HTMLDivElement>(null);
 
-  // console.log("sgvsbv", searchResults);
+  console.log("sgvsbv", searchResults);
 
   // Close search dropdown when clicking outside
   useEffect(() => {
@@ -88,10 +91,14 @@ const Navbar = () => {
   const { data: allOurWays, isLoading: isOurWayLoading } =
     useGetOurWaysQuery(undefined);
 
+  const { data: allTabs, isLoading: isTabLoading } =
+    useGetAllTabsQuery(undefined);
+
   const servicesData = allServices?.data;
   const insightsData = allInsights?.data;
   const challengesData = allChallenges?.data;
   const ourWaysData = allOurWays?.data;
+  const tabsData = allTabs?.data;
 
   // Show loading only when authenticated and APIs are loading
   if (
@@ -102,7 +109,8 @@ const Navbar = () => {
         isServiceLoading ||
         isInsightLoading ||
         isChallengeLoading ||
-        isOurWayLoading))
+        isOurWayLoading ||
+        isTabLoading))
   ) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -191,6 +199,19 @@ const Navbar = () => {
           )?.length > 0
       ) || [];
 
+    //tabs
+    const filteredTabs = tabsData?.filter(
+      (tab: any) =>
+        tab?.tabName?.toLowerCase()?.includes(searchQuery.toLowerCase()) ||
+        tab?.contents?.filter(
+          (content: any) =>
+            content?.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            content?.descriptions?.filter((description: any) =>
+              description?.toLowerCase().includes(searchQuery.toLowerCase())
+            ).length > 0
+        ).length > 0
+    );
+
     // Combine and tag results
     const combinedResults = [
       ...filteredServices.map((item: any) => ({ ...item, _type: "service" })),
@@ -202,6 +223,10 @@ const Navbar = () => {
       ...filteredOurWays.map((item: any) => ({
         ...item,
         _type: "ourWay",
+      })),
+      ...filteredTabs.map((item: any) => ({
+        ...item,
+        _type: "tab",
       })),
     ];
 
@@ -392,27 +417,32 @@ const Navbar = () => {
                                   ? `/healthcare-horizon/${item._id}`
                                   : item._type === "ourWay"
                                   ? `/our-way`
+                                  : item._type === "tab"
+                                  ? `/services/${item.service}`
                                   : `/insights/challenges/${item._id}`
                               }
                               key={item._id}
                               onClick={() => setShowSearch(false)}
                             >
                               <div className="flex items-center gap-3 p-3 hover:bg-gray-100 rounded-lg cursor-pointer transition">
-                                {item?.image ||
-                                  (item?.background && (
-                                    <img
-                                      src={
-                                        getImageUrl(
-                                          item.image || item.background
-                                        ) || "/default-service.jpg"
-                                      }
-                                      alt={item.title}
-                                      className="w-12 h-12 object-cover rounded-md border"
-                                    />
-                                  ))}
+                                {(item?.image ||
+                                  item?.background ||
+                                  item?.images) && (
+                                  <img
+                                    src={
+                                      getImageUrl(
+                                        item?.image ||
+                                          item?.background ||
+                                          item?.images[0]
+                                      ) || "/default-service.jpg"
+                                    }
+                                    alt={item?.title}
+                                    className="w-12 h-12 object-cover rounded-md border"
+                                  />
+                                )}
                                 <div>
                                   <div className="font-medium text-[#032237] flex items-center gap-2">
-                                    {item.title}
+                                    {item?.title || item?.tabName}
                                     <span className="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded">
                                       {item._type === "service"
                                         ? "Service"
@@ -420,6 +450,8 @@ const Navbar = () => {
                                         ? "Insight"
                                         : item._type === "ourWay"
                                         ? "Our Way"
+                                        : item._type === "tab"
+                                        ? "Service Tab"
                                         : "Challenge"}
                                     </span>
                                   </div>

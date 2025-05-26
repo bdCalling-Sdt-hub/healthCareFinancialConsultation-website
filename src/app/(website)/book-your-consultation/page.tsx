@@ -174,6 +174,7 @@ const BookYourConsultationPage = () => {
         time: selectedSlot?.time,
         timezone: values.timeZone,
         timeCode: parseInt(values.slot),
+        paymentMethod: consultationMode, // Using consultationMode as paymentMethod
       };
 
       const res = await createBooking(bookingData).unwrap();
@@ -309,7 +310,7 @@ const BookYourConsultationPage = () => {
               onChange={(e) => setConsultationMode(e.target.value)}
               value={consultationMode}
             >
-              <Radio value="in-person">In Person</Radio>
+              <Radio value="manual">In Person</Radio>
               <Radio value="online">Online</Radio>
             </Radio.Group>
           </Form.Item>
@@ -405,18 +406,18 @@ const BookYourConsultationPage = () => {
               loading={isSubmitting}
               onClick={(e) => {
                 e.preventDefault();
-                const authToken =
-                  localStorage.getItem("authenticationToken") ||
-                  sessionStorage.getItem("authenticationToken");
-                if (!authToken) {
-                  Modal.error({
-                    title: "Authentication Required",
-                    content: "Please login to book a consultation",
-                    onOk: () => router.push("/login"),
-                    centered: true,
-                  });
-                  return;
-                }
+                // const authToken =
+                //   localStorage.getItem("authenticationToken") ||
+                //   sessionStorage.getItem("authenticationToken");
+                // if (!authToken) {
+                //   Modal.error({
+                //     title: "Authentication Required",
+                //     content: "Please login to book a consultation",
+                //     onOk: () => router.push("/login"),
+                //     centered: true,
+                //   });
+                //   return;
+                // }
                 form.submit();
               }}
             >

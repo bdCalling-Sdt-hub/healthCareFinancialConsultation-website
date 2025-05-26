@@ -109,8 +109,7 @@ const ContactUsPage = () => {
             Have questions? <br /> Feel free to write us
           </h2>
           <p className="text-gray-600 mb-5">
-            Lorem ipsum dolor sit amet, consectetur notted adipis not icing elit
-            sed do eiusmod tempor incididunt
+            {contactInfo?.contactDescription}
           </p>
           <p className="text-gray-700 font-medium mb-5">
             <strong>Working Hours</strong>

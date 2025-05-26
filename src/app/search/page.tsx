@@ -8,7 +8,10 @@ import Footer from "@/components/shared/Footer";
 import Link from "next/link";
 import Image from "next/image";
 import { getImageUrl } from "@/utils/getImageUrl";
-import { useGetAllServicesQuery } from "@/redux/apiSlices/serviceSlice";
+import {
+  useGetAllServicesQuery,
+  useGetAllTabsQuery,
+} from "@/redux/apiSlices/serviceSlice";
 import { useGetAllHorizonQuery } from "@/redux/apiSlices/horizonSlice";
 import { useGetAllChallengesQuery } from "@/redux/apiSlices/challengeSlice";
 import { useGetOurWaysQuery } from "@/redux/apiSlices/ourWaySlice";
@@ -20,6 +23,8 @@ function SearchContent() {
   const initialQuery = searchParams.get("q") || "";
   const [searchQuery, setSearchQuery] = useState(initialQuery);
 
+  console.log("sdvfsvgdsv", searchQuery);
+
   // Fetch all data
   const { data: allServices, isLoading: isServiceLoading } =
     useGetAllServicesQuery(undefined);
@@ -29,23 +34,28 @@ function SearchContent() {
     useGetAllChallengesQuery(undefined);
   const { data: allOurWays, isLoading: isOurWayLoading } =
     useGetOurWaysQuery(undefined);
+  const { data: allTabs, isLoading: isTabLoading } =
+    useGetAllTabsQuery(undefined);
 
-  // console.log(
-  //   "service =>",
-  //   allServices?.data,
-  //   "insight =>",
-  //   allInsights?.data,
-  //   "challenge =>",
-  //   allChallenges?.data,
-  //   "ourWay =>",
-  //   allOurWays?.data
-  // );
+  console.log(
+    // "service =>",
+    // allServices?.data,
+    // "insight =>",
+    // allInsights?.data,
+    // "challenge =>",
+    // allChallenges?.data,
+    // "ourWay =>",
+    // allOurWays?.data,
+    "tabs =>",
+    allTabs?.data
+  );
 
   // Filtered results
   const [filteredServices, setFilteredServices] = useState<any[]>([]);
   const [filteredInsights, setFilteredInsights] = useState<any[]>([]);
   const [filteredChallenges, setFilteredChallenges] = useState<any[]>([]);
   const [filteredOurWays, setFilteredOurWays] = useState<any[]>([]);
+  const [filteredTabs, setFilteredTabs] = useState<any[]>([]);
 
   // Filter results when search query changes or data loads
   useEffect(() => {
@@ -54,6 +64,7 @@ function SearchContent() {
       setFilteredInsights([]);
       setFilteredChallenges([]);
       setFilteredOurWays([]);
+      setFilteredTabs([]);
       return;
     }
 
@@ -141,7 +152,32 @@ function SearchContent() {
           ).length > 0
       ) || [];
     setFilteredOurWays(ourWays);
-  }, [searchQuery, allServices, allInsights, allChallenges, allOurWays]);
+
+    // Filter tabs
+    const tabs =
+      allTabs?.data?.filter(
+        (tab: any) =>
+          tab?.tabName?.toLowerCase()?.includes(searchQuery.toLowerCase()) ||
+          tab?.contents?.filter(
+            (content: any) =>
+              content?.title
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase()) ||
+              content?.descriptions?.filter((description: any) =>
+                description?.toLowerCase().includes(searchQuery.toLowerCase())
+              ).length > 0
+          ).length > 0
+      ) || [];
+
+    setFilteredTabs(tabs);
+  }, [
+    searchQuery,
+    allServices,
+    allInsights,
+    allChallenges,
+    allOurWays,
+    allTabs,
+  ]);
 
   // Handle search input change
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -158,7 +194,8 @@ function SearchContent() {
     isServiceLoading ||
     isInsightLoading ||
     isChallengeLoading ||
-    isOurWayLoading
+    isOurWayLoading ||
+    isTabLoading
   ) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -173,7 +210,9 @@ function SearchContent() {
     ...filteredInsights.map((item) => ({ ...item, _type: "insight" })),
     ...filteredChallenges.map((item) => ({ ...item, _type: "challenge" })),
     ...filteredOurWays.map((item) => ({ ...item, _type: "ourWay" })),
+    ...filteredTabs.map((item) => ({ ...item, _type: "tab" })),
   ];
+  console.log("allResults", allResults);
 
   return (
     <div className="max-w-[1200px] mx-auto px-4 py-8">
@@ -219,20 +258,25 @@ function SearchContent() {
                       ? `/healthcare-horizon/${item._id}`
                       : item._type === "ourWay"
                       ? `/our-way`
+                      : item._type === "tab"
+                      ? `/services/${item.service}`
                       : `/insights/challenges/${item._id}`
                   }
                   key={item._id}
                 >
                   <div className="border-b pb-6 hover:bg-gray-50 p-2 -mx-2 rounded-md transition-colors">
-                    {item.image || item.background ? (
+                    {item.image || item.background || item.images ? (
                       <div className="flex gap-4">
                         <div className="w-24 h-24 shrink-0">
                           <Image
                             width={245450}
                             height={2354350}
                             src={
-                              getImageUrl(item.image || item.background) ||
-                              "/default-service.jpg"
+                              getImageUrl(
+                                item?.image ||
+                                  item?.images?.[0] ||
+                                  item?.background
+                              ) || "/default-service.jpg"
                             }
                             alt={item.title}
                             className="w-full h-full object-cover rounded-md border"
@@ -240,7 +284,7 @@ function SearchContent() {
                         </div>
                         <div>
                           <h3 className="font-medium text-[#ba9956] hover:underline mb-1">
-                            {item.title}
+                            {item.title || item.tabName || item.heading}
                           </h3>
                           <p className="text-sm text-gray-600 mb-2">
                             {item.createdAt
