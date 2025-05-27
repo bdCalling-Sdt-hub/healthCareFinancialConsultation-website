@@ -200,17 +200,19 @@ const Navbar = () => {
       ) || [];
 
     //tabs
-    const filteredTabs = tabsData?.filter(
-      (tab: any) =>
-        tab?.tabName?.toLowerCase()?.includes(searchQuery.toLowerCase()) ||
-        tab?.contents?.filter(
-          (content: any) =>
-            content?.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            content?.descriptions?.filter((description: any) =>
-              description?.toLowerCase().includes(searchQuery.toLowerCase())
-            ).length > 0
-        ).length > 0
-    );
+    // Filter tabs with enhanced search
+    const filteredTabs =
+      tabsData?.filter(
+        (tab: any) =>
+          tab?.tabName?.toLowerCase()?.includes(query.toLowerCase()) ||
+          tab?.contents?.filter(
+            (content: any) =>
+              content?.title.toLowerCase().includes(query.toLowerCase()) ||
+              content?.descriptions?.filter((description: any) =>
+                description?.toLowerCase().includes(query.toLowerCase())
+              ).length > 0
+          ).length > 0
+      ) || [];
 
     // Combine and tag results
     const combinedResults = [
@@ -475,7 +477,7 @@ const Navbar = () => {
                       </>
                     ) : (
                       <div className="p-4 text-gray-500 text-center">
-                        No services, insights, or challenges found
+                        No results found. Try a different search term.
                       </div>
                     )}
                   </div>
