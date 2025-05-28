@@ -3,6 +3,7 @@
 import React from "react";
 import { Collapse, Spin } from "antd";
 import { useGetFaqsQuery } from "@/redux/apiSlices/publicSlice";
+import Link from "next/link";
 
 const FAQPage = () => {
   const { data: faqData, isLoading } = useGetFaqsQuery(undefined);
@@ -46,9 +47,11 @@ const FAQPage = () => {
           <p className="text-gray-700 mb-4">
             Still have questions? We&apos;re here to help!
           </p>
-          <button className="bg-gradientBg text-black font-semibold px-6 py-2 rounded-md hover:bg-[#032237] hover:text-white transition-colors duration-300">
-            Contact Us
-          </button>
+          <Link href={"/contactUs"}>
+            <button className="bg-gradientBg text-black font-semibold px-6 py-2 rounded-md hover:bg-[#032237] hover:text-white transition-colors duration-300">
+              Contact Us
+            </button>
+          </Link>
         </div>
       </div>
     </div>
