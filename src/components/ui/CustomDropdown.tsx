@@ -6,7 +6,7 @@ import {
   useGetUserProfileQuery,
   useUpdateUserProfileMutation,
 } from "@/redux/apiSlices/authSlice";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 
 const stateOptions = [
   {
@@ -109,11 +109,12 @@ const CustomDropdown = () => {
 
       try {
         const res = await updateProfile(formData);
-        if (res?.data?.success) {
-          toast.success(res?.data?.message || "Location updated successfully!");
-        } else {
-          toast.error(res?.data?.message || "Failed to update location!");
-        }
+        console.log(res);
+        // if (res?.data?.success) {
+        //   toast.success(res?.data?.message || "Location updated successfully!");
+        // } else {
+        //   toast.error(res?.data?.message || "Failed to update location!");
+        // }
       } catch (error) {
         console.error("Failed to update location:", error);
       }

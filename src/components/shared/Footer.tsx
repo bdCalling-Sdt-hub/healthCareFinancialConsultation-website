@@ -25,6 +25,8 @@ const Footer = () => {
     );
   }
 
+  const currentYear = new Date().getFullYear(); // Get the current yea
+
   const footerInfo = footerData?.data;
   // //console.log("footerr", footerInfo);
 
@@ -159,7 +161,7 @@ const Footer = () => {
       {/* Footer Bottom */}
       <div className="mt-10 pb-3 bg-gradientBg text-center border-t border-gray-600 pt-4">
         <p className="text-black">
-          &copy; All rights reserved by HC Financial Consultant.
+          &copy; {currentYear} All rights reserved by HC Financial Consultants.
         </p>
       </div>
     </footer>

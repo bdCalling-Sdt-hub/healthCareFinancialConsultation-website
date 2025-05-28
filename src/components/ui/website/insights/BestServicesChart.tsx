@@ -20,7 +20,14 @@ interface ServiceData {
   __v: number;
 }
 
-const COLORS = ["#032237", "#1C384B", "#354E5F", "#4F6473", "#6A7A87", "#85909B"];
+const COLORS = [
+  "#032237",
+  "#1C384B",
+  "#354E5F",
+  "#4F6473",
+  "#6A7A87",
+  "#85909B",
+];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
@@ -65,10 +72,8 @@ const PieChartComponent: React.FC<PieChartComponentProps> = ({
   serviceData,
 }) => {
   // Calculate total value
-  const totalValue = serviceData?.data?.reduce(
-    (sum, item) => sum + item.value,
-    0
-  ) || 0;
+  const totalValue =
+    serviceData?.data?.reduce((sum, item) => sum + item.value, 0) || 0;
 
   // Calculate percentages
   const chartData = serviceData?.data?.map((item) => {
@@ -105,7 +110,7 @@ const PieChartComponent: React.FC<PieChartComponentProps> = ({
         </ResponsiveContainer>
       </div>
       <div className="w-full md:w-1/2">
-        <h1 className="text-3xl mb-5 font-bold">{serviceData?.title || "Best Services"}</h1>
+        <h1 className="text-3xl mb-5 font-bold">{serviceData?.title}</h1>
         <p className="text-gray-600 mb-4">{serviceData?.description}</p>
         <div className="space-y-5">
           {chartData?.map((service, index) => (
@@ -114,8 +119,8 @@ const PieChartComponent: React.FC<PieChartComponentProps> = ({
                 className="h-7 w-7 rounded-full flex-shrink-0"
                 style={{ backgroundColor: COLORS[index % COLORS.length] }}
               ></div>
-              <p className="text-lg font-bold">{service.name}</p>
-              <p className="text-sm ml-auto">{service.percentage}%</p>
+              <p className="text-lg font-bold">{service?.name}</p>
+              <p className="text-sm ml-auto">{service?.percentage}%</p>
             </div>
           ))}
         </div>

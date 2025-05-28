@@ -310,8 +310,8 @@ const BookYourConsultationPage = () => {
               onChange={(e) => setConsultationMode(e.target.value)}
               value={consultationMode}
             >
+              <Radio value="online">Virtual (Zoom)</Radio>
               <Radio value="manual">In Person</Radio>
-              <Radio value="online">Online</Radio>
             </Radio.Group>
           </Form.Item>
 

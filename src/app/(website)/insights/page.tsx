@@ -78,7 +78,7 @@ const InsightsPage = () => {
       <div>
         <Horizon />
         <div className="container">
-          <h1 className="text-3xl mb-5 font-bold">Statistics</h1>
+          <h1 className="text-3xl mb-5 font-bold">Statistical Insights</h1>
           <div className="border-4 border-dashed border-gray-200 p-10 rounded-2xl">
             <div className="text-center mb-5">
               <h1 className="text-2xl font-semibold">{chartData?.title}</h1>

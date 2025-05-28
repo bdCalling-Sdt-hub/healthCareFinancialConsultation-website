@@ -41,7 +41,7 @@ const Navbar = () => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const searchRef = useRef<HTMLDivElement>(null);
 
-  console.log("sgvsbv", searchResults);
+  // console.log("sgvsbv", searchResults);
 
   // Close search dropdown when clicking outside
   useEffect(() => {
