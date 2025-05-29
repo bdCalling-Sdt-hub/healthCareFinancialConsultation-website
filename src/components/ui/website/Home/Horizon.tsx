@@ -91,7 +91,6 @@ const Horizon = () => {
             </h1>
             <div className="flex text-lg justify-between items-center my-4 text-gray-600">
               <p>{moment(firstInsight?.createdAt).format("ll")}</p>
-              <p>London,UK</p>
             </div>
             <p className="text-gray-600">
               {firstInsight?.description.slice(0, 200)}...
