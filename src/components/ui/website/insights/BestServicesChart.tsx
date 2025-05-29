@@ -120,7 +120,9 @@ const PieChartComponent: React.FC<PieChartComponentProps> = ({
                 style={{ backgroundColor: COLORS[index % COLORS.length] }}
               ></div>
               <p className="text-lg font-bold">{service?.name}</p>
-              <p className="text-sm ml-auto">{service?.percentage}%</p>
+              <p className="text-sm ml-auto">
+                {service?.percentage.toFixed(1)}%
+              </p>
             </div>
           ))}
         </div>

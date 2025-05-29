@@ -85,9 +85,10 @@ const InsightsPage = () => {
               <p>{chartData?.description}</p>
             </div>
             <GrowthChart data={chartData} />
-            <p className="py-10 border-gray-600 border-b border-dashed">
-              {chartData?.footer}
-            </p>
+            <div
+              className="py-10 border-gray-600 border-b border-dashed mb-10"
+              dangerouslySetInnerHTML={{ __html: chartData?.footer || "" }}
+            />
 
             <BestServicesChart serviceData={topServices} />
           </div>

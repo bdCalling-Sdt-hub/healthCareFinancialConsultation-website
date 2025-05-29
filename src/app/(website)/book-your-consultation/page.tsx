@@ -174,8 +174,11 @@ const BookYourConsultationPage = () => {
         time: selectedSlot?.time,
         timezone: values.timeZone,
         timeCode: parseInt(values.slot),
+        duration: Number(values.duration),
         paymentMethod: consultationMode, // Using consultationMode as paymentMethod
       };
+
+      console.log(bookingData);
 
       const res = await createBooking(bookingData).unwrap();
       if (res?.success) {
@@ -352,32 +355,53 @@ const BookYourConsultationPage = () => {
             </Form.Item>
           </div>
 
-          <Form.Item
-            name="slot"
-            label="Available Slots"
-            rules={[{ required: true, message: "Please select a time slot" }]}
-            validateTrigger={["onChange", "onBlur"]}
-          >
-            <div className="relative">
-              {isLoading && (
-                <div className="absolute inset-0 bg-white bg-opacity-50 flex items-center justify-center z-10">
-                  <Spin />
-                </div>
-              )}
-              <Select
-                placeholder={
-                  selectedDate
-                    ? "Select a time slot"
-                    : "Please select a date first"
-                }
-                disabled={!selectedDate}
-                options={getAvailableSlots()}
-                onChange={(value) => {
-                  form.setFieldValue("slot", value);
-                }}
-              />
-            </div>
-          </Form.Item>
+          <div className="flex gap-3">
+            <Form.Item
+              className="w-3/4"
+              name="slot"
+              label="Available Slots"
+              rules={[{ required: true, message: "Please select a time slot" }]}
+              validateTrigger={["onChange", "onBlur"]}
+            >
+              <div className="relative">
+                {isLoading && (
+                  <div className="absolute inset-0 bg-white bg-opacity-50 flex items-center justify-center z-10">
+                    <Spin />
+                  </div>
+                )}
+                <Select
+                  placeholder={
+                    selectedDate
+                      ? "Select a time slot"
+                      : "Please select a date first"
+                  }
+                  disabled={!selectedDate}
+                  options={getAvailableSlots()}
+                  onChange={(value) => {
+                    form.setFieldValue("slot", value);
+                  }}
+                />
+              </div>
+            </Form.Item>
+
+            <Form.Item
+              className="w-1/4"
+              name="duration"
+              label="Duration"
+              rules={[
+                {
+                  required: true,
+                  message: "Please select consultation duration",
+                },
+              ]}
+            >
+              <Select placeholder="Select duration">
+                <Option value="30">30 minutes</Option>
+                <Option value="45">45 minutes</Option>
+                <Option value="60">60 minutes</Option>
+              </Select>
+            </Form.Item>
+          </div>
 
           {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Form.Item
