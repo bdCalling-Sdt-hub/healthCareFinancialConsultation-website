@@ -128,7 +128,6 @@ const Horizon = () => {
                 </h1>
                 <div className="flex text-lg justify-between my-1 items-center text-gray-600">
                   <p>{moment(card?.createdAt).format("ll")}</p>
-                  <p>London,UK</p>
                 </div>
                 <p className="text-gray-600">
                   {card.description.slice(0, 100)}...
