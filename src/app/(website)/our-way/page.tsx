@@ -112,7 +112,7 @@ const HowWeWorkPage = () => {
       </div>
 
       {/* Layout with menu and content */}
-      <div className="container mx-auto py-20 md:h-[1000px]">
+      <div className="container mx-auto py-20 pb-40 md:min-h-screen">
         <div className="md:flex gap-10">
           {/* Left Menu */}
           <div className="md:w-[35%] md:pb-0 pb-[450px] relative justify-start">

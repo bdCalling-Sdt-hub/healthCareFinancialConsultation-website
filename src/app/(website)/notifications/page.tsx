@@ -79,7 +79,7 @@ const Notifications = () => {
       <div className="h-[150px] flex items-center justify-center bg-gradientBg">
         <h1 className="text-2xl font-bold">Notifications</h1>
       </div>
-      <div className="container my-10">
+      <div className="container my-10 min-h-screen">
         {notificationsData?.length === 0 ? (
           <div className="text-center py-10">
             <p className="text-gray-500 text-lg">No notifications found</p>
