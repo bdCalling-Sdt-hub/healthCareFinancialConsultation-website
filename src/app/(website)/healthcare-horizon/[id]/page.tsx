@@ -131,8 +131,8 @@ const SingleInsightPage = () => {
       </div>
 
       <div className="mt-64">
-        <div className="w-full relative bg-[#032237] md:h-[250px] h-[600px]">
-          <div className="container absolute -top-48 left-1/2 transform -translate-x-1/2 md:flex justify-center items-center gap-10 py-20">
+        <div className="w-full relative bg-[#032237] md:h-[290px] h-[600px]">
+          <div className="container absolute -top-40 left-1/2 transform -translate-x-1/2 md:flex justify-center items-center gap-10 py-20">
             <div className="md:w-1/2">
               <Image
                 src={
@@ -146,11 +146,11 @@ const SingleInsightPage = () => {
                 className="w-full h-[300px] object-contain rounded-lg"
               />
             </div>
-            <div className="md:w-1/2 space-y-4">
+            <div className="md:w-1/2 space-y-5">
               <h2 className="md:text-4xl text-2xl text-white md:text-black mb-10 mt-5 md:mt-0 font-bold">
                 {data?.title || ""}{" "}
               </h2>
-              <p className="bg-gradientBg text-transparent h-[150px] flex items-center justify-center bg-clip-text">
+              <p className="bg-gradientBg bg-white text-transparent pt-5 flex items-center justify-center bg-clip-text">
                 {data?.description}
               </p>
             </div>
