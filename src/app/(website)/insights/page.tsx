@@ -12,6 +12,7 @@ import BestServicesChart from "@/components/ui/website/insights/BestServicesChar
 import { Spin } from "antd";
 import { useGetAllChallengesQuery } from "@/redux/apiSlices/challengeSlice";
 import { useGetAllInsightChartQuery } from "@/redux/apiSlices/horizonSlice";
+import { useGetPageDescriptionsQuery } from "@/redux/apiSlices/publicSlice";
 
 const InsightsPage = () => {
   const { data: allChallenges, isLoading } =
@@ -20,7 +21,10 @@ const InsightsPage = () => {
   const { data: insightChartData, isLoading: isInsightChartLoading } =
     useGetAllInsightChartQuery(undefined);
 
-  if (isLoading || isInsightChartLoading) {
+  const { data: pageDescription, isLoading: isPageDescriptionLoading } =
+    useGetPageDescriptionsQuery(undefined);
+
+  if (isLoading || isInsightChartLoading || isPageDescriptionLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
         <Spin />
@@ -31,6 +35,7 @@ const InsightsPage = () => {
   const topFiveChallengesInfo = allChallenges?.data;
   const chartData = insightChartData?.data?.graph?.[0];
   const topServices = insightChartData?.data?.pie?.[0];
+  const insightDescription = pageDescription?.data?.ourinsights;
 
   // console.log("sdgvsdvsgv", topServices);
 
@@ -68,11 +73,7 @@ const InsightsPage = () => {
           <h1 className="md:text-5xl text-3xl mb-5 font-bold bg-gradientBg text-transparent bg-clip-text leading-normal">
             Our Insights
           </h1>
-          <p className="text-white md:text-lg text-md">
-            Rising Costs, Staffing Shortages, Disparity in Healthcare, Growing
-            Need for improved Mental Health Care are some of the top issues
-            facing the Healthcare Industry.
-          </p>
+          <p className="text-white md:text-lg text-md">{insightDescription}</p>
         </motion.div>
       </div>
       <div>

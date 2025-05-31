@@ -37,6 +37,16 @@ const publicSlice = api.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    //pageDescription
+    getPageDescriptions: builder.query({
+      query: () => {
+        return {
+          url: `/public/page-description/get`,
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
@@ -45,6 +55,8 @@ export const {
   useGetTermsAndConditionQuery,
   useGetFaqsQuery,
   useGetAboutUsQuery,
+
+  useGetPageDescriptionsQuery,
 
   useGetFooterApiQuery,
 } = publicSlice;

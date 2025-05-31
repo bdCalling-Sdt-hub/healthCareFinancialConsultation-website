@@ -7,7 +7,10 @@ import { FaMailBulk, FaPhone } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useContactUsMutation } from "@/redux/apiSlices/contactSlice";
 import toast from "react-hot-toast";
-import { useGetFooterApiQuery } from "@/redux/apiSlices/publicSlice";
+import {
+  useGetFooterApiQuery,
+  useGetPageDescriptionsQuery,
+} from "@/redux/apiSlices/publicSlice";
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -17,7 +20,10 @@ const ContactUsPage = () => {
   const [contactUs] = useContactUsMutation();
   const { data: footerData, isLoading } = useGetFooterApiQuery(undefined);
 
-  if (isLoading) {
+  const { data: pageDescription, isLoading: isPageDescriptionLoading } =
+    useGetPageDescriptionsQuery(undefined);
+
+  if (isLoading || isPageDescriptionLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
         <Spin />
@@ -26,7 +32,8 @@ const ContactUsPage = () => {
   }
 
   const contactInfo = footerData?.data;
-  //console.log("footerr", contactInfo);
+  const contactInfoDescription = pageDescription?.data?.contactus;
+  console.log(contactInfoDescription);
 
   const onFinish = async (values: {
     name: string;
@@ -96,9 +103,7 @@ const ContactUsPage = () => {
             Contact US
           </h1>
           <p className="text-white md:text-lg text-md">
-            With years of experience in healthcare finance, we offer tailored
-            solutions that drive efficiency, reduce financial risks, and
-            maximize profitability while keeping patient care at the forefront
+            {contactInfoDescription}
           </p>
         </motion.div>
       </div>

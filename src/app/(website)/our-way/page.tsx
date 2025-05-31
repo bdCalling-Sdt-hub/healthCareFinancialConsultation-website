@@ -7,13 +7,17 @@ import { motion } from "framer-motion";
 import CircularMenu from "@/components/ui/website/ourWay/CircularMenu";
 import { useGetOurWaysQuery } from "@/redux/apiSlices/ourWaySlice";
 import { Spin } from "antd";
+import { useGetPageDescriptionsQuery } from "@/redux/apiSlices/publicSlice";
 
 const HowWeWorkPage = () => {
   const [selectedMenu, setSelectedMenu] = useState("DIE");
 
   const { data: ourWays, isLoading } = useGetOurWaysQuery(undefined);
 
-  if (isLoading) {
+  const { data: pageDescription, isLoading: isPageDescriptionLoading } =
+    useGetPageDescriptionsQuery(undefined);
+
+  if (isLoading || isPageDescriptionLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
         <Spin />
@@ -21,6 +25,7 @@ const HowWeWorkPage = () => {
     );
   }
 
+  const ourWayDescription = pageDescription?.data?.ourway;
   const ourWaysInfo = ourWays?.data;
   //console.log(ourWaysInfo);
 
@@ -102,12 +107,7 @@ const HowWeWorkPage = () => {
           <h1 className="md:text-5xl text-3xl mb-5 font-bold bg-gradientBg text-transparent bg-clip-text leading-normal">
             What makes us different
           </h1>
-          <p className="text-white md:text-lg text-md">
-            What sets us apart is our deep expertise in the healthcare sector,
-            with over 20 years of industry experience. We offer tailored
-            solutions backed by a strong network of industry connections and a
-            commitment to innovative technologies.
-          </p>
+          <p className="text-white md:text-lg text-md">{ourWayDescription}</p>
         </motion.div>
       </div>
 

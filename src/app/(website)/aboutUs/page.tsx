@@ -4,14 +4,19 @@ import aboutBannerImg from "@/assets/image (21).png";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useGetAboutUsQuery } from "@/redux/apiSlices/publicSlice";
+import {
+  useGetAboutUsQuery,
+  useGetPageDescriptionsQuery,
+} from "@/redux/apiSlices/publicSlice";
 import { Spin } from "antd";
 import { getImageUrl } from "@/utils/getImageUrl";
 
 const AboutUsPage = () => {
   const { data: aboutUs, isLoading } = useGetAboutUsQuery(undefined);
+  const { data: pageDescription, isLoading: isPageDescriptionLoading } =
+    useGetPageDescriptionsQuery(undefined);
 
-  if (isLoading) {
+  if (isLoading || isPageDescriptionLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
         <Spin />
@@ -20,6 +25,8 @@ const AboutUsPage = () => {
   }
 
   const aboutUsData = aboutUs?.data;
+  const aboutPageDescription = pageDescription?.data?.ourway;
+  console.log(pageDescription);
 
   const whoWeAre = aboutUsData[0];
   const ourMission = aboutUsData[1];
@@ -62,10 +69,7 @@ const AboutUsPage = () => {
             About Us
           </h1>
           <p className="text-white md:text-lg text-md">
-            Leveraging years of expertise in healthcare finance, we deliver
-            tailored solutions that drive efficiency, reduce financial risks,
-            and maximize profitability—empowering your organization to focus on
-            what matters most: patient care and outcomes.
+            {aboutPageDescription}
           </p>
         </motion.div>
       </div>
