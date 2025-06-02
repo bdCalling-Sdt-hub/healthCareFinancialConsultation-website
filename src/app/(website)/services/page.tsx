@@ -114,7 +114,7 @@ const ServicesPage = () => {
         </h1>
         <div className="bg-[#032237] md:h-[400px] pt-5 md:flex w-full relative">
           <div className="container md:w-[50%] flex items-center">
-            <ul className="text-gray-400 list-disc space-y-4 pl-5">
+            <ul className="text-[#ccc479] list-disc space-y-4 pl-5">
               <li>Specialized in Healthcare Finance</li>
               <li>HIPAA-Compliant & Secure</li>
               <li>Proven Track Record</li>
