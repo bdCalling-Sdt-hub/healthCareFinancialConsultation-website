@@ -109,7 +109,7 @@ const ServicesPage = () => {
       </div>
 
       <div className="my-20">
-        <h1 className="container md:ps-40 text-3xl mb-2 font-bold">
+        <h1 className="container bg-gradientBg text-transparent bg-clip-text md:ps-40 text-3xl mb-2 font-bold">
           What Makes Us Different
         </h1>
         <div className="bg-[#032237] md:h-[400px] pt-5 md:flex w-full relative">
